@@ -28,15 +28,13 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         <View className="flex-row justify-between mb-4">
           <TouchableOpacity
             onPress={() => navigation.navigate("Register")}
-            className="bg-white rounded-lg border border-indigo-500 py-2 px-4 flex-1 mr-2 items-center justify-center"
-          >
+            className="bg-white rounded-lg border border-indigo-500 py-2 px-4 flex-1 mr-2 items-center justify-center">
             <Text className="text-indigo-500">Registro</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => navigation.navigate("Login")}
-            className="bg-indigo-500 rounded-lg py-2 px-4 flex-1 ml-2 items-center justify-center"
-          >
+            className="bg-indigo-500 rounded-lg py-2 px-4 flex-1 ml-2 items-center justify-center">
             <Text className="text-white">Login</Text>
           </TouchableOpacity>
         </View>
