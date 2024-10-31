@@ -7,6 +7,7 @@ import {
   Image,
   StyleSheet,
 } from "react-native";
+import { SvgIconsComponent } from "@/components/SvgIconsComponent";
 
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 type RootStackParamList = {
@@ -41,19 +42,21 @@ export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
           <Text className={"text-white text-center"}>Login</Text>
         </TouchableOpacity>
       </View>
-      <View className={"flex-row justify-around rounded-lg p-2 gap-10 mt-6"}>
-        <Image
-          source={require("@/assets/svg/apple.svg")}
-          style={styles_svg.logo}
+      <View className={"flex flex-row justify-around rounded-lg p-2 gap-10 mt-6 relative"}>
+
+        <SvgIconsComponent
+          containerClass="w-10 h-10"
+          type="google"
         />
-        <Image
-          source={require("@/assets/svg/google.svg")}
-          style={styles_svg.logo}
+        <SvgIconsComponent
+          containerClass="w-10 h-10"
+          type="twitter"
         />
-        <Image
-          source={require("@/assets/svg/twitter.svg")}
-          style={styles_svg.logo}
+        <SvgIconsComponent
+          containerClass="w-10 h-10"
+          type="instagram"
         />
+
       </View>
       <TouchableOpacity className={"mt-2"}>
         <Text className={"text-center"}>¿No tienes cuenta? Registrate!</Text>
@@ -62,17 +65,3 @@ export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
   );
 };
 
-{/* const styles = StyleSheet.create({
-  logo: {
-    width: 300,
-    height: 300,
-    marginBottom: 20,
-  },
-}); */}
-const styles_svg = StyleSheet.create({
-  logo: {
-    width: 50,
-    height: 50,
-    marginBottom: 10,
-  },
-});
