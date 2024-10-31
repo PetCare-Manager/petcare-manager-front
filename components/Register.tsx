@@ -48,7 +48,7 @@ export const Register: React.FC<RegisterScreenProps> = ({ navigation }) => {
       />
       <View className="flex items-center gap-4 px-6 mt-4 mb-6 text-typography">
         <TouchableOpacity
-          className="flex flex-row items-center justify-center gap-2 bg-[#f2f2f2] border border-black rounded-lg w-full p-4"
+          className="flex flex-row items-center justify-center gap-4 bg-[#f2f2f2] border border-black rounded-lg w-full p-4"
           //onPress={() => navigation.navigate("Login")}
         >
           <SvgIconsComponent containerClass="w-6 h-6" type="google" />
@@ -58,7 +58,7 @@ export const Register: React.FC<RegisterScreenProps> = ({ navigation }) => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          className="flex flex-row items-center justify-center gap-2 bg-[#f2f2f2] border border-black rounded-lg w-full p-4"
+          className="flex flex-row items-center justify-center gap-4 bg-[#f2f2f2] border border-black rounded-lg w-full p-4"
           //onPress={() => navigation.navigate("Login")}
         >
           <SvgIconsComponent containerClass="w-6 h-6" type="twitter" />
@@ -68,7 +68,7 @@ export const Register: React.FC<RegisterScreenProps> = ({ navigation }) => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          className="flex flex-row items-center justify-center gap-2 bg-[#f2f2f2] border border-black rounded-lg w-full p-4"
+          className="flex flex-row items-center justify-center gap-4 bg-[#f2f2f2] border border-black rounded-lg w-full p-4"
           //onPress={() => navigation.navigate("Login")}
         >
           <SvgIconsComponent containerClass="w-6 h-6" type="instagram" />
@@ -78,7 +78,7 @@ export const Register: React.FC<RegisterScreenProps> = ({ navigation }) => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          className="flex flex-row items-center justify-center gap-2 bg-[#f2f2f2] border border-black rounded-lg w-full p-4"
+          className="flex flex-row items-center justify-center gap-4 bg-[#f2f2f2] border border-black rounded-lg w-full p-4"
           //onPress={() => navigation.navigate("Login")}
         >
           <SvgIconsComponent containerClass="w-6 h-6" type="email" />
