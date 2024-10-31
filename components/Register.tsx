@@ -52,7 +52,7 @@ export const Register: React.FC<RegisterScreenProps> = ({ navigation }) => {
           //onPress={() => navigation.navigate("Login")}
         >
           <SvgIconsComponent containerClass="w-6 h-6" type="google" />
-          <Text className="font-raleway-semibold text-base">
+          <Text className="font-raleway-semibold text-base text-typography">
             Continúa con Google
           </Text>
         </TouchableOpacity>
@@ -62,7 +62,7 @@ export const Register: React.FC<RegisterScreenProps> = ({ navigation }) => {
           //onPress={() => navigation.navigate("Login")}
         >
           <SvgIconsComponent containerClass="w-6 h-6" type="twitter" />
-          <Text className="font-raleway-semibold text-base">
+          <Text className="font-raleway-semibold text-base text-typography">
             Continúa con Twitter
           </Text>
         </TouchableOpacity>
@@ -72,7 +72,7 @@ export const Register: React.FC<RegisterScreenProps> = ({ navigation }) => {
           //onPress={() => navigation.navigate("Login")}
         >
           <SvgIconsComponent containerClass="w-6 h-6" type="instagram" />
-          <Text className="font-raleway-semibold text-base">
+          <Text className="font-raleway-semibold text-base text-typography">
             Continúa con Instagram
           </Text>
         </TouchableOpacity>
@@ -82,7 +82,7 @@ export const Register: React.FC<RegisterScreenProps> = ({ navigation }) => {
           //onPress={() => navigation.navigate("Login")}
         >
           <SvgIconsComponent containerClass="w-6 h-6" type="email" />
-          <Text className="font-raleway-semibold text-base">
+          <Text className="font-raleway-semibold text-base text-typography">
             Continúa con tu correo
           </Text>
         </TouchableOpacity>
@@ -90,7 +90,7 @@ export const Register: React.FC<RegisterScreenProps> = ({ navigation }) => {
       <Text className="font-raleway-semibold mb-14">
         ¿Ya tienes cuenta?{" "}
         <Text
-          className="font-raleway-bold text-blue-600"
+          className="font-raleway-bold text-typography_2"
           onPress={() => navigation.navigate("Login")}
         >
           ¡Identifícate!
