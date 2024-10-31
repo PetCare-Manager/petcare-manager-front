@@ -4,11 +4,12 @@ import { View } from "react-native";
 import Google from "@/assets/svg/google.svg";
 import Twitter from "@/assets/svg/twitter.svg";
 import Instagram from "@/assets/svg/insta.svg";
+import Email from "@/assets/svg/email.svg";
 
 interface SvgIconProps {
-  type: "google" | "twitter" | "instagram";
+  type: "google" | "twitter" | "instagram" | "email";
   containerClass?: any; // Las clases de tailwind para el contenedor (<VIEW />)
-};
+}
 
 export const SvgIconsComponent: React.FC<SvgIconProps> = ({
   type,
@@ -26,8 +27,11 @@ export const SvgIconsComponent: React.FC<SvgIconProps> = ({
     case "instagram":
       SelectedComponent = Instagram;
       break;
+    case "email":
+      SelectedComponent = Email;
+      break;
     default:
-      return
+      return;
   }
 
   return (

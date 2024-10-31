@@ -15,7 +15,7 @@ type HomeScreenProps = NativeStackScreenProps<RootStackParamList, "Home">;
 export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   return (
     <View className="flex flex-col justify-between items-center h-full">
-      <Image source={logo} className="w-56 h-44 z-10 mt-[150px]" />
+      <Image source={logo} className="w-56 h-44 z-10 mt-[120px]" />
 
       <Bubble
         containerClass="absolute -bottom-20 -right-16 z-0"
