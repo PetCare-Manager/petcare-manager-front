@@ -19,17 +19,17 @@ export default function Home() {
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={{ headerTitle: "Home Screen" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="Register"
         component={Register}
-        options={{ headerTitle: "Register" }}
+        options={{ headerShown: true, headerTitle: "" }}
       />
       <Stack.Screen
         name="Login"
         component={Login}
-        options={{ headerTitle: "Login" }}
+        options={{ headerShown: true, headerTitle: "" }}
       />
     </Stack.Navigator>
   );
