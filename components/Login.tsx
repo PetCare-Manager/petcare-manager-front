@@ -19,8 +19,8 @@ type LoginScreenProps = NativeStackScreenProps<RootStackParamList, "Login">;
 export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
   return (
     <View className={"flex-1 justify-center items-center bg-white p-4"}>
-      <Image source={require("@/assets/images/logo.png")}className="w-56 h-44 mt-44 z-10">
-
+      <Image source={require("@/assets/images/logo.png")}className="w-56 h-44 mt-44 z-10" />
+ 
       <TextInput
         placeholder="CORREO ELETRÓNICO"
         className={"border border-gray-300 rounded-lg p-2 w-80 mb-4"}
