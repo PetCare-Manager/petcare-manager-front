@@ -4,7 +4,6 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Bubble } from "./Bubbles";
 import logo from "@/assets/images/logo.png";
 import { SvgIconsComponent } from "./SvgIconsComponent";
-import { Link } from "expo-router";
 
 type RootStackParamList = {
   Home: undefined;
