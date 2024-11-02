@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, View, Text, TouchableOpacity } from "react-native";
+import { Image, View, Text, TouchableOpacity, Button } from "react-native";
 import logo from "@/assets/images/logo.png";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Bubble } from "@/components/Bubbles";
@@ -8,6 +8,7 @@ type RootStackParamList = {
   Home: undefined;
   Register: undefined;
   Login: undefined;
+  PetProfile: undefined;
 };
 
 type HomeScreenProps = NativeStackScreenProps<RootStackParamList, "Home">;
@@ -71,6 +72,10 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
             Login
           </Text>
         </TouchableOpacity>
+        <Button
+        title="Go to Pet Profile"
+        onPress={() => navigation.navigate("PetProfile")}
+      />
       </View>
     </View>
   );

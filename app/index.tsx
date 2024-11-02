@@ -1,23 +1,29 @@
 import React from "react";
-import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navigation/native-stack";
+import {
+  createNativeStackNavigator,
+  NativeStackScreenProps,
+} from "@react-navigation/native-stack";
 import { Wrapper } from "@/components/Wrapper";
 import { HomeScreen } from "@/components/HomeScreen";
 import { Login } from "@/components/Login";
 import { Register } from "@/components/Register";
+import {PetProfile} from "@/components/PetProfile";
 
 // Define el tipo para las rutas de navegación
 type RootStackParamList = {
   Home: undefined;
   Register: undefined;
   Login: undefined;
+  PetProfile: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 // Define los tipos de props para cada pantalla
-type HomeScreenProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
-type RegisterProps = NativeStackScreenProps<RootStackParamList, 'Register'>;
-type LoginProps = NativeStackScreenProps<RootStackParamList, 'Login'>;
+type HomeScreenProps = NativeStackScreenProps<RootStackParamList, "Home">;
+type RegisterProps = NativeStackScreenProps<RootStackParamList, "Register">;
+type LoginProps = NativeStackScreenProps<RootStackParamList, "Login">;
+type PetProfileProps = NativeStackScreenProps<RootStackParamList, "PetProfile">;
 
 export default function Home() {
   return (
@@ -45,6 +51,15 @@ export default function Home() {
         children={(props: LoginProps) => (
           <Wrapper>
             <Login {...props} />
+          </Wrapper>
+        )}
+        options={{ headerShown: true, headerTitle: "" }}
+      />
+      <Stack.Screen
+        name="PetProfile"
+        children={(props: PetProfileProps) => (
+          <Wrapper>
+            <PetProfile {...props} />
           </Wrapper>
         )}
         options={{ headerShown: true, headerTitle: "" }}
