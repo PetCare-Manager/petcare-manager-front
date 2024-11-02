@@ -1,8 +1,7 @@
 import React from "react";
-import { View, Image, TouchableOpacity, Text } from "react-native";
+import { View, TouchableOpacity, Text } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Bubble } from "./Bubbles";
-import logo from "@/assets/images/logo.png";
 import { SvgIconsComponent } from "./SvgIconsComponent";
 
 type RootStackParamList = {
@@ -19,7 +18,10 @@ type RegisterScreenProps = NativeStackScreenProps<
 export const Register: React.FC<RegisterScreenProps> = ({ navigation }) => {
   return (
     <View className="flex flex-col justify-between items-center h-full">
-      <Image source={logo} className="w-56 h-44 z-10 mt-[120px]" />
+      <SvgIconsComponent
+        containerClass="w-56 h-44 z-10 mt-[120px]"
+        type="logo1"
+      />
 
       <Bubble
         containerClass="absolute -bottom-20 -right-16 z-0"
