@@ -72,11 +72,15 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
             Login
           </Text>
         </TouchableOpacity>
-        <Button
-        title="Go to Pet Profile"
-        onPress={() => navigation.navigate("PetProfile")}
-      />
       </View>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("PetProfile")}
+        className="bg-primary px-14 py-4 rounded-2xl mb-4"
+      >
+        <Text className="text-white font-raleway-semibold text-sm">
+          Pet profile
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
