@@ -9,6 +9,7 @@ type RootStackParamList = {
   Register: undefined;
   EmailRegister: undefined;
   Login: undefined;
+  NotRememberPass: undefined;
 };
 
 type HomeScreenProps = NativeStackScreenProps<RootStackParamList, "Home">;

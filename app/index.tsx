@@ -7,7 +7,12 @@ import { Wrapper } from "@/components/Wrapper";
 import { HomeScreen } from "@/components/HomeScreen";
 import { Login } from "@/components/Login";
 import { Register } from "@/components/Register";
+<<<<<<< HEAD
+//import { EmailRegister } from "@/components/EmailRegister";
+import { NotRememberPass } from "@/components/NotRememberPass";
+=======
 import { EmailRegister } from "@/components/EmailRegister";
+>>>>>>> develop
 
 // Define el tipo para las rutas de navegación
 type RootStackParamList = {
@@ -15,6 +20,7 @@ type RootStackParamList = {
   Register: undefined;
   EmailRegister: undefined;
   Login: undefined;
+  NotRememberPass: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -27,6 +33,13 @@ type EmailRegisterProps = NativeStackScreenProps<
   RootStackParamList,
   "EmailRegister"
 >;
+<<<<<<< HEAD
+type NotRememberPassProps = NativeStackScreenProps<
+  RootStackParamList,
+  "NotRememberPass"
+>;
+=======
+>>>>>>> develop
 
 export default function Home() {
   return (
@@ -63,6 +76,15 @@ export default function Home() {
         children={(props: EmailRegisterProps) => (
           <Wrapper>
             <EmailRegister {...props} />
+          </Wrapper>
+        )}
+        options={{ headerShown: true, headerTitle: "" }}
+      />
+      <Stack.Screen
+        name="NotRememberPass"
+        children={(props: NotRememberPassProps) => (
+          <Wrapper>
+            <NotRememberPass {...props} />
           </Wrapper>
         )}
         options={{ headerShown: true, headerTitle: "" }}
