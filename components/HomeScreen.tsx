@@ -7,6 +7,7 @@ import { SvgIconsComponent } from "./SvgIconsComponent";
 type RootStackParamList = {
   Home: undefined;
   Register: undefined;
+  EmailRegister: undefined;
   Login: undefined;
 };
 
