@@ -1,23 +1,32 @@
 import React from "react";
-import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navigation/native-stack";
+import {
+  createNativeStackNavigator,
+  NativeStackScreenProps,
+} from "@react-navigation/native-stack";
 import { Wrapper } from "@/components/Wrapper";
 import { HomeScreen } from "@/components/HomeScreen";
 import { Login } from "@/components/Login";
 import { Register } from "@/components/Register";
+import { EmailRegister } from "@/components/EmailRegister";
 
 // Define el tipo para las rutas de navegación
 type RootStackParamList = {
   Home: undefined;
   Register: undefined;
+  EmailRegister: undefined;
   Login: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 // Define los tipos de props para cada pantalla
-type HomeScreenProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
-type RegisterProps = NativeStackScreenProps<RootStackParamList, 'Register'>;
-type LoginProps = NativeStackScreenProps<RootStackParamList, 'Login'>;
+type HomeScreenProps = NativeStackScreenProps<RootStackParamList, "Home">;
+type RegisterProps = NativeStackScreenProps<RootStackParamList, "Register">;
+type LoginProps = NativeStackScreenProps<RootStackParamList, "Login">;
+type EmailRegisterProps = NativeStackScreenProps<
+  RootStackParamList,
+  "EmailRegister"
+>;
 
 export default function Home() {
   return (
@@ -45,6 +54,15 @@ export default function Home() {
         children={(props: LoginProps) => (
           <Wrapper>
             <Login {...props} />
+          </Wrapper>
+        )}
+        options={{ headerShown: true, headerTitle: "" }}
+      />
+      <Stack.Screen
+        name="EmailRegister"
+        children={(props: EmailRegisterProps) => (
+          <Wrapper>
+            <EmailRegister {...props} />
           </Wrapper>
         )}
         options={{ headerShown: true, headerTitle: "" }}
