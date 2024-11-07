@@ -7,12 +7,9 @@ import { Wrapper } from "@/components/Wrapper";
 import { HomeScreen } from "@/components/HomeScreen";
 import { Login } from "@/components/Login";
 import { Register } from "@/components/Register";
-<<<<<<< HEAD
 //import { EmailRegister } from "@/components/EmailRegister";
 import { NotRememberPass } from "@/components/NotRememberPass";
-=======
 import { EmailRegister } from "@/components/EmailRegister";
->>>>>>> develop
 
 // Define el tipo para las rutas de navegación
 type RootStackParamList = {
@@ -33,13 +30,10 @@ type EmailRegisterProps = NativeStackScreenProps<
   RootStackParamList,
   "EmailRegister"
 >;
-<<<<<<< HEAD
 type NotRememberPassProps = NativeStackScreenProps<
   RootStackParamList,
   "NotRememberPass"
 >;
-=======
->>>>>>> develop
 
 export default function Home() {
   return (

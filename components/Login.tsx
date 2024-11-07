@@ -14,6 +14,7 @@ import { Bubble } from "./Bubbles";
 type RootStackParamList = {
   Home: undefined;
   Register: undefined;
+  EmailRegister: undefined;
   Login: undefined;
   NotRememberPass: undefined;
 };
@@ -110,7 +111,7 @@ export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
         ¿No tienes cuenta?{" "}
         <Text
           className="font-raleway-bold text-typography_2"
-          onPress={() => navigation.navigate("Register")}
+          onPress={() => navigation.navigate("EmailRegister")}
         >
           ¡Regístrate!
         </Text>
