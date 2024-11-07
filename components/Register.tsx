@@ -7,6 +7,7 @@ import { SvgIconsComponent } from "./SvgIconsComponent";
 type RootStackParamList = {
   Home: undefined;
   Register: undefined;
+  EmailRegister: undefined;
   Login: undefined;
 };
 
@@ -81,7 +82,7 @@ export const Register: React.FC<RegisterScreenProps> = ({ navigation }) => {
 
         <TouchableOpacity
           className="flex flex-row items-center justify-center gap-4 bg-[#f2f2f2] border border-black rounded-lg w-full p-4"
-          //onPress={() => navigation.navigate("Login")}
+          onPress={() => navigation.navigate("EmailRegister")}
         >
           <SvgIconsComponent containerClass="w-6 h-6" type="email" />
           <Text className="font-raleway-semibold text-base text-typography">
@@ -89,7 +90,7 @@ export const Register: React.FC<RegisterScreenProps> = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
       </View>
-      <Text className="font-raleway-semibold mb-14">
+      <Text className="font-raleway-regular text-base mb-14">
         ¿Ya tienes cuenta?{" "}
         <Text
           className="font-raleway-bold text-typography_2"

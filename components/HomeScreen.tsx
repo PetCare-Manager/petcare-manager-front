@@ -7,6 +7,7 @@ import { SvgIconsComponent } from "./SvgIconsComponent";
 type RootStackParamList = {
   Home: undefined;
   Register: undefined;
+  EmailRegister: undefined;
   Login: undefined;
   NotRememberPass: undefined;
 };
@@ -59,7 +60,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       {/* Contenedor para los botones en la parte inferior */}
       <View className="flex-row justify-between gap-14 mb-14">
         <TouchableOpacity
-          onPress={() => navigation.navigate("Register")}
+          onPress={() => navigation.navigate("EmailRegister")}
           className="bg-[#f2f2f2] px-11 py-4 rounded-2xl border border-primary"
         >
           <Text className="text-primary font-raleway-semibold text-sm">
