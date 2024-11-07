@@ -127,7 +127,7 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
 
         {/* Mostrar mensaje de error si existe */}
         {errorMessage ? (
-          <Text className="text-red-500 text-sm mt-2 text-center">
+          <Text className="text-red-500 text-base mt-2 text-center">
             {errorMessage}
           </Text>
         ) : null}
