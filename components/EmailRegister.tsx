@@ -3,6 +3,9 @@ import { View, TextInput, Text, TouchableOpacity, Alert } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Bubble } from "./Bubbles";
 import { SvgIconsComponent } from "./SvgIconsComponent";
+import { registerUser } from "@/api/authApi";
+// Función de validación de email
+import { validateEmail } from "@/utils/validation";
 
 type RootStackParamList = {
   Home: undefined;
@@ -23,14 +26,8 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Función de validación de email
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
   // Validación de entrada de datos y mensaje de error
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (!validateEmail(email)) {
       setErrorMessage("Por favor, introduce un correo electrónico válido.");
       return;
@@ -48,11 +45,21 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
 
     // Si todas las validaciones pasan
     setErrorMessage(""); // Limpiar mensaje de error si todo está correcto
-    Alert.alert(
-      "Registro exitoso",
-      "La cuenta ha sido registrada correctamente."
-    );
-    // Aquí se puede agregar la lógica de envío de datos al backend
+
+    // logica de peticiones al back
+    try {
+      // Registra el usuario en el backend
+      await registerUser(email, password);
+
+      Alert.alert(
+        "Registro exitoso",
+        "La cuenta ha sido registrada correctamente."
+      );
+      //Navega al login si todo es correcto
+      navigation.navigate("Login");
+    } catch (error: any) {
+      setErrorMessage(error.message || "Error en el registro");
+    }
   };
 
   return (
