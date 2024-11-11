@@ -7,7 +7,7 @@ import { Wrapper } from "@/components/Wrapper";
 import { HomeScreen } from "@/components/HomeScreen";
 import { Login } from "@/components/Login";
 import { Register } from "@/components/Register";
-//import { EmailRegister } from "@/components/EmailRegister";
+import { UserProfile } from "@/components/UserProfile";
 import { NotRememberPass } from "@/components/NotRememberPass";
 import { EmailRegister } from "@/components/EmailRegister";
 
@@ -18,6 +18,7 @@ type RootStackParamList = {
   EmailRegister: undefined;
   Login: undefined;
   NotRememberPass: undefined;
+  UserProfile: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -79,6 +80,15 @@ export default function Home() {
         children={(props: NotRememberPassProps) => (
           <Wrapper>
             <NotRememberPass {...props} />
+          </Wrapper>
+        )}
+        options={{ headerShown: true, headerTitle: "" }}
+      />
+      <Stack.Screen
+        name="UserProfile"
+        children={(props: UserProfileProps) => (
+          <Wrapper>
+            <UserProfile {...props} />
           </Wrapper>
         )}
         options={{ headerShown: true, headerTitle: "" }}
