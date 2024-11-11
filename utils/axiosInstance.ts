@@ -1,9 +1,10 @@
 import axios from "axios";
-import * as SecureStore from "expo-secure-store";
+import { API_URL } from '@env';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { handleApiError } from "./errorHandler";
 
 const api = axios.create({
-  baseURL: process.env.API_URL,
+  baseURL: API_URL,
   headers: {
     "Content-Type": "application/json",
   },
@@ -11,9 +12,14 @@ const api = axios.create({
 
 // Interceptor para añadir el token a las peticiones
 api.interceptors.request.use(async (config) => {
-  const token = await SecureStore.getItemAsync("token");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  try {
+    const token = await AsyncStorage.getItem("token");
+    if (token && config.url !== "/register") {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+  } catch (error) {
+    handleApiError(error);
+    return Promise.reject(error);
   }
   return config;
 });

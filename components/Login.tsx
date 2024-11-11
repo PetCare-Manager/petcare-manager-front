@@ -6,11 +6,16 @@ import {
   Text,
   Image,
   StyleSheet,
+  Alert,
 } from "react-native";
 import { SvgIconsComponent } from "@/components/SvgIconsComponent";
 
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Bubble } from "./Bubbles";
+import { useAuth } from "@/context/AuthContext";
+import { validateEmail } from "@/utils/validation";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+console.log(useAuth);
 type RootStackParamList = {
   Home: undefined;
   Register: undefined;
@@ -22,13 +27,33 @@ type LoginScreenProps = NativeStackScreenProps<RootStackParamList, "Login">;
 
 export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
   // Estados para los campos de entrada
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  // Función de validación de email
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+  const handleLogin = async () => {
+    if (!validateEmail(email)) {
+      setErrorMessage("Por favor, introduce un correo electrónico válido.");
+      return;
+    }
+    try {
+      await login(email, password);
+      console.log("first");
+      // Verifica si el token se ha guardado
+      const token = await AsyncStorage.getItem("token");
+      if (token) {
+        console.log("Token guardado correctamente:", token);
+        Alert.alert(
+          "Login exitoso",
+          "La cuenta ha sido registrada correctamente."
+        );
+      } else {
+        console.log("No se pudo guardar el token.");
+      }
+    } catch (e: any) {
+      setErrorMessage(e.message);
+    }
   };
   return (
     <View className="flex flex-col justify-between items-center h-full">
@@ -87,7 +112,16 @@ export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
           onChangeText={setPassword}
           className="bg-[#f2f2f2] border border-inputborder rounded-lg w-full p-2"
         />
-        <TouchableOpacity className="bg-primary px-14 py-4 rounded-2xl mt-4">
+        {/* Mostrar mensaje de error si existe */}
+        {errorMessage ? (
+          <Text className="text-red-500 text-base mt-2 text-center">
+            {errorMessage}
+          </Text>
+        ) : null}
+        <TouchableOpacity
+          onPress={handleLogin}
+          className="bg-primary px-14 py-4 rounded-2xl mt-4"
+        >
           <Text className="text-white text-center font-raleway-semibold text-base">
             Login
           </Text>

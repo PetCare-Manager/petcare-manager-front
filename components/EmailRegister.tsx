@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { View, TextInput, Text, TouchableOpacity, Alert } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Bubble } from "./Bubbles";
-import { SvgIconsComponent } from "./SvgIconsComponent";
-import { registerUser } from "@/api/authApi";
+import { SvgIconsComponent } from "./SvgIconsComponent"; 
 // Función de validación de email
 import { validateEmail } from "@/utils/validation";
+import { useAuth } from "@/context/AuthContext";
 
 type RootStackParamList = {
   Home: undefined;
@@ -21,6 +21,7 @@ type EmailRegisterProps = NativeStackScreenProps<
 
 export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
   // Estados para los campos de entrada
+  const {register} = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -49,7 +50,7 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
     // logica de peticiones al back
     try {
       // Registra el usuario en el backend
-      await registerUser(email, password);
+      await register(email, password);
 
       Alert.alert(
         "Registro exitoso",

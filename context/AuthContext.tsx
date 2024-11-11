@@ -1,47 +1,34 @@
 // src/context/AuthContext.tsx
-import React, { createContext, useState, useEffect, ReactNode } from "react";
+import React, { createContext, useState, ReactNode, useContext } from "react";
 import {
   login as loginService,
   logout as logoutService,
 } from "../services/authService";
-import * as SecureStore from "expo-secure-store";
-import { handleGenericError } from "../utils/errorHandler";
 import { User } from "@/types/User";
+import { registerUser } from "@/api/authApi";
 
-interface AuthContextProps {
+interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
+  register: (email: string, password: string) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextProps>({
-  user: null,
-  isAuthenticated: false,
-  login: async () => {},
-  logout: async () => {},
-});
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  useEffect(() => {
-    const loadSession = async () => {
-      try {
-        const storedUser = await SecureStore.getItemAsync("user");
-        const token = await SecureStore.getItemAsync("token");
-        if (storedUser && token) {
-          const parsedUser: User = JSON.parse(storedUser);
-          setUser(parsedUser);
-          setIsAuthenticated(true);
-        }
-      } catch (error) {
-        handleGenericError("Error al cargar la sesión.");
-      }
-    };
-    loadSession();
-  }, []);
+  const register = async (email: string, password: string) => {
+    try {
+      const data = await registerUser(email, password);
+      setUser(data.user);
+    } catch (error) {
+      console.error("Register error:", error);
+    }
+  };
 
   const login = async (email: string, password: string) => {
     try {
@@ -64,10 +51,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
+    <AuthContext.Provider
+      value={{ user, isAuthenticated, register, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
 };
 
-export default AuthContext;
+// Hook para acceder al contexto de autenticación
+export const useAuth = (): AuthContextType => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth debe ser utilizado dentro de un AuthProvider");
+  }
+  return context;
+};

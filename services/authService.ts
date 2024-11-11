@@ -1,13 +1,16 @@
-// src/services/authService.ts
-import * as SecureStore from 'expo-secure-store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { loginUser } from '../api/authApi';
 import { handleGenericError } from '../utils/errorHandler';
 
 export const login = async (email: string, password: string) => {
   try {
+    // Realizar login y obtener el token y usuario
     const { token, user } = await loginUser(email, password);
-    await SecureStore.setItemAsync('token', token);
-    await SecureStore.setItemAsync('user', JSON.stringify(user));
+
+    // Almacenar el token y usuario en AsyncStorage
+    await AsyncStorage.setItem('token', token);
+    await AsyncStorage.setItem('user', JSON.stringify(user));
+
     return user;
   } catch (error) {
     handleGenericError('Error al iniciar sesión. Verifica tus credenciales.');
@@ -17,8 +20,9 @@ export const login = async (email: string, password: string) => {
 
 export const logout = async () => {
   try {
-    await SecureStore.deleteItemAsync('token');
-    await SecureStore.deleteItemAsync('user');
+    // Eliminar el token y usuario de AsyncStorage
+    await AsyncStorage.removeItem('token');
+    await AsyncStorage.removeItem('user');
   } catch (error) {
     handleGenericError('Error al cerrar sesión. Intenta de nuevo.');
     throw error;
