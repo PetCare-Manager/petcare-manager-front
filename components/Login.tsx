@@ -88,7 +88,7 @@ export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
           className="bg-[#f2f2f2] border border-inputborder rounded-lg w-full p-2"
         />
         <TouchableOpacity className="bg-primary px-14 py-4 rounded-2xl mt-4">
-          <Text className="text-white text-center font-raleway-semibold text-sm">
+          <Text className="text-white text-center font-raleway-semibold text-base">
             Login
           </Text>
         </TouchableOpacity>
