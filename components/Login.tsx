@@ -87,25 +87,13 @@ export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
           onChangeText={setPassword}
           className="bg-[#f2f2f2] border border-inputborder rounded-lg w-full p-2"
         />
-      </View>
-      <View className={"flex-row justify-center w-full px-8 mt-6"}>
-        <TouchableOpacity
-          className={
-            "bg-indigo-500 rounded-lg py-2 px-4 flex-1 ml-2 items-center justify-center"
-          }
-        >
-          <Text className={"text-white text-center"}>Login</Text>
+        <TouchableOpacity className="bg-primary px-14 py-4 rounded-2xl mt-4">
+          <Text className="text-white text-center font-raleway-semibold text-sm">
+            Login
+          </Text>
         </TouchableOpacity>
       </View>
-      <View
-        className={
-          "flex flex-row justify-around rounded-lg p-2 gap-10 mt-6 relative"
-        }
-      >
-        <SvgIconsComponent containerClass="w-10 h-10" type="google" />
-        <SvgIconsComponent containerClass="w-10 h-10" type="twitter" />
-        <SvgIconsComponent containerClass="w-10 h-10" type="instagram" />
-      </View>
+
       {/* Link para iniciar sesión */}
       <Text className="font-raleway-regular text-base ">
         ¿No tienes cuenta?{" "}
