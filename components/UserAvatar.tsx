@@ -1,20 +1,21 @@
 import React, { useState } from "react";
-import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
+import { View, Image, TouchableOpacity, Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { MaterialIcons } from "@expo/vector-icons"; // Para el ícono de edición
+import avatar from "@/assets/images/avatar.jpg"; // Imagen predeterminada local
 
 // Definición de props
 export interface UserAvatarProps {
   imageUrl?: string;
-  initials?: string;
   className?: string; // Clases adicionales de Tailwind
+  name?: string;
 }
 
-export const UserAvatar: React.FC<UserAvatarProps> = ({
-  imageUrl,
-  initials = "U", // Letra por defecto si no hay iniciales
-}) => {
-  const [avatarUrl, setAvatarUrl] = useState(imageUrl || "");
+export const UserAvatar: React.FC<UserAvatarProps> = ({ imageUrl }) => {
+  // Si no hay imageUrl, usa la imagen predeterminada local
+  const [avatarUrl, setAvatarUrl] = useState<{ uri: string } | number>(
+    imageUrl ? { uri: imageUrl } : avatar
+  );
 
   const pickImage = async () => {
     // Pedir permisos para acceder a la galería
@@ -38,29 +39,26 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
 
     // Si el usuario seleccionó una imagen, actualizamos el estado
     if (!result.canceled) {
-      setAvatarUrl(result.assets[0].uri);
+      setAvatarUrl({ uri: result.assets[0].uri });
     }
   };
 
   return (
     <View className="flex items-center justify-center mt-4">
       <View className="relative">
-        {/* Avatar con la imagen o iniciales */}
-        <View className="rounded-full bg-violet flex items-center justify-center overflow-hidden size-32">
-          {avatarUrl ? (
-            <Image
-              source={{ uri: avatarUrl }}
-              className="object-cover w-full h-full"
-            />
-          ) : (
-            <Text className="text-white font-bold text-lg">{initials}</Text>
-          )}
+        {/* Avatar con la imagen o imagen predeterminada */}
+        <View className="w-20 h-20 rounded-full flex items-center justify-center overflow-hidden">
+          <Image
+            source={avatarUrl} // Usa el estado avatarUrl
+            className="w-full h-full"
+            resizeMode="cover"
+          />
         </View>
 
         {/* Ícono de edición para cambiar la imagen */}
         <TouchableOpacity
           onPress={pickImage}
-          className="absolute top-0 right-0 bg-black rounded-full p-1"
+          className="absolute top-0 right-0 bg-white rounded-full p-1 border border-gray-300"
         >
           <MaterialIcons name="edit" size={16} color="#3b3b58" />
         </TouchableOpacity>
