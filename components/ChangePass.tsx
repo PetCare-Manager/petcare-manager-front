@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, TextInput, Alert } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import axios from "axios";
 import { Bubble } from "@/components/Bubbles";
 import { SvgIconsComponent } from "./SvgIconsComponent";
 
@@ -22,7 +23,6 @@ export const NotRememberPass: React.FC<NotRememberPassProps> = ({
   const [error, setError] = useState("");
 
   const handleResetPassword = async () => {
-    // Validación básica de campos
     if (!password || !confirmPassword) {
       setError("Ambos campos son obligatorios");
       return;
@@ -31,27 +31,26 @@ export const NotRememberPass: React.FC<NotRememberPassProps> = ({
       setError("Las contraseñas no coinciden");
       return;
     }
-    setError(""); // Limpiar errores anteriores
+    setError("");
 
     try {
-      // Ejemplo de llamada a la API (ajusta la URL y el cuerpo según tu backend)
-      const response = await fetch("https://api.example.com/reset-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ password }),
-      });
-      const result = await response.json();
+      const response = await axios.post(
+        "https://api.example.com/reset-password",
+        {
+          password,
+        }
+      );
 
-      if (response.ok) {
-        Alert.alert("Contraseña reestablecida con éxito");
-        navigation.navigate("Login"); // Navega a la pantalla de login
+      Alert.alert("Contraseña reestablecida con éxito");
+      navigation.navigate("Login");
+    } catch (error: any) {
+      if (error.response) {
+        setError(
+          error.response.data.message || "Error al reestablecer la contraseña"
+        );
       } else {
-        setError(result.message || "Error al reestablecer la contraseña");
+        setError("Error de conexión. Intente nuevamente.");
       }
-    } catch (err) {
-      setError("Error de conexión. Intente nuevamente.");
     }
   };
 
@@ -62,7 +61,6 @@ export const NotRememberPass: React.FC<NotRememberPassProps> = ({
         type="logo1"
       />
 
-      {/* Burbujas decorativas */}
       <Bubble
         containerClass="absolute -bottom-20 -right-16 z-0"
         type="bubble1"
@@ -116,7 +114,6 @@ export const NotRememberPass: React.FC<NotRememberPassProps> = ({
             className="bg-[#f2f2f2] border border-inputborder rounded-lg w-full p-2"
           />
 
-          {/* Mostrar error si existe */}
           {error ? (
             <Text className="text-red-500 text-center mt-2">{error}</Text>
           ) : null}
