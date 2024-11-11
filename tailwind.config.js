@@ -21,6 +21,7 @@ module.exports = {
         typography: "#475569",
         typography_2: "#222222",
         inputborder: "#A6A6A6",
+        violet: "B9BDFA",
       },
     },
   },
