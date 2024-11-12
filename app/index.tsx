@@ -1,34 +1,86 @@
 import React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {
+  createNativeStackNavigator,
+  NativeStackScreenProps,
+} from "@react-navigation/native-stack";
+import { Wrapper } from "@/components/Wrapper";
 import { HomeScreen } from "@/components/HomeScreen";
 import { Login } from "@/components/Login";
 import { Register } from "@/components/Register";
+//import { EmailRegister } from "@/components/EmailRegister";
+import { NotRememberPass } from "@/components/NotRememberPass";
+import { EmailRegister } from "@/components/EmailRegister";
 
 // Define el tipo para las rutas de navegación
 type RootStackParamList = {
   Home: undefined;
   Register: undefined;
+  EmailRegister: undefined;
   Login: undefined;
+  NotRememberPass: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+
+// Define los tipos de props para cada pantalla
+type HomeScreenProps = NativeStackScreenProps<RootStackParamList, "Home">;
+type RegisterProps = NativeStackScreenProps<RootStackParamList, "Register">;
+type LoginProps = NativeStackScreenProps<RootStackParamList, "Login">;
+type EmailRegisterProps = NativeStackScreenProps<
+  RootStackParamList,
+  "EmailRegister"
+>;
+type NotRememberPassProps = NativeStackScreenProps<
+  RootStackParamList,
+  "NotRememberPass"
+>;
 
 export default function Home() {
   return (
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
         name="Home"
-        component={HomeScreen}
+        children={(props: HomeScreenProps) => (
+          <Wrapper>
+            <HomeScreen {...props} />
+          </Wrapper>
+        )}
         options={{ headerShown: false }}
       />
       <Stack.Screen
         name="Register"
-        component={Register}
+        children={(props: RegisterProps) => (
+          <Wrapper>
+            <Register {...props} />
+          </Wrapper>
+        )}
         options={{ headerShown: true, headerTitle: "" }}
       />
       <Stack.Screen
         name="Login"
-        component={Login}
+        children={(props: LoginProps) => (
+          <Wrapper>
+            <Login {...props} />
+          </Wrapper>
+        )}
+        options={{ headerShown: true, headerTitle: "" }}
+      />
+      <Stack.Screen
+        name="EmailRegister"
+        children={(props: EmailRegisterProps) => (
+          <Wrapper>
+            <EmailRegister {...props} />
+          </Wrapper>
+        )}
+        options={{ headerShown: true, headerTitle: "" }}
+      />
+      <Stack.Screen
+        name="NotRememberPass"
+        children={(props: NotRememberPassProps) => (
+          <Wrapper>
+            <NotRememberPass {...props} />
+          </Wrapper>
+        )}
         options={{ headerShown: true, headerTitle: "" }}
       />
     </Stack.Navigator>

@@ -1,21 +1,26 @@
 import React from "react";
-import { Image, View, Text, TouchableOpacity } from "react-native";
-import logo from "@/assets/images/logo.png";
+import { View, Text, TouchableOpacity } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Bubble } from "@/components/Bubbles";
+import { SvgIconsComponent } from "./SvgIconsComponent";
 
 type RootStackParamList = {
   Home: undefined;
   Register: undefined;
+  EmailRegister: undefined;
   Login: undefined;
+  NotRememberPass: undefined;
 };
 
 type HomeScreenProps = NativeStackScreenProps<RootStackParamList, "Home">;
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   return (
-    <View className="m-auto w-[375px] h-[755px] bg-white justify-between items-center border border-red-600 p-4 relative rounded-xl shadow-lg">
-      <Image source={logo} className=" w-56 h-44 mt-44 z-10" />
+    <View className="flex flex-col justify-between items-center h-full">
+      <SvgIconsComponent
+        containerClass="w-56 h-44 z-10 mt-[120px]"
+        type="logo1"
+      />
 
       <Bubble
         containerClass="absolute -bottom-20 -right-16 z-0"
@@ -43,37 +48,34 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         rotation={-60}
       />
 
-      <View className="items-center b">
-        <View className="w-full px-10">
-          <Text className="font-afacad-semibold text-3xl text-center text-slate-600 mb-8">
-            PetCare Manager
-          </Text>
-
-          <Text className="font-raleway-light text-xl text-center text-gray-800">
-            Todo lo que necesitas de tu mascota, en tu bolsillo, a un solo
-            click.
-          </Text>
-        </View>
+      <View className="items-center -mt-20 px-6">
+        <Text className="font-afacad-semibold text-[40px] lg:text-5xl text-center text-typography">
+          PetCare Manager
+        </Text>
+        <Text className="font-raleway-light text-typography_2 text-2xl lg:text-3xl text-center mt-6">
+          Todo lo que necesitas de tu mascota, en tu bolsillo, a un solo click.
+        </Text>
       </View>
-      {/* Contenedor para los botones en la parte inferior */}
-      <View className="w-full">
-        <View className="flex-row justify-between mb-10 mx-12">
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Register")}
-            className="bg-white rounded-lg w-32 h-12 border border-indigo-500 py-2 px-4 items-center justify-center"
-          >
-            <Text className="text-indigo-500 font-raleway-regular">
-              Registro
-            </Text>
-          </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Login")}
-            className="bg-indigo-500 w-32 h-12 rounded-lg py-2 px-4 items-center justify-center"
-          >
-            <Text className="text-white font-raleway-regular">Login</Text>
-          </TouchableOpacity>
-        </View>
+      {/* Contenedor para los botones en la parte inferior */}
+      <View className="flex-row justify-between gap-14 mb-14">
+        <TouchableOpacity
+          onPress={() => navigation.navigate("EmailRegister")}
+          className="bg-[#f2f2f2] px-11 py-4 rounded-2xl border border-primary"
+        >
+          <Text className="text-primary font-raleway-semibold text-sm">
+            Registro
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Login")}
+          className="bg-primary px-14 py-4 rounded-2xl"
+        >
+          <Text className="text-white font-raleway-semibold text-sm">
+            Login
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

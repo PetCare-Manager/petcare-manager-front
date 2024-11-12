@@ -6,6 +6,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 import "../assets/css/_tailwind.css";
+import { View, StyleSheet } from 'react-native';
 
 import { useColorScheme } from '@/components/useColorScheme';
 
@@ -30,6 +31,9 @@ export default function RootLayout() {
     "Raleway-Light": require('../assets/fonts/Raleway-Light.ttf'),
     "Raleway-Regular": require('../assets/fonts/Raleway-Regular.ttf'),
     "Raleway-Medium": require('../assets/fonts/Raleway-Medium.ttf'),
+    "Raleway-SemiBold": require('../assets/fonts/Raleway-SemiBold.ttf'),
+    "Raleway-Bold": require('../assets/fonts/Raleway-Bold.ttf'),
+    "Raleway-Black": require('../assets/fonts/Raleway-Black.ttf'),
 
     // SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     ...FontAwesome.font,
@@ -57,9 +61,11 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-    </Stack>
+    <View className='relative flex-1 overflow-hidden'>
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+      </Stack>
+    </View>
   );
 }
