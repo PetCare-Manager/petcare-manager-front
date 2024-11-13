@@ -6,11 +6,16 @@ import {
   Text,
   Image,
   StyleSheet,
+  Alert,
 } from "react-native";
 import { SvgIconsComponent } from "@/components/SvgIconsComponent";
-
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Bubble } from "./Bubbles";
+
+import { validateEmail } from "@/utils/validation";
+import { loginUser } from "../api/authApi";
+import { saveToken } from "../utils/storage";
+
 type RootStackParamList = {
   Home: undefined;
   Register: undefined;
@@ -24,11 +29,31 @@ export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
   // Estados para los campos de entrada
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  // Función de validación de email
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+  const handleLogin = async () => {
+    
+    if (!email || !password) {
+      setErrorMessage("Introduce email y contraseña");
+      return;
+    }
+    if (!validateEmail(email)) {
+      setErrorMessage("Por favor, introduce un correo electrónico válido.");
+      return;
+    }
+    setLoading(true);
+    try {
+      const userData = { email, password };
+      const { access_token } = await loginUser(userData);
+      await saveToken(access_token);
+      Alert.alert('Login exitoso', 'Has iniciado sesión correctamente');
+      navigation.navigate('Register');
+    } catch (error: any) {
+      setErrorMessage(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <View className="flex flex-col justify-between items-center h-full">
@@ -87,9 +112,18 @@ export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
           onChangeText={setPassword}
           className="bg-[#f2f2f2] border border-inputborder rounded-lg w-full p-2"
         />
-        <TouchableOpacity className="bg-primary px-14 py-4 rounded-2xl mt-4">
+        {/* Mostrar mensaje de error si existe */}
+        {errorMessage ? (
+          <Text className="text-red-500 text-base mt-2 text-center">
+            {errorMessage}
+          </Text>
+        ) : null}
+        <TouchableOpacity
+          onPress={handleLogin}
+          className="bg-primary px-14 py-4 rounded-2xl mt-4"
+        >
           <Text className="text-white text-center font-raleway-semibold text-base">
-            Login
+          {loading ? 'Iniciando...' : 'Login'}
           </Text>
         </TouchableOpacity>
       </View>

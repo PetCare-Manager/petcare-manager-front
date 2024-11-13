@@ -1,30 +1,46 @@
-import axios from "axios";
+// src/api/authApi.ts
 
-const backendUrl = "http://localhost:3000"; // URL base de tu backend
+import api from "./../utils/axiosInstance";
 
-export const registerUser = async (email: string, password: string) => {
+interface RegisterUser {
+  email: string;
+  password: string;
+}
+
+interface RegisterResponse {
+  id: string;
+  username: string;
+  email: string;
+}
+
+export const registerUser = async (
+  userData: RegisterUser
+): Promise<RegisterResponse> => {
   try {
-    // Realiza una petición POST al backend con los datos del usuario
-    const response = await axios.post(`${backendUrl}/register`, {
-      email,
-      password,
-    });
-    // Devuelve los datos del nuevo usuario
+    const response = await api.post<RegisterResponse>("/api/users", userData);
+    console.log("************RESPONSE", response.data);
     return response.data;
   } catch (error: any) {
-    /// Lanza el error para que sea manejado en el componente que llama a esta función
-    throw new Error(error.response?.data?.message || "Error en el registro");
+    throw error;
   }
 };
 
-export const loginUser = async (email: string, password: string) => {
+interface LoginUser {
+  email: string;
+  password: string;
+}
+
+interface LoginResponse {
+  access_token: string;
+}
+
+export const loginUser = async (
+  userData: LoginUser
+): Promise<LoginResponse> => {
   try {
-    const response = await axios.post(`${backendUrl}/login`, {
-      email,
-      password,
-    });
+    const response = await api.post<LoginResponse>("/api/login", userData);
     return response.data;
   } catch (error: any) {
-    throw new Error(error.response?.data?.message || "Error en el login");
+    throw error;
   }
 };
