@@ -9,13 +9,13 @@ import {
   Alert,
 } from "react-native";
 import { SvgIconsComponent } from "@/components/SvgIconsComponent";
-
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Bubble } from "./Bubbles";
-import { useAuth } from "@/context/AuthContext";
+
 import { validateEmail } from "@/utils/validation";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-console.log(useAuth);
+import { loginUser } from "../api/authApi";
+import { saveToken } from "../utils/storage";
+
 type RootStackParamList = {
   Home: undefined;
   Register: undefined;
@@ -27,32 +27,32 @@ type LoginScreenProps = NativeStackScreenProps<RootStackParamList, "Login">;
 
 export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
   // Estados para los campos de entrada
-  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
+    
+    if (!email || !password) {
+      setErrorMessage("Introduce email y contraseña");
+      return;
+    }
     if (!validateEmail(email)) {
       setErrorMessage("Por favor, introduce un correo electrónico válido.");
       return;
     }
+    setLoading(true);
     try {
-      await login(email, password);
-      console.log("first");
-      // Verifica si el token se ha guardado
-      const token = await AsyncStorage.getItem("token");
-      if (token) {
-        console.log("Token guardado correctamente:", token);
-        Alert.alert(
-          "Login exitoso",
-          "La cuenta ha sido registrada correctamente."
-        );
-      } else {
-        console.log("No se pudo guardar el token.");
-      }
-    } catch (e: any) {
-      setErrorMessage(e.message);
+      const userData = { email, password };
+      const { access_token } = await loginUser(userData);
+      await saveToken(access_token);
+      Alert.alert('Login exitoso', 'Has iniciado sesión correctamente');
+      navigation.navigate('Register');
+    } catch (error: any) {
+      setErrorMessage(error.message);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -123,7 +123,7 @@ export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
           className="bg-primary px-14 py-4 rounded-2xl mt-4"
         >
           <Text className="text-white text-center font-raleway-semibold text-base">
-            Login
+          {loading ? 'Iniciando...' : 'Login'}
           </Text>
         </TouchableOpacity>
       </View>

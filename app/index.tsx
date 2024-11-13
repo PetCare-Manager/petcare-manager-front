@@ -10,7 +10,6 @@ import { Register } from "@/components/Register";
 //import { EmailRegister } from "@/components/EmailRegister";
 import { NotRememberPass } from "@/components/NotRememberPass";
 import { EmailRegister } from "@/components/EmailRegister";
-import { AuthProvider } from "@/context/AuthContext";
 
 // Define el tipo para las rutas de navegación
 type RootStackParamList = {
@@ -38,54 +37,52 @@ type NotRememberPassProps = NativeStackScreenProps<
 
 export default function Home() {
   return (
-    <AuthProvider>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen
-          name="Home"
-          children={(props: HomeScreenProps) => (
-            <Wrapper>
-              <HomeScreen {...props} />
-            </Wrapper>
-          )}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Register"
-          children={(props: RegisterProps) => (
-            <Wrapper>
-              <Register {...props} />
-            </Wrapper>
-          )}
-          options={{ headerShown: true, headerTitle: "" }}
-        />
-        <Stack.Screen
-          name="Login"
-          children={(props: LoginProps) => (
-            <Wrapper>
-              <Login {...props} />
-            </Wrapper>
-          )}
-          options={{ headerShown: true, headerTitle: "" }}
-        />
-        <Stack.Screen
-          name="EmailRegister"
-          children={(props: EmailRegisterProps) => (
-            <Wrapper>
-              <EmailRegister {...props} />
-            </Wrapper>
-          )}
-          options={{ headerShown: true, headerTitle: "" }}
-        />
-        <Stack.Screen
-          name="NotRememberPass"
-          children={(props: NotRememberPassProps) => (
-            <Wrapper>
-              <NotRememberPass {...props} />
-            </Wrapper>
-          )}
-          options={{ headerShown: true, headerTitle: "" }}
-        />
-      </Stack.Navigator>
-    </AuthProvider>
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen
+        name="Home"
+        children={(props: HomeScreenProps) => (
+          <Wrapper>
+            <HomeScreen {...props} />
+          </Wrapper>
+        )}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Register"
+        children={(props: RegisterProps) => (
+          <Wrapper>
+            <Register {...props} />
+          </Wrapper>
+        )}
+        options={{ headerShown: true, headerTitle: "" }}
+      />
+      <Stack.Screen
+        name="Login"
+        children={(props: LoginProps) => (
+          <Wrapper>
+            <Login {...props} />
+          </Wrapper>
+        )}
+        options={{ headerShown: true, headerTitle: "" }}
+      />
+      <Stack.Screen
+        name="EmailRegister"
+        children={(props: EmailRegisterProps) => (
+          <Wrapper>
+            <EmailRegister {...props} />
+          </Wrapper>
+        )}
+        options={{ headerShown: true, headerTitle: "" }}
+      />
+      <Stack.Screen
+        name="NotRememberPass"
+        children={(props: NotRememberPassProps) => (
+          <Wrapper>
+            <NotRememberPass {...props} />
+          </Wrapper>
+        )}
+        options={{ headerShown: true, headerTitle: "" }}
+      />
+    </Stack.Navigator>
   );
 }

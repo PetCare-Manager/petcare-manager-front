@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { View, TextInput, Text, TouchableOpacity, Alert } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Bubble } from "./Bubbles";
-import { SvgIconsComponent } from "./SvgIconsComponent"; 
+import { SvgIconsComponent } from "./SvgIconsComponent";
 // Función de validación de email
 import { validateEmail } from "@/utils/validation";
-import { useAuth } from "@/context/AuthContext";
+import { registerUser } from "@/api/authApi";
 
 type RootStackParamList = {
   Home: undefined;
@@ -21,14 +21,15 @@ type EmailRegisterProps = NativeStackScreenProps<
 
 export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
   // Estados para los campos de entrada
-  const {register} = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // Validación de entrada de datos y mensaje de error
   const handleRegister = async () => {
+    
     if (!validateEmail(email)) {
       setErrorMessage("Por favor, introduce un correo electrónico válido.");
       return;
@@ -48,18 +49,22 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
     setErrorMessage(""); // Limpiar mensaje de error si todo está correcto
 
     // logica de peticiones al back
+    setLoading(true);
     try {
       // Registra el usuario en el backend
-      await register(email, password);
+      const userData = { email, password };
+      const response = await registerUser(userData);
 
       Alert.alert(
         "Registro exitoso",
-        "La cuenta ha sido registrada correctamente."
+        `Usuario ${response.username} creado correctamente`
       );
       //Navega al login si todo es correcto
-      navigation.navigate("Login");
+      //navigation.navigate("Login");
     } catch (error: any) {
       setErrorMessage(error.message || "Error en el registro");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -146,7 +151,7 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
           className="bg-primary px-14 py-4 rounded-2xl mt-4"
         >
           <Text className="text-white text-center font-raleway-semibold text-sm">
-            Crear cuenta
+            {loading ? "Registrando..." : "Crear Cuenta"}
           </Text>
         </TouchableOpacity>
       </View>

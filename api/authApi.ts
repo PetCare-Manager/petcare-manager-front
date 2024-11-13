@@ -1,32 +1,46 @@
-import api from "../utils/axiosInstance";
-import { handleApiError } from "../utils/errorHandler";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+// src/api/authApi.ts
 
-// Registrar usuario
-export const registerUser = async (email: string, password: string) => {
+import api from "./../utils/axiosInstance";
+
+interface RegisterUser {
+  email: string;
+  password: string;
+}
+
+interface RegisterResponse {
+  id: string;
+  username: string;
+  email: string;
+}
+
+export const registerUser = async (
+  userData: RegisterUser
+): Promise<RegisterResponse> => {
   try {
-    const response = await api.post("/register", { email, password });
-
-    // Devuelve el usuario registrado (o el token si lo envían en la respuesta)
+    const response = await api.post<RegisterResponse>("/api/users", userData);
+    console.log("************RESPONSE", response.data);
     return response.data;
   } catch (error: any) {
-    handleApiError(error);
     throw error;
   }
 };
 
-// Iniciar sesión
-export const loginUser = async (email: string, password: string) => {
+interface LoginUser {
+  email: string;
+  password: string;
+}
+
+interface LoginResponse {
+  access_token: string;
+}
+
+export const loginUser = async (
+  userData: LoginUser
+): Promise<LoginResponse> => {
   try {
-    const response = await api.post("/login", { email, password });
-    // Guarda el token en SecureStore
-    const token = response.data.token;
-    if (token) {
-      await AsyncStorage.getItem("token");
-    }
+    const response = await api.post<LoginResponse>("/api/login", userData);
     return response.data;
-  } catch (error) {
-    handleApiError(error);
+  } catch (error: any) {
     throw error;
   }
 };

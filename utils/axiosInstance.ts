@@ -1,7 +1,6 @@
 import axios from "axios";
-import { API_URL } from '@env';
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { handleApiError } from "./errorHandler";
+import { API_URL } from "@env";
+import { handleAxiosError } from "./errorHandler";
 
 const api = axios.create({
   baseURL: API_URL,
@@ -10,26 +9,20 @@ const api = axios.create({
   },
 });
 
-// Interceptor para añadir el token a las peticiones
-api.interceptors.request.use(async (config) => {
-  try {
-    const token = await AsyncStorage.getItem("token");
-    if (token && config.url !== "/register") {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-  } catch (error) {
-    handleApiError(error);
-    return Promise.reject(error);
-  }
-  return config;
+// Interceptor de respuesta para manejar errores
+api.interceptors.request.use((request) => {
+  console.log("Petición:", request);
+  return request;
 });
 
-// Interceptor de respuesta para manejar errores
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    console.log("Respuesta:", response);
+    return response;
+  },
   (error) => {
-    handleApiError(error);
-    return Promise.reject(error);
+    const customError = handleAxiosError(error);
+    return Promise.reject(customError);
   }
 );
 
