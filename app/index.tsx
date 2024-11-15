@@ -7,9 +7,10 @@ import { Wrapper } from "@/components/Wrapper";
 import { HomeScreen } from "@/components/HomeScreen";
 import { Login } from "@/components/Login";
 import { Register } from "@/components/Register";
-//import { EmailRegister } from "@/components/EmailRegister";
+import { UserProfile } from "@/components/UserProfile";
 import { NotRememberPass } from "@/components/NotRememberPass";
 import { EmailRegister } from "@/components/EmailRegister";
+import { PetForm } from "@/components/PetForm";
 
 // Define el tipo para las rutas de navegación
 type RootStackParamList = {
@@ -18,6 +19,8 @@ type RootStackParamList = {
   EmailRegister: undefined;
   Login: undefined;
   NotRememberPass: undefined;
+  UserProfile: undefined;
+  PetForm: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -34,6 +37,11 @@ type NotRememberPassProps = NativeStackScreenProps<
   RootStackParamList,
   "NotRememberPass"
 >;
+type UserProfileProps = NativeStackScreenProps<
+  RootStackParamList,
+  "UserProfile"
+>;
+type PetFormProps = NativeStackScreenProps<RootStackParamList, "PetForm">;
 
 export default function Home() {
   return (
@@ -79,6 +87,24 @@ export default function Home() {
         children={(props: NotRememberPassProps) => (
           <Wrapper>
             <NotRememberPass {...props} />
+          </Wrapper>
+        )}
+        options={{ headerShown: true, headerTitle: "" }}
+      />
+      <Stack.Screen
+        name="UserProfile"
+        children={(props: UserProfileProps) => (
+          <Wrapper>
+            <UserProfile {...props} name="Carol" />
+          </Wrapper>
+        )}
+        options={{ headerShown: true, headerTitle: "" }}
+      />
+      <Stack.Screen
+        name="PetForm"
+        children={(props: PetFormProps) => (
+          <Wrapper>
+            <PetForm {...props} />
           </Wrapper>
         )}
         options={{ headerShown: true, headerTitle: "" }}
