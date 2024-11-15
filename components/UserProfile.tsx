@@ -27,7 +27,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ name, imageUrl }) => {
       {/* Sección de mascotas */}
 
       <View className="w-full mt-6 px-4">
-        <Text className="text-lg font-afacad-semibold text-typography_2">
+        <Text className="text-xl font-afacad-semibold text-typography_2">
           Mis mascotas
         </Text>
         {/* Botón Añadir Mascota */}
