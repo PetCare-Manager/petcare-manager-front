@@ -1,12 +1,11 @@
 import axios from "axios";
 
-const BACK_URL = "http://localhost:8000"; // URL base de tu backend
-console.log(BACK_URL);
+const backendUrl = "http://localhost:8000/api"; // URL base de tu backend
 
 export const registerUser = async (email: string, password: string) => {
   try {
     // Realiza una petición POST al backend con los datos del usuario
-    const response = await axios.post(`${BACK_URL}/register`, {
+    const response = await axios.post(`${backendUrl}/users/`, {
       email,
       password,
     });
@@ -20,7 +19,7 @@ export const registerUser = async (email: string, password: string) => {
 
 export const loginUser = async (email: string, password: string) => {
   try {
-    const response = await axios.post(`${BACK_URL}/login`, {
+    const response = await axios.post(`${backendUrl}/login`, {
       email,
       password,
     });

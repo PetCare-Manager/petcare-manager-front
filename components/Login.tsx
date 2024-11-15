@@ -4,6 +4,7 @@ import { SvgIconsComponent } from "@/components/SvgIconsComponent";
 
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Bubble } from "./Bubbles";
+import { UserAvatar } from "./UserAvatar";
 type RootStackParamList = {
   Home: undefined;
   Register: undefined;
@@ -59,6 +60,8 @@ export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
       />
 
       <View className="flex gap-4 mt-4 mb-6 w-full px-12">
+        <UserAvatar name="Paco" />
+
         {/* Correo electrónico */}
         <Text className="-mb-3 uppercase font-afacad-regular text-base">
           Correo electrónico

@@ -74,7 +74,7 @@ export const NotRememberPass: React.FC<NotRememberPassProps> = ({
           //onPress={handleRegister}
           className="bg-primary px-14 py-4 rounded-2xl mt-4"
         >
-          <Text className="text-white text-center font-raleway-semibold text-sm">
+          <Text className="text-white text-center font-raleway-semibold text-base">
             Enviar email de recuperación
           </Text>
         </TouchableOpacity>
