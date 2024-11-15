@@ -1,22 +1,17 @@
 import React, { useState } from "react";
-import {
-  View,
-  TextInput,
-  TouchableOpacity,
-  Text,
-  Image,
-  StyleSheet,
-} from "react-native";
+import { View, TextInput, TouchableOpacity, Text } from "react-native";
 import { SvgIconsComponent } from "@/components/SvgIconsComponent";
 
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Bubble } from "./Bubbles";
+import { UserAvatar } from "./UserAvatar";
 type RootStackParamList = {
   Home: undefined;
   Register: undefined;
   EmailRegister: undefined;
   Login: undefined;
   NotRememberPass: undefined;
+  UserProfile: undefined;
 };
 type LoginScreenProps = NativeStackScreenProps<RootStackParamList, "Login">;
 
@@ -65,6 +60,8 @@ export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
       />
 
       <View className="flex gap-4 mt-4 mb-6 w-full px-12">
+        <UserAvatar name="Paco" />
+
         {/* Correo electrónico */}
         <Text className="-mb-3 uppercase font-afacad-regular text-base">
           Correo electrónico
@@ -87,7 +84,10 @@ export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
           onChangeText={setPassword}
           className="bg-[#f2f2f2] border border-inputborder rounded-lg w-full p-2"
         />
-        <TouchableOpacity className="bg-primary px-14 py-4 rounded-2xl mt-4">
+        <TouchableOpacity
+          className="bg-primary px-14 py-4 rounded-2xl mt-4"
+          onPress={() => navigation.navigate("UserProfile")}
+        >
           <Text className="text-white text-center font-raleway-semibold text-base">
             Login
           </Text>
