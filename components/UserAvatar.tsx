@@ -16,12 +16,6 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({ imageUrl }) => {
     }
   }, [imageUrl]);
 
-  useEffect(() => {
-    if (imageUrl) {
-      setAvatarUrl(imageUrl);
-    }
-  }, [imageUrl]);
-
   const pickImage = async () => {
     const permissionResult =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
