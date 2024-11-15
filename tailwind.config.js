@@ -16,7 +16,7 @@ module.exports = {
         "raleway-black": ["Raleway-Black"],
       },
       colors: {
-        primary: "#5C66F4",
+        primary: "#A0537D",
         secondary: "#FF0066/40",
         typography: "#475569",
         typography_2: "#222222",
