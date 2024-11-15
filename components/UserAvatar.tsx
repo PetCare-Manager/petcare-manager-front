@@ -1,23 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { MaterialIcons } from "@expo/vector-icons"; // Para el ícono de edición
+import { SvgIconsComponent } from "@/components/SvgIconsComponent"; // Asegúrate de importar correctamente
 
-// Definición de props
 export interface UserAvatarProps {
-  imageUrl?: string;
-  initials?: string;
-  className?: string; // Clases adicionales de Tailwind
+  imageUrl?: string; // Imagen inicial si se proporciona
 }
 
-export const UserAvatar: React.FC<UserAvatarProps> = ({
-  imageUrl,
-  initials = "U", // Letra por defecto si no hay iniciales
-}) => {
+export const UserAvatar: React.FC<UserAvatarProps> = ({ imageUrl }) => {
   const [avatarUrl, setAvatarUrl] = useState(imageUrl || "");
 
+  useEffect(() => {
+    if (imageUrl) {
+      setAvatarUrl(imageUrl);
+    }
+  }, [imageUrl]);
+
   const pickImage = async () => {
-    // Pedir permisos para acceder a la galería
     const permissionResult =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!permissionResult.granted) {
@@ -28,7 +27,6 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
       return;
     }
 
-    // Abrir el selector de imágenes
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
@@ -36,33 +34,35 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
       quality: 1,
     });
 
-    // Si el usuario seleccionó una imagen, actualizamos el estado
     if (!result.canceled) {
       setAvatarUrl(result.assets[0].uri);
     }
   };
 
   return (
-    <View className="flex items-center justify-center mt-4">
+    <View className="flex items-center justify-center">
       <View className="relative">
-        {/* Avatar con la imagen o iniciales */}
-        <View className="rounded-full bg-violet flex items-center justify-center overflow-hidden size-32">
+        {/* Avatar: imagen, SVG por defecto o iniciales */}
+        <View className="rounded-full bg-violet-500 overflow-hidden w-32 h-32 flex items-center justify-center">
           {avatarUrl ? (
             <Image
               source={{ uri: avatarUrl }}
-              className="object-cover w-full h-full"
+              className="w-full h-full object-cover"
             />
           ) : (
-            <Text className="text-white font-bold text-lg">{initials}</Text>
+            <SvgIconsComponent
+              containerClass="w-20 h-20" // Tamaño adaptado al círculo
+              type="logo1" // Asegúrate de pasar el tipo de logo
+            />
           )}
         </View>
 
-        {/* Ícono de edición para cambiar la imagen */}
+        {/* Botón para cambiar la imagen */}
         <TouchableOpacity
           onPress={pickImage}
-          className="absolute top-0 right-0 bg-black rounded-full p-1"
+          className="absolute bottom-0 right-0 bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center"
         >
-          <MaterialIcons name="edit" size={16} color="#3b3b58" />
+          <Text className="text-gray-600 text-lg">+</Text>
         </TouchableOpacity>
       </View>
     </View>

@@ -35,6 +35,10 @@ type NotRememberPassProps = NativeStackScreenProps<
   RootStackParamList,
   "NotRememberPass"
 >;
+type UserProfileProps = NativeStackScreenProps<
+  RootStackParamList,
+  "UserProfile"
+>;
 
 export default function Home() {
   return (
@@ -88,7 +92,7 @@ export default function Home() {
         name="UserProfile"
         children={(props: UserProfileProps) => (
           <Wrapper>
-            <UserProfile {...props} />
+            <UserProfile {...props} name="Carol" />
           </Wrapper>
         )}
         options={{ headerShown: true, headerTitle: "" }}

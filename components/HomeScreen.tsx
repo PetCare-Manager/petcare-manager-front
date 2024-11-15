@@ -10,6 +10,7 @@ type RootStackParamList = {
   EmailRegister: undefined;
   Login: undefined;
   NotRememberPass: undefined;
+  UserProfile: undefined;
 };
 
 type HomeScreenProps = NativeStackScreenProps<RootStackParamList, "Home">;
@@ -77,6 +78,14 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
       </View>
+      <TouchableOpacity
+        className="bg-primary px-14 py-4 rounded-2xl mt-4"
+        onPress={() => navigation.navigate("UserProfile")}
+      >
+        <Text className="text-white text-center font-raleway-semibold text-base">
+          Prueba userprofile
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
