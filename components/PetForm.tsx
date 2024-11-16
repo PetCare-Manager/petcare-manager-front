@@ -2,26 +2,15 @@ import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { Bubble } from "@/components/Bubbles";
-import BottomTabBar from "./BottomTabBar";
 
 export const PetForm = () => {
   const [isNeutered, setIsNeutered] = useState<boolean | null>(false);
   const [breedOpen, setBreedOpen] = useState(false);
-  const [neuteredOpen, setNeuteredOpen] = useState(false);
   const [selectedBreed, setSelectedBreed] = useState("");
-
-  const neuteredOptions = [
-    { label: "Si", value: true },
-    { label: "No", value: false },
-  ];
-
-  const BreedList = [
-    { label: "Labrador", value: "labrador" },
-    { label: "SharPei", value: "harPei" },
+  const [breeds, setBreeds] = useState([
+    { label: "Akita Inu", value: "akita_inu" },
     { label: "Border Collie", value: "border_collie" },
-    { label: "Chihuahua", value: "chihuahua" },
-    { label: "Beagle", value: "beagle" },
-  ];
+  ]);
 
   const handleSubmit = () => {
     const petData = {
@@ -29,28 +18,28 @@ export const PetForm = () => {
       isNeutered,
     };
     console.log("Datos de la mascota", petData);
-    // Aquí podrías llamar a una API o hacer algo con los datos recogidos
   };
 
   return (
-    <View className="m-auto w-[375px] h-[755px] bg-white justify-between items-center border border-red-600 p-4 relative rounded-xl shadow-lg">
+    <View className="flex-1 bg-white">
+      {/* Header y burbujas decorativas */}
+      <Bubble
+        containerClass="absolute -bottom-20 -right-16 z-0"
+        type="bubble1"
+        rotation={-45}
+      />
       <Bubble
         containerClass="absolute -top-20 -left-16 z-0"
         type="bubble2"
         rotation={-45}
       />
       <Bubble
-        containerClass="absolute bottom-32 right-0 z-0"
+        containerClass="absolute top-36 right-10 z-0"
         type="bubble3"
         rotation={-45}
       />
       <Bubble
-        containerClass="absolute top-36 right-0 z-0"
-        type="bubble3"
-        rotation={-45}
-      />
-      <Bubble
-        containerClass="absolute bottom-96 right-80 z-0"
+        containerClass="absolute bottom-96 right-72 z-0"
         type="bubble4"
         rotation={-45}
       />
@@ -60,76 +49,65 @@ export const PetForm = () => {
         rotation={-60}
       />
 
-      <View className="items-center z-10">
-        <View className="w-full px-10 pt-20">
-          <Text className="font-afacad-semibold text-3xl text-center text-slate-600 mb-8">
-            Añadir mascota
+      <View className="flex-1 justify-center px-6">
+        <Text className=" font-afacad-semibold text-3xl text-center text-typography mb-8">
+          Añadir mascota
+        </Text>
+
+        {/* Campo Nombre */}
+        <Text className="text-base text-gray-600 mb-2">Nombre</Text>
+        <TextInput
+          placeholder="Escribe el nombre"
+          className="bg-gray-100 border border-gray-300 rounded-lg px-4 py-2 mb-4"
+        />
+
+        {/* Fecha de Nacimiento */}
+        <Text className="text-base text-gray-600 mb-2">Edad</Text>
+        <TextInput
+          placeholder="DD/MM/AAAA"
+          className="bg-gray-100 border border-gray-300 rounded-lg px-4 py-2 mb-4"
+        />
+
+        {/* Campo Sexo */}
+        <Text className="text-base text-gray-600 mb-2">Sexo</Text>
+        <TextInput
+          placeholder="Sexo"
+          className="bg-gray-100 border border-gray-300 rounded-lg px-4 py-2 mb-4"
+        />
+
+        {/* Dropdown para Raza */}
+        <Text className="text-base text-gray-600 mb-2">Raza</Text>
+        <DropDownPicker
+          open={breedOpen}
+          value={selectedBreed}
+          items={breeds}
+          setOpen={setBreedOpen}
+          setValue={setSelectedBreed}
+          setItems={setBreeds}
+          placeholder="Selecciona la raza"
+          zIndex={5000} // Asegura el orden correcto en la pila de renderizado
+          autoScroll={true} // Permite el desplazamiento automático si no hay espacio suficiente
+          style={{
+            backgroundColor: "#f3f4f6",
+            borderColor: "#d1d5db",
+            borderRadius: 8,
+          }}
+          dropDownContainerStyle={{
+            backgroundColor: "#f3f4f6",
+            borderColor: "#d1d5db",
+          }}
+        />
+
+        {/* Botón */}
+        <TouchableOpacity
+          onPress={handleSubmit}
+          className="bg-primary rounded-lg py-3 mt-6"
+        >
+          <Text className="text-white text-center text-lg font-medium">
+            Añadir Mascota
           </Text>
-
-          {/* Nombre de la mascota */}
-          <TextInput
-            placeholder="Nombre"
-            className="border p-2 mb-4 rounded bg-white text-black"
-          />
-
-          {/* Selección de raza */}
-          <DropDownPicker
-            open={breedOpen}
-            value={selectedBreed}
-            items={BreedList}
-            setOpen={setBreedOpen}
-            setValue={setSelectedBreed}
-            placeholder="Seleccione una raza"
-            containerStyle={{ width: "100%" }}
-            dropDownContainerStyle={{ width: "100%" }}
-            style={{ marginBottom: 20 }}
-          />
-
-          {/* Fecha de nacimiento */}
-          <TextInput
-            placeholder="Fecha de nacimiento"
-            className="border p-2 mb-4 rounded bg-white text-black"
-          />
-
-          {/* Peso */}
-          <TextInput
-            placeholder="Peso"
-            keyboardType="numeric"
-            className="border p-2 mb-4 rounded bg-white text-black"
-          />
-
-          {/* Microchip */}
-          <TextInput
-            placeholder="Microchip"
-            className="border p-2 mb-4 rounded bg-white text-black"
-          />
-
-          {/* Esterilizado */}
-          <DropDownPicker
-            open={neuteredOpen}
-            value={isNeutered}
-            items={neuteredOptions}
-            setOpen={setNeuteredOpen}
-            setValue={setIsNeutered}
-            placeholder="Esterilizado"
-            containerStyle={{ width: "100%" }}
-            dropDownContainerStyle={{ width: "100%" }}
-            style={{ marginBottom: 20 }}
-          />
-
-          {/* Botón para añadir mascota */}
-          <View className="w-full items-center mt-6">
-            <TouchableOpacity
-              className="bg-indigo-500 w-72 h-12 rounded-lg py-2 px-6 items-center justify-center"
-              onPress={handleSubmit}
-            >
-              <Text className="text-white font-semibold">Añadir mascota</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        </TouchableOpacity>
       </View>
-
-      <BottomTabBar />
     </View>
   );
 };
