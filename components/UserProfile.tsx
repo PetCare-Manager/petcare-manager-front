@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-
+import { Event } from "./Event";
 import { AddPetCard } from "./AddPetCard";
 import { UserAvatar } from "./UserAvatar";
 
@@ -26,6 +26,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ navigation }) => {
         </Text>
         {/* Aquí se pasa la propiedad navigation a AddPetCard */}
         <AddPetCard navigation={navigation} />
+        <Event />
       </View>
     </View>
   );
