@@ -9,8 +9,8 @@ interface RegisterUser {
 
 interface RegisterResponse {
   id: string;
-  username: string;
   email: string;
+  password: string;
 }
 
 export const registerUser = async (

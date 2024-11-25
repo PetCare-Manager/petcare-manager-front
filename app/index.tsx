@@ -95,7 +95,7 @@ export default function Home() {
         name="UserProfile"
         children={(props: UserProfileProps) => (
           <Wrapper>
-            <UserProfile {...props} name="Carol" />
+            <UserProfile {...props} />
           </Wrapper>
         )}
         options={{ headerShown: true, headerTitle: "" }}

@@ -29,7 +29,6 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
 
   // Validación de entrada de datos y mensaje de error
   const handleRegister = async () => {
-    
     if (!validateEmail(email)) {
       setErrorMessage("Por favor, introduce un correo electrónico válido.");
       return;
@@ -54,13 +53,13 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
       // Registra el usuario en el backend
       const userData = { email, password };
       const response = await registerUser(userData);
-
-      Alert.alert(
-        "Registro exitoso",
-        `Usuario ${response.username} creado correctamente`
-      );
+      console.log("Respuesta del backend:", response);
+      // Alert.alert(
+      //   "Registro exitoso",
+      //   `Usuario ${response.email} creado correctamente`
+      // );
       //Navega al login si todo es correcto
-      //navigation.navigate("Login");
+      navigation.navigate("Login");
     } catch (error: any) {
       setErrorMessage(error.message || "Error en el registro");
     } finally {
@@ -139,11 +138,11 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
         />
 
         {/* Mostrar mensaje de error si existe */}
-        {errorMessage ? (
+        {errorMessage && typeof errorMessage === "string" && (
           <Text className="text-red-500 text-base mt-2 text-center">
             {errorMessage}
           </Text>
-        ) : null}
+        )}
 
         {/* Botón de registro */}
         <TouchableOpacity
