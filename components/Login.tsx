@@ -16,12 +16,14 @@ import { validateEmail } from "@/utils/validation";
 import { loginUser } from "../api/authApi";
 import { saveToken } from "../utils/storage";
 
+import { UserAvatar } from "./UserAvatar";
 type RootStackParamList = {
   Home: undefined;
   Register: undefined;
   EmailRegister: undefined;
   Login: undefined;
   NotRememberPass: undefined;
+  UserProfile: undefined;
 };
 type LoginScreenProps = NativeStackScreenProps<RootStackParamList, "Login">;
 
@@ -90,6 +92,8 @@ export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
       />
 
       <View className="flex gap-4 mt-4 mb-6 w-full px-12">
+        <UserAvatar />
+
         {/* Correo electrónico */}
         <Text className="-mb-3 uppercase font-afacad-regular text-base">
           Correo electrónico
@@ -122,6 +126,7 @@ export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
           onPress={handleLogin}
           className="bg-primary px-14 py-4 rounded-2xl mt-4"
         >
+      
           <Text className="text-white text-center font-raleway-semibold text-base">
           {loading ? 'Iniciando...' : 'Login'}
           </Text>
