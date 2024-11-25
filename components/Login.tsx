@@ -17,6 +17,7 @@ import { loginUser } from "../api/authApi";
 import { saveToken } from "../utils/storage";
 
 import { UserAvatar } from "./UserAvatar";
+
 type RootStackParamList = {
   Home: undefined;
   Register: undefined;
