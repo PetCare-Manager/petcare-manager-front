@@ -26,6 +26,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ navigation }) => {
         </Text>
         {/* Aquí se pasa la propiedad navigation a AddPetCard */}
         <AddPetCard navigation={navigation} />
+
         <Event />
       </View>
     </View>
