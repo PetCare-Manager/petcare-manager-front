@@ -1,4 +1,3 @@
-// src/components/Bubble.tsx
 import React from "react";
 import { View } from "react-native";
 import Google from "@/assets/svg/google.svg";

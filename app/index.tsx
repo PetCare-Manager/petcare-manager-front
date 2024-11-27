@@ -11,6 +11,7 @@ import { UserProfile } from "@/components/UserProfile";
 import { NotRememberPass } from "@/components/NotRememberPass";
 import { EmailRegister } from "@/components/EmailRegister";
 import { PetForm } from "@/components/PetForm";
+import { FormEvent } from "@/components/FormEvent";
 
 // Define el tipo para las rutas de navegación
 type RootStackParamList = {
@@ -21,6 +22,7 @@ type RootStackParamList = {
   NotRememberPass: undefined;
   UserProfile: undefined;
   PetForm: undefined;
+  FormEvent: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -42,6 +44,7 @@ type UserProfileProps = NativeStackScreenProps<
   "UserProfile"
 >;
 type PetFormProps = NativeStackScreenProps<RootStackParamList, "PetForm">;
+type FormEventProps = NativeStackScreenProps<RootStackParamList, "FormEvent">;
 
 export default function Home() {
   return (
@@ -105,6 +108,15 @@ export default function Home() {
         children={(props: PetFormProps) => (
           <Wrapper>
             <PetForm {...props} />
+          </Wrapper>
+        )}
+        options={{ headerShown: true, headerTitle: "" }}
+      />
+      <Stack.Screen
+        name="FormEvent"
+        children={(props: FormEventProps) => (
+          <Wrapper>
+            <FormEvent {...props} />
           </Wrapper>
         )}
         options={{ headerShown: true, headerTitle: "" }}
