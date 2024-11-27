@@ -4,11 +4,17 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Event } from "./Event";
 import { AddPetCard } from "./AddPetCard";
 import { UserAvatar } from "./UserAvatar";
+import { CreateEvent } from "./CreateEvent";
 
-type UserProfileProps = NativeStackScreenProps<RootStackParamList, "PetForm">;
+type UserProfileProps = NativeStackScreenProps<
+  RootStackParamList,
+  "PetForm",
+  "FormEvent"
+>;
 
 type RootStackParamList = {
   PetForm: undefined;
+  CreateEvent: undefined;
 };
 
 export const UserProfile: React.FC<UserProfileProps> = ({ navigation }) => {
@@ -26,7 +32,8 @@ export const UserProfile: React.FC<UserProfileProps> = ({ navigation }) => {
         </Text>
         {/* Aquí se pasa la propiedad navigation a AddPetCard */}
         <AddPetCard navigation={navigation} />
-
+        {/* <PetCard/> */}
+        <CreateEvent navigation={navigation} />
         <Event />
       </View>
     </View>
