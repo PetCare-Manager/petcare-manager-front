@@ -16,8 +16,13 @@ export const CreateEvent: React.FC<FormEventProps> = ({ navigation }) => {
     <View className="flex flex-row items-center bg-white rounded-lg p-4">
       <View className="container flex">
         <View className="flex-row justify-center items-center rounded-lg shadow p-4">
-          {/* Texto de añadir mascota */}
-          <Text className="text-lg text-primary flex-1">Añadir Evento</Text>
+          <View className="flex bg-primary rounded-lg w-12 h-12 items-center justify-center mr-4">
+            <MaterialIcons name="alarm" size={24} color="#fff" />
+          </View>
+          {/* Texto de añadir evento */}
+          <Text className="text-lg text-primary font-raleway-semibold flex-1">
+            Añadir Evento
+          </Text>
 
           {/* Botón de añadir mascota */}
           <TouchableOpacity

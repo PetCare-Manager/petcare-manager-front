@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
-import { Bubble } from "@/components/Bubbles";
 
 export const PetForm = () => {
   const [isNeutered, setIsNeutered] = useState<boolean | null>(false);
@@ -22,33 +21,6 @@ export const PetForm = () => {
 
   return (
     <View className="flex-1 bg-white">
-      {/* Header y burbujas decorativas */}
-      <Bubble
-        containerClass="absolute -bottom-20 -right-16 z-0"
-        type="bubble1"
-        rotation={-45}
-      />
-      <Bubble
-        containerClass="absolute -top-20 -left-16 z-0"
-        type="bubble2"
-        rotation={-45}
-      />
-      <Bubble
-        containerClass="absolute top-36 right-10 z-0"
-        type="bubble3"
-        rotation={-45}
-      />
-      <Bubble
-        containerClass="absolute bottom-96 right-72 z-0"
-        type="bubble4"
-        rotation={-45}
-      />
-      <Bubble
-        containerClass="absolute bottom-32 right-80 z-0"
-        type="bubble5"
-        rotation={-60}
-      />
-
       <View className="flex-1 justify-center px-6">
         <Text className=" font-afacad-semibold text-3xl text-center text-typography mb-8">
           Añadir mascota

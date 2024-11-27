@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, TextInput } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { Bubble } from "@/components/Bubbles";
+
 import { SvgIconsComponent } from "./SvgIconsComponent";
 
 type RootStackParamList = {
@@ -20,34 +20,8 @@ export const NotRememberPass: React.FC<NotRememberPassProps> = ({
   return (
     <View className="flex flex-col justify-between items-center h-full">
       <SvgIconsComponent
-        containerClass="w-56 h-44 z-10 mt-[120px]"
+        containerClass="w-56 h-44 z-10 mt-[120px] items-center"
         type="logo1"
-      />
-
-      <Bubble
-        containerClass="absolute -bottom-20 -right-16 z-0"
-        type="bubble1"
-        rotation={-45}
-      />
-      <Bubble
-        containerClass="absolute -top-20 -left-16 z-0"
-        type="bubble2"
-        rotation={-45}
-      />
-      <Bubble
-        containerClass="absolute top-36 right-10 z-0"
-        type="bubble3"
-        rotation={-45}
-      />
-      <Bubble
-        containerClass="absolute bottom-96 right-72 z-0"
-        type="bubble4"
-        rotation={-45}
-      />
-      <Bubble
-        containerClass="absolute bottom-32 right-80 z-0"
-        type="bubble5"
-        rotation={-60}
       />
 
       <View className="items-center -mt-30 px-6">

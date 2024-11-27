@@ -30,7 +30,7 @@ export const Event: React.FC<EventProps> = ({
   return (
     <View className="flex flex-row items-center bg-white rounded-lg p-4">
       {/* Left Vertical Bar */}
-      <View className="w-1 bg-green-400 h-full rounded-lg" />
+      <View className="w-1 bg-customblue h-full rounded-lg" />
       <View className="container shadow rounded-lg">
         {/* Content Area */}
         <View className="p-4 flex-1">

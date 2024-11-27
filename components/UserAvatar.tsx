@@ -43,7 +43,7 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({ imageUrl }) => {
     <View className="flex items-center justify-center">
       <View className="relative">
         {/* Avatar: imagen, SVG por defecto o iniciales */}
-        <View className="rounded-full bg-violet-500 overflow-hidden w-32 h-32 flex items-center justify-center">
+        <View className="rounded-full bg-customblue overflow-hidden w-32 h-32 flex items-center justify-center">
           {avatarUrl ? (
             <Image
               source={{ uri: avatarUrl }}
@@ -51,7 +51,7 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({ imageUrl }) => {
             />
           ) : (
             <SvgIconsComponent
-              containerClass="w-20 h-20" // Tamaño adaptado al círculo
+              containerClass="w-20 h-20 items-center" // Tamaño adaptado al círculo
               type="logo1" // Asegúrate de pasar el tipo de logo
             />
           )}

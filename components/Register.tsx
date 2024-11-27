@@ -1,7 +1,6 @@
 import React from "react";
 import { View, TouchableOpacity, Text } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { Bubble } from "./Bubbles";
 import { SvgIconsComponent } from "./SvgIconsComponent";
 
 type RootStackParamList = {
@@ -20,35 +19,10 @@ export const Register: React.FC<RegisterScreenProps> = ({ navigation }) => {
   return (
     <View className="flex flex-col justify-between items-center h-full">
       <SvgIconsComponent
-        containerClass="w-56 h-44 z-10 mt-[120px]"
+        containerClass="w-56 h-44 z-10 mt-[120px] items-center"
         type="logo1"
       />
 
-      <Bubble
-        containerClass="absolute -bottom-20 -right-16 z-0"
-        type="bubble1"
-        rotation={-45}
-      />
-      <Bubble
-        containerClass="absolute -top-20 -left-16 z-0"
-        type="bubble2"
-        rotation={-45}
-      />
-      <Bubble
-        containerClass="absolute top-36 right-10 z-0"
-        type="bubble3"
-        rotation={-45}
-      />
-      <Bubble
-        containerClass="absolute bottom-96 right-72 z-0"
-        type="bubble4"
-        rotation={-45}
-      />
-      <Bubble
-        containerClass="absolute bottom-32 right-80 z-0"
-        type="bubble5"
-        rotation={-60}
-      />
       <View className="flex items-center gap-4 px-6 mt-4 mb-6 text-typography">
         <TouchableOpacity
           className="flex flex-row items-center justify-center gap-4 bg-[#f2f2f2] border border-black rounded-lg w-full p-4"
