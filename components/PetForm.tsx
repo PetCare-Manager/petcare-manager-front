@@ -1,24 +1,40 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { Bubble } from "@/components/Bubbles";
+import { breeds as breedData, Breed } from "@/utils/breeds";
 
 export const PetForm = () => {
   const [isNeutered, setIsNeutered] = useState<boolean | null>(false);
   const [breedOpen, setBreedOpen] = useState(false);
-  const [selectedBreed, setSelectedBreed] = useState("");
-  const [breeds, setBreeds] = useState([
-    { label: "Akita Inu", value: "akita_inu" },
-    { label: "Border Collie", value: "border_collie" },
-  ]);
+  const [selectedBreed, setSelectedBreed] = useState<string | null>(null);
+
+  // Convertimos las razas para el Dropdown
+  const [breeds, setBreeds] = useState(
+    breedData.map((breed) => ({
+      label: breed.name,
+      value: breed.name,
+    }))
+  );
 
   const handleSubmit = () => {
+    if (!selectedBreed) {
+      alert("Por favor, selecciona una raza");
+      return;
+    }
+
     const petData = {
       breed: selectedBreed,
       isNeutered,
     };
+
     console.log("Datos de la mascota", petData);
   };
+
+  // Buscar la imagen correspondiente a la raza seleccionada
+  const selectedBreedImage = breedData.find(
+    (breed) => breed.name === selectedBreed
+  )?.image;
 
   return (
     <View className="flex-1 bg-white">
@@ -50,7 +66,7 @@ export const PetForm = () => {
       />
 
       <View className="flex-1 justify-center px-6">
-        <Text className=" font-afacad-semibold text-3xl text-center text-typography mb-8">
+        <Text className="font-afacad-semibold text-3xl text-center text-typography mb-8">
           Añadir mascota
         </Text>
 
@@ -85,12 +101,13 @@ export const PetForm = () => {
           setValue={setSelectedBreed}
           setItems={setBreeds}
           placeholder="Selecciona la raza"
-          zIndex={5000} // Asegura el orden correcto en la pila de renderizado
-          autoScroll={true} // Permite el desplazamiento automático si no hay espacio suficiente
+          zIndex={5000}
+          autoScroll={true}
           style={{
             backgroundColor: "#f3f4f6",
             borderColor: "#d1d5db",
             borderRadius: 8,
+            marginBottom: 48,
           }}
           dropDownContainerStyle={{
             backgroundColor: "#f3f4f6",
@@ -101,7 +118,7 @@ export const PetForm = () => {
         {/* Botón */}
         <TouchableOpacity
           onPress={handleSubmit}
-          className="bg-primary rounded-lg py-3 mt-6"
+          className="bg-primary rounded-lg py-3"
         >
           <Text className="text-white text-center text-lg font-medium">
             Añadir Mascota
