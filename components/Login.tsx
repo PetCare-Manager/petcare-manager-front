@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, TextInput, TouchableOpacity, Text } from "react-native";
 import { SvgIconsComponent } from "@/components/SvgIconsComponent";
 
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Bubble } from "./Bubbles";
+import { validateEmail } from "@/utils/validation";
+import { AuthContext } from "@/context/AuthContext";
 
 type RootStackParamList = {
   Home: undefined;
@@ -16,14 +18,36 @@ type RootStackParamList = {
 type LoginScreenProps = NativeStackScreenProps<RootStackParamList, "Login">;
 
 export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
-  // Estados para los campos de entrada
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const authContext = useContext(AuthContext);
 
-  // Función de validación de email
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+  if (!authContext) {
+    throw new Error("AuthContext must be used within an AuthProvider");
+  }
+
+  const { login } = authContext;
+  // Estados para los campos de entrada
+  const [email, setEmail] = useState("lluvia@lluvia.com");
+  const [password, setPassword] = useState("Lluvia@lluvia.com1");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleLogin = async () => {
+    setErrorMessage("");
+    if (!email || !password) {
+      setErrorMessage("Email y password requeridos");
+      return;
+    }
+    if (!validateEmail(email)) {
+      setErrorMessage("Introduce un email válido");
+      return;
+    }
+
+    try {
+      const response = await login(email, password);
+      console.log("HAAAAAAAAAAAAAAAAAAAAAAAA", response);
+      navigation.navigate("UserProfile");
+    } catch (error: any) {
+      setErrorMessage(error?.message || "Hubo un error al iniciar sesión");
+    }
   };
   return (
     <View className="flex flex-col justify-between items-center h-full">
@@ -82,9 +106,15 @@ export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
           onChangeText={setPassword}
           className="bg-[#f2f2f2] border border-inputborder rounded-lg w-full p-2"
         />
+        {/* Mostrar mensaje de error si existe */}
+        {errorMessage ? (
+          <Text className="text-red-500 text-base mt-2 text-center">
+            {errorMessage}
+          </Text>
+        ) : null}
         <TouchableOpacity
           className="bg-primary px-14 py-4 rounded-2xl mt-4"
-          onPress={() => navigation.navigate("UserProfile")}
+          onPress={handleLogin}
         >
           <Text className="text-white text-center font-raleway-semibold text-base">
             Login
