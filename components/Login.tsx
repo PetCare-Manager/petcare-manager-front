@@ -5,7 +5,7 @@ import { SvgIconsComponent } from "@/components/SvgIconsComponent";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Bubble } from "./Bubbles";
 import { validateEmail } from "@/utils/validation";
-import { AuthContext } from "@/context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 
 type RootStackParamList = {
   Home: undefined;
@@ -18,13 +18,7 @@ type RootStackParamList = {
 type LoginScreenProps = NativeStackScreenProps<RootStackParamList, "Login">;
 
 export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
-  const authContext = useContext(AuthContext);
-
-  if (!authContext) {
-    throw new Error("AuthContext must be used within an AuthProvider");
-  }
-
-  const { login } = authContext;
+  const { login } = useAuth();
   // Estados para los campos de entrada
   const [email, setEmail] = useState("lluvia@lluvia.com");
   const [password, setPassword] = useState("Lluvia@lluvia.com1");
@@ -42,8 +36,7 @@ export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
     }
 
     try {
-      const response = await login(email, password);
-      console.log("HAAAAAAAAAAAAAAAAAAAAAAAA", response);
+      await login(email, password);
       navigation.navigate("UserProfile");
     } catch (error: any) {
       setErrorMessage(error?.message || "Hubo un error al iniciar sesión");

@@ -9,7 +9,6 @@ const axiosInstance = axios.create({
     "Content-Type": "application/json",
   },
 });
-console.log("AxiosIncatnce")
 // Interceptor de respuestas para manejar errores globalmente
 axiosInstance.interceptors.response.use(
   (response) => response, // Si la respuesta es exitosa, la pasamos al siguiente paso.

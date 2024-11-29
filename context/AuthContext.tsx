@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 import axiosInstance from "./../api/axiosInstance";
 import authService from "@/services/authService";
 import { saveToken, getToken, removeToken } from "@/services/storageService";
@@ -48,6 +48,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
       await saveToken(jwtToken);
       updateToken(jwtToken);
+      setToken(jwtToken);
       setIsAuthenticated(true);
     } catch (error: any) {
       console.error("Login failed:", error.message || error);
@@ -67,9 +68,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   return (
     <AuthContext.Provider
-      value={{ token, login, logout, isAuthenticated: !!token }}
+      value={{ token, login, logout, isAuthenticated}}
     >
       {children}
     </AuthContext.Provider>
   );
+};
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth debe ser usado dentro de AuthProvider");
+  }
+  return context;
 };

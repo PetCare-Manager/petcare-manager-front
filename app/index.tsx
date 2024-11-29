@@ -12,6 +12,7 @@ import { NotRememberPass } from "@/components/NotRememberPass";
 import { EmailRegister } from "@/components/EmailRegister";
 import { PetForm } from "@/components/PetForm";
 import { AuthProvider } from "@/context/AuthContext";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
 
 // Define el tipo para las rutas de navegación
 type RootStackParamList = {
@@ -22,12 +23,17 @@ type RootStackParamList = {
   NotRememberPass: undefined;
   UserProfile: undefined;
   PetForm: undefined;
+  ProtectedRoute: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 // Define los tipos de props para cada pantalla
 type HomeScreenProps = NativeStackScreenProps<RootStackParamList, "Home">;
+type ProtectedRouteProps = NativeStackScreenProps<
+  RootStackParamList,
+  "ProtectedRoute"
+>;
 type RegisterProps = NativeStackScreenProps<RootStackParamList, "Register">;
 type LoginProps = NativeStackScreenProps<RootStackParamList, "Login">;
 type EmailRegisterProps = NativeStackScreenProps<
@@ -93,14 +99,17 @@ export default function Home() {
           )}
           options={{ headerShown: true, headerTitle: "" }}
         />
+        {/* Ruta protegida: UserProfile */}
         <Stack.Screen
           name="UserProfile"
           children={(props: UserProfileProps) => (
-            <Wrapper>
-              <UserProfile {...props} name="Carol" />
-            </Wrapper>
+            <ProtectedRoute>
+              <Wrapper>
+                <UserProfile {...props} />
+              </Wrapper>
+            </ProtectedRoute>
           )}
-          options={{ headerShown: true, headerTitle: "" }}
+          options={{ headerShown: true, headerTitle: "Perfil de Usuario" }}
         />
         <Stack.Screen
           name="PetForm"
