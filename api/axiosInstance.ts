@@ -13,9 +13,10 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.response.use(
   (response) => response, // Si la respuesta es exitosa, la pasamos al siguiente paso.
   (error) => {
-    console.log(error)
+    console.log("AxiosInstance", error)
     // Aquí manejamos los errores con el errorHandler
-    return Promise.reject(handleBackendError(error)); // Llama al handler y lo pasa a donde se necesite
+    const backendError = handleBackendError(error);
+    return Promise.reject(backendError); // Llama al handler y lo pasa a donde se necesite
   }
 );
 

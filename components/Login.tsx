@@ -20,8 +20,8 @@ type LoginScreenProps = NativeStackScreenProps<RootStackParamList, "Login">;
 export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
   const { login } = useAuth();
   // Estados para los campos de entrada
-  const [email, setEmail] = useState("lluvia@lluvia.com");
-  const [password, setPassword] = useState("Lluvia@lluvia.com1");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleLogin = async () => {

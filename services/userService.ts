@@ -1,29 +1,23 @@
+import { Email } from "@/assets/svg/email.svg";
 import axiosInstance from "@/api/axiosInstance";
 import { BackendError, handleBackendError } from "./../utils/errorHandler"; // Importamos la clase y función de manejo de errores
-interface LoginResponse {
-  token?: string;
-  error: string;
-  statusCode: number;
+
+//creamos la interface
+interface RegisterUser {
+  email: string;
+  password: string;
 }
-const login = async (
-  email: string,
-  password: string
-): Promise<LoginResponse> => {
+
+const register = async (email: string, password: string): Promise<any> => {
   try {
-    const response = await axiosInstance.post("/login", {
+    const response = await axiosInstance.post<RegisterUser>("/users", {
       email,
       password,
     });
-    console.log("AuthService", response.data);
-    if (!response.data?.token) {
-      throw new Error("Token not found in the response");
-    }
+    console.log("Register", response.data);
     return response.data;
   } catch (error: any) {
-    // Manejamos los errores con la clase BackendError
     const backendError = handleBackendError(error);
-
-    // Si se trata de un BackendError, retornamos el mensaje y el código
     if (backendError instanceof BackendError) {
       // Si el error es de tipo `BackendError`, mostramos información relevante
       console.error(
@@ -36,11 +30,11 @@ const login = async (
     }
 
     // Si no es un BackendError, retornamos un mensaje genérico
+    // Si es un error desconocido, lo lanzamos como genérico
     console.error("Unknown error occurred during registration:", error);
     throw new Error(
       "Ocurrió un error desconocido. Por favor, inténtalo más tarde."
     );
   }
 };
-
-export default { login };
+export default { register };
