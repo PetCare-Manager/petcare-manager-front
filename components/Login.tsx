@@ -4,6 +4,7 @@ import { SvgIconsComponent } from "@/components/SvgIconsComponent";
 
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
+
 type RootStackParamList = {
   Home: undefined;
   Register: undefined;
