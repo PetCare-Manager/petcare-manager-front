@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { handleBackendError } from "../utils/errorHandler";
-import { BACK_URL } from '@env';
+const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
 
 const axiosInstance = axios.create({
