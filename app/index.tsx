@@ -12,6 +12,8 @@ import { NotRememberPass } from "@/components/NotRememberPass";
 import { EmailRegister } from "@/components/EmailRegister";
 import { PetForm } from "@/components/PetForm";
 import { FormEvent } from "@/components/FormEvent";
+import { AuthProvider } from "@/context/AuthContext";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
 
 // Define el tipo para las rutas de navegación
 type RootStackParamList = {
@@ -23,12 +25,17 @@ type RootStackParamList = {
   UserProfile: undefined;
   PetForm: undefined;
   FormEvent: undefined;
+  ProtectedRoute: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 // Define los tipos de props para cada pantalla
 type HomeScreenProps = NativeStackScreenProps<RootStackParamList, "Home">;
+type ProtectedRouteProps = NativeStackScreenProps<
+  RootStackParamList,
+  "ProtectedRoute"
+>;
 type RegisterProps = NativeStackScreenProps<RootStackParamList, "Register">;
 type LoginProps = NativeStackScreenProps<RootStackParamList, "Login">;
 type EmailRegisterProps = NativeStackScreenProps<
@@ -44,83 +51,87 @@ type UserProfileProps = NativeStackScreenProps<
   "UserProfile"
 >;
 type PetFormProps = NativeStackScreenProps<RootStackParamList, "PetForm">;
-type FormEventProps = NativeStackScreenProps<RootStackParamList, "FormEvent">;
 
 export default function Home() {
   return (
-    <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen
-        name="Home"
-        children={(props: HomeScreenProps) => (
-          <Wrapper>
-            <HomeScreen {...props} />
-          </Wrapper>
-        )}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Register"
-        children={(props: RegisterProps) => (
-          <Wrapper>
-            <Register {...props} />
-          </Wrapper>
-        )}
-        options={{ headerShown: true, headerTitle: "" }}
-      />
-      <Stack.Screen
-        name="Login"
-        children={(props: LoginProps) => (
-          <Wrapper>
-            <Login {...props} />
-          </Wrapper>
-        )}
-        options={{ headerShown: true, headerTitle: "" }}
-      />
-      <Stack.Screen
-        name="EmailRegister"
-        children={(props: EmailRegisterProps) => (
-          <Wrapper>
-            <EmailRegister {...props} />
-          </Wrapper>
-        )}
-        options={{ headerShown: true, headerTitle: "" }}
-      />
-      <Stack.Screen
-        name="NotRememberPass"
-        children={(props: NotRememberPassProps) => (
-          <Wrapper>
-            <NotRememberPass {...props} />
-          </Wrapper>
-        )}
-        options={{ headerShown: true, headerTitle: "" }}
-      />
-      <Stack.Screen
-        name="UserProfile"
-        children={(props: UserProfileProps) => (
-          <Wrapper>
-            <UserProfile {...props} name="Carol" />
-          </Wrapper>
-        )}
-        options={{ headerShown: true, headerTitle: "" }}
-      />
-      <Stack.Screen
-        name="PetForm"
-        children={(props: PetFormProps) => (
-          <Wrapper>
-            <PetForm {...props} />
-          </Wrapper>
-        )}
-        options={{ headerShown: true, headerTitle: "" }}
-      />
-      <Stack.Screen
-        name="FormEvent"
-        children={(props: FormEventProps) => (
-          <Wrapper>
-            <FormEvent {...props} />
-          </Wrapper>
-        )}
-        options={{ headerShown: true, headerTitle: "" }}
-      />
-    </Stack.Navigator>
+    <AuthProvider>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen
+          name="Home"
+          children={(props: HomeScreenProps) => (
+            <Wrapper>
+              <HomeScreen {...props} />
+            </Wrapper>
+          )}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Register"
+          children={(props: RegisterProps) => (
+            <Wrapper>
+              <Register {...props} />
+            </Wrapper>
+          )}
+          options={{ headerShown: true, headerTitle: "" }}
+        />
+        <Stack.Screen
+          name="Login"
+          children={(props: LoginProps) => (
+            <Wrapper>
+              <Login {...props} />
+            </Wrapper>
+          )}
+          options={{ headerShown: true, headerTitle: "" }}
+        />
+        <Stack.Screen
+          name="EmailRegister"
+          children={(props: EmailRegisterProps) => (
+            <Wrapper>
+              <EmailRegister {...props} />
+            </Wrapper>
+          )}
+          options={{ headerShown: true, headerTitle: "" }}
+        />
+        <Stack.Screen
+          name="NotRememberPass"
+          children={(props: NotRememberPassProps) => (
+            <Wrapper>
+              <NotRememberPass {...props} />
+            </Wrapper>
+          )}
+          options={{ headerShown: true, headerTitle: "" }}
+        />
+        {/* Ruta protegida: UserProfile */}
+        <Stack.Screen
+          name="UserProfile"
+          children={(props: UserProfileProps) => (
+            <ProtectedRoute>
+              <Wrapper>
+                <UserProfile {...props} />
+              </Wrapper>
+            </ProtectedRoute>
+          )}
+          options={{ headerShown: true, headerTitle: "Perfil de Usuario" }}
+        />
+        <Stack.Screen
+          name="PetForm"
+          children={(props: PetFormProps) => (
+            <Wrapper>
+              <PetForm {...props} />
+            </Wrapper>
+          )}
+          options={{ headerShown: true, headerTitle: "" }}
+        />
+        <Stack.Screen
+          name="FormEvent"
+          children={(props: FormEventProps) => (
+            <Wrapper>
+              <FormEvent {...props} />
+            </Wrapper>
+          )}
+          options={{ headerShown: true, headerTitle: "" }}
+        />
+      </Stack.Navigator>
+    </AuthProvider>
   );
 }
