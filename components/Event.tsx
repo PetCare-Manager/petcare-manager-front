@@ -28,9 +28,9 @@ export const Event: React.FC<EventProps> = ({
   };
 
   return (
-    <View className="flex flex-row items-center bg-white rounded-lg p-4">
+    <View className="flex flex-row items-center rounded-lg p-4">
       {/* Left Vertical Bar */}
-      <View className="w-1 bg-customblue h-full rounded-lg" />
+      <View className="w-1 bg-secondary h-full rounded-lg" />
       <View className="container shadow rounded-lg">
         {/* Content Area */}
         <View className="p-4 flex-1">
@@ -43,12 +43,12 @@ export const Event: React.FC<EventProps> = ({
             <FontAwesome
               name="clock-o"
               size={20}
-              className="text-gray-600 ml-2"
+              className="text-typography ml-2"
             />
           </View>
           {/* Date and Time */}
           <View className="flex-row items-center">
-            <Text className="text-typography font-raleway-regular text-sm">
+            <Text className="text-typography font-afacad-regular text-m">
               {isValidDate(date)
                 ? new Date(date).toLocaleDateString("es-ES", {
                     weekday: "long",
@@ -77,7 +77,7 @@ export const Event: React.FC<EventProps> = ({
                 />
               ))
             ) : (
-              <Text className="text-gray-500">No hay perros asociados</Text>
+              <Text className=" text-typography">No hay perros asociados</Text>
             )}
           </View>
         </View>
