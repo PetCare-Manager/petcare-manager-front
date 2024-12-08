@@ -9,9 +9,9 @@ import {
   ScrollView,
 } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { validateEmail } from "@/utils/validation";
+import userService from "@/services/userService";
 import { MaterialIcons } from "@expo/vector-icons";
-import { validateEmail } from "@/utils/validation"; // Asegúrate de tener esta función de validación
-import { userService } from "@/api/authApi"; // Tu servicio para registrar al usuario
 
 type RootStackParamList = {
   Home: undefined;
@@ -32,29 +32,20 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [secureText, setSecureText] = useState(true);
+  const [isFocusedEmail, setIsFocusedEmail] = useState(false);
+  const [isFocusedPassword, setIsFocusedPassword] = useState(false);
+  const [isFocusedConfirmPassword, setIsFocusedConfirmPassword] =
+    useState(false);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
-  const [emailValid, setEmailValid] = useState(false);
-  const [passwordValid, setPasswordValid] = useState(false);
-  const [confirmPasswordValid, setConfirmPasswordValid] = useState(false);
 
-  // Expresión regular para validar la contraseña
-  const passwordRegex =
-    /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
+  // Validación y lógica de registro
   const handleRegister = async () => {
     setEmailError("");
     setPasswordError("");
     setConfirmPasswordError("");
     setErrorMessage("");
-
-    // Verificar si el email ya está registrado
-    const emailTaken = await userService.isEmailTaken(email);
-    if (emailTaken) {
-      setEmailError("Este correo electrónico ya está registrado.");
-      return;
-    }
 
     if (!validateEmail(email)) {
       setEmailError("Por favor, introduce un correo electrónico válido.");
@@ -63,26 +54,6 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
 
     if (password.length < 8) {
       setPasswordError("La contraseña debe tener al menos 8 caracteres.");
-      return;
-    }
-
-    if (!/[A-Z]/.test(password)) {
-      // Verificación de mayúsculas
-      setPasswordError(
-        "La contraseña debe contener al menos una letra mayúscula."
-      );
-      return;
-    }
-
-    if (!/\d/.test(password)) {
-      // Verificación de número
-      setPasswordError("La contraseña debe contener al menos un número.");
-      return;
-    }
-
-    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-      // Verificación de símbolo
-      setPasswordError("La contraseña debe contener al menos un símbolo.");
       return;
     }
 
@@ -99,28 +70,7 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
     }
   };
 
-  // Limpieza de errores cuando el valor del campo cambia
-  const handleEmailChange = (newEmail: string) => {
-    setEmail(newEmail);
-    if (emailError) {
-      setEmailError(""); // Limpia el error si se cambia el valor del email
-    }
-  };
-
-  const handlePasswordChange = (newPassword: string) => {
-    setPassword(newPassword);
-    if (passwordError) {
-      setPasswordError(""); // Limpia el error si se cambia el valor de la contraseña
-    }
-  };
-
-  const handleConfirmPasswordChange = (newConfirmPassword: string) => {
-    setConfirmPassword(newConfirmPassword);
-    if (confirmPasswordError) {
-      setConfirmPasswordError(""); // Limpia el error si se cambia el valor de la confirmación de contraseña
-    }
-  };
-
+  // Comprobación de si el botón debe estar deshabilitado
   const isButtonDisabled = Boolean(
     !email ||
       !password ||
@@ -149,7 +99,6 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
               Todo lo que necesitas de tu mascota, en tu bolsillo, a un solo
               click.
             </Text>
-
             {/* Correo electrónico */}
             <Text className="-mb-3 text-typography_2 font-raleway-medium text-base">
               Correo electrónico
@@ -158,11 +107,13 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
               placeholder="Introduce tu email"
               value={email}
               onChangeText={setEmail}
+              onFocus={() => setIsFocusedEmail(true)}
+              onBlur={() => setIsFocusedEmail(false)}
               className={`bg-customwhite p-4 text-sm rounded-lg w-full border ${
                 emailError
                   ? "border-red-500 text-red-500"
-                  : emailValid
-                  ? "border-green-500 text-green-500"
+                  : isFocusedEmail
+                  ? "border-blue-500"
                   : "border-inputborder"
               }`}
             />
@@ -188,11 +139,13 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
                 secureTextEntry={secureText}
                 value={password}
                 onChangeText={setPassword}
+                onFocus={() => setIsFocusedPassword(true)}
+                onBlur={() => setIsFocusedPassword(false)}
                 className={`bg-customwhite p-4 text-sm rounded-lg w-full border ${
                   passwordError
                     ? "border-red-500 text-red-500"
-                    : passwordValid
-                    ? "border-green-500 text-green-500"
+                    : isFocusedPassword
+                    ? "border-blue-500"
                     : "border-inputborder"
                 }`}
               />
@@ -229,11 +182,13 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
                 secureTextEntry={secureText}
                 value={confirmPassword}
                 onChangeText={setConfirmPassword}
+                onFocus={() => setIsFocusedConfirmPassword(true)}
+                onBlur={() => setIsFocusedConfirmPassword(false)}
                 className={`bg-customwhite p-4 text-sm rounded-lg w-full border ${
                   confirmPasswordError
                     ? "border-red-500 text-red-500"
-                    : confirmPasswordValid
-                    ? "border-green-500 text-green-500"
+                    : isFocusedConfirmPassword
+                    ? "border-blue-500"
                     : "border-inputborder"
                 }`}
               />
@@ -296,11 +251,15 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
                 Crear cuenta
               </Text>
             </TouchableOpacity>
-            <Text
-              className="text-center text-xs text-typography_2 font-raleway-medium"
-              onPress={() => navigation.navigate("Login")}
-            >
-              ¿Ya tienes cuenta? Inicia sesión.
+
+            <Text className="font-raleway-regular text-base text-center">
+              ¿Ya tienes cuenta?{" "}
+              <Text
+                className="font-raleway-semibold text-primary"
+                onPress={() => navigation.navigate("Login")}
+              >
+                Inicia sesión
+              </Text>
             </Text>
           </View>
         </ScrollView>
