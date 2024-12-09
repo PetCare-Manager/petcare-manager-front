@@ -31,7 +31,9 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [secureText, setSecureText] = useState(true);
+  const [secureTextPassword, setSecureTextPassword] = useState(true);
+  const [secureTextConfirmPassword, setSecureTextConfirmPassword] =
+    useState(true);
   const [isFocusedEmail, setIsFocusedEmail] = useState(false);
   const [isFocusedPassword, setIsFocusedPassword] = useState(false);
   const [isFocusedConfirmPassword, setIsFocusedConfirmPassword] =
@@ -40,27 +42,37 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
+  // Manejar cambios y validaciones dinámicas
+  const handleEmailChange = (value: string) => {
+    setEmail(value);
+    if (!validateEmail(value)) {
+      setEmailError("Por favor, introduce un correo electrónico válido.");
+    } else {
+      setEmailError("");
+    }
+  };
+
+  const handlePasswordChange = (value: string) => {
+    setPassword(value);
+    if (value.length < 8) {
+      setPasswordError("La contraseña debe tener al menos 8 caracteres.");
+    } else {
+      setPasswordError("");
+    }
+  };
+
+  const handleConfirmPasswordChange = (value: string) => {
+    setConfirmPassword(value);
+    if (value !== password) {
+      setConfirmPasswordError("Las contraseñas no coinciden.");
+    } else {
+      setConfirmPasswordError("");
+    }
+  };
+
   // Validación y lógica de registro
   const handleRegister = async () => {
-    setEmailError("");
-    setPasswordError("");
-    setConfirmPasswordError("");
-    setErrorMessage("");
-
-    if (!validateEmail(email)) {
-      setEmailError("Por favor, introduce un correo electrónico válido.");
-      return;
-    }
-
-    if (password.length < 8) {
-      setPasswordError("La contraseña debe tener al menos 8 caracteres.");
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      setConfirmPasswordError("Las contraseñas no coinciden.");
-      return;
-    }
+    if (emailError || passwordError || confirmPasswordError) return;
 
     try {
       await userService.register(email, password);
@@ -72,12 +84,7 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
 
   // Comprobación de si el botón debe estar deshabilitado
   const isButtonDisabled = Boolean(
-    !email ||
-      !password ||
-      !confirmPassword ||
-      emailError ||
-      passwordError ||
-      confirmPasswordError
+    emailError || passwordError || confirmPasswordError
   );
 
   return (
@@ -106,7 +113,7 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
             <TextInput
               placeholder="Introduce tu email"
               value={email}
-              onChangeText={setEmail}
+              onChangeText={handleEmailChange}
               onFocus={() => setIsFocusedEmail(true)}
               onBlur={() => setIsFocusedEmail(false)}
               className={`bg-customwhite p-4 text-sm rounded-lg w-full border ${
@@ -117,7 +124,7 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
                   : "border-inputborder"
               }`}
             />
-            {emailError ? (
+            {emailError && (
               <View className="flex flex-row items-center mt-1">
                 <MaterialIcons
                   name="warning"
@@ -127,7 +134,7 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
                 />
                 <Text className="text-red-500 text-xs">{emailError}</Text>
               </View>
-            ) : null}
+            )}
 
             {/* Contraseña */}
             <Text className="-mb-3 text-typography_2 font-raleway-medium text-base">
@@ -136,9 +143,9 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
             <View className="relative">
               <TextInput
                 placeholder="Introduce tu contraseña"
-                secureTextEntry={secureText}
+                secureTextEntry={secureTextPassword}
                 value={password}
-                onChangeText={setPassword}
+                onChangeText={handlePasswordChange}
                 onFocus={() => setIsFocusedPassword(true)}
                 onBlur={() => setIsFocusedPassword(false)}
                 className={`bg-customwhite p-4 text-sm rounded-lg w-full border ${
@@ -150,17 +157,17 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
                 }`}
               />
               <TouchableOpacity
-                onPress={() => setSecureText(!secureText)}
+                onPress={() => setSecureTextPassword(!secureTextPassword)}
                 className="absolute right-2 top-1/2 transform -translate-y-1/2"
               >
                 <MaterialIcons
-                  name={secureText ? "visibility" : "visibility-off"}
+                  name={secureTextPassword ? "visibility" : "visibility-off"}
                   size={24}
                   color="#666"
                 />
               </TouchableOpacity>
             </View>
-            {passwordError ? (
+            {passwordError && (
               <View className="flex flex-row items-center mt-1">
                 <MaterialIcons
                   name="warning"
@@ -170,7 +177,7 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
                 />
                 <Text className="text-red-500 text-xs">{passwordError}</Text>
               </View>
-            ) : null}
+            )}
 
             {/* Confirmar contraseña */}
             <Text className="-mb-3 text-typography_2 font-raleway-medium text-base">
@@ -179,9 +186,9 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
             <View className="relative">
               <TextInput
                 placeholder="Repite tu contraseña"
-                secureTextEntry={secureText}
+                secureTextEntry={secureTextConfirmPassword}
                 value={confirmPassword}
-                onChangeText={setConfirmPassword}
+                onChangeText={handleConfirmPasswordChange}
                 onFocus={() => setIsFocusedConfirmPassword(true)}
                 onBlur={() => setIsFocusedConfirmPassword(false)}
                 className={`bg-customwhite p-4 text-sm rounded-lg w-full border ${
@@ -193,17 +200,21 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
                 }`}
               />
               <TouchableOpacity
-                onPress={() => setSecureText(!secureText)}
+                onPress={() =>
+                  setSecureTextConfirmPassword(!secureTextConfirmPassword)
+                }
                 className="absolute right-2 top-1/2 transform -translate-y-1/2"
               >
                 <MaterialIcons
-                  name={secureText ? "visibility" : "visibility-off"}
+                  name={
+                    secureTextConfirmPassword ? "visibility" : "visibility-off"
+                  }
                   size={24}
                   color="#666"
                 />
               </TouchableOpacity>
             </View>
-            {confirmPasswordError ? (
+            {confirmPasswordError && (
               <View className="flex flex-row items-center mt-1">
                 <MaterialIcons
                   name="warning"
@@ -215,9 +226,9 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
                   {confirmPasswordError}
                 </Text>
               </View>
-            ) : null}
+            )}
 
-            {/* Requisitos de la contraseña con el ícono */}
+            {/* Requisitos de la contraseña */}
             <View className="flex flex-row items-start mt-2">
               <MaterialIcons
                 name="info-outline"
@@ -232,11 +243,11 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
             </View>
 
             {/* Mostrar mensaje de error general */}
-            {errorMessage ? (
+            {errorMessage && (
               <Text className="text-red-500 text-base mt-2 text-center">
                 {errorMessage}
               </Text>
-            ) : null}
+            )}
           </View>
 
           <View className="flex mb-20 gap-2 px-12 w-full">
