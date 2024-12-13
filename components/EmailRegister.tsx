@@ -18,7 +18,7 @@ type RootStackParamList = {
   Register: undefined;
   EmailRegister: undefined;
   Login: undefined;
-  Loading: { message: string }; // Agregar la pantalla Loading con parámetro
+  Loading: { message: string };
 };
 
 type EmailRegisterProps = NativeStackScreenProps<
@@ -82,7 +82,7 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
       });
 
       setTimeout(() => {
-        navigation.navigate("Login"); // Cambia "Home" a tu pantalla de perfil de usuario
+        navigation.navigate("Login");
       }, 2000);
     } catch (error: any) {
       setErrorMessage(error.message || "Error en el registro.");
