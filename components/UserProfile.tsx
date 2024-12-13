@@ -1,15 +1,21 @@
-import React from "react";
-import { View, Text, TouchableOpacity, Button } from "react-native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-
-import { AddPetCard } from "./AddPetCard";
-import { UserAvatar } from "./UserAvatar";
 import { useAuth } from "@/context/AuthContext";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import React from "react";
+import { Text, TouchableOpacity, View } from "react-native";
+import { AddPetCard } from "./AddPetCard";
+import { CreateEvent } from "./CreateEvent";
+import { Event } from "./Event";
+import { UserAvatar } from "./UserAvatar";
 
-type UserProfileProps = NativeStackScreenProps<RootStackParamList, "PetForm">;
+type UserProfileProps = NativeStackScreenProps<
+  RootStackParamList,
+  "PetForm",
+  "FormEvent"
+>;
 
 type RootStackParamList = {
   PetForm: undefined;
+  FormEvent: undefined;
 };
 
 export const UserProfile: React.FC<UserProfileProps> = ({ navigation }) => {
@@ -24,7 +30,6 @@ export const UserProfile: React.FC<UserProfileProps> = ({ navigation }) => {
       <Text className="mt-4 text-2xl font-raleway-regular text-gray-800">
         Hola, ¡disfruta tu día!
       </Text>
-      <Button title="Cerrar Sesión" onPress={handleLogout} />
 
       {/* Sección de mascotas */}
       <View className="w-full mt-6 px-4">
@@ -33,7 +38,15 @@ export const UserProfile: React.FC<UserProfileProps> = ({ navigation }) => {
         </Text>
         {/* Aquí se pasa la propiedad navigation a AddPetCard */}
         <AddPetCard navigation={navigation} />
+        <CreateEvent navigation={navigation} />
+        <Event />
       </View>
+      <TouchableOpacity
+        onPress={handleLogout}
+        className="bg-primary px-14 py-4 rounded-2xl mt-4 "
+      >
+        <Text className="text-customwhite"> Cerrar sesión</Text>
+      </TouchableOpacity>
     </View>
   );
 };
