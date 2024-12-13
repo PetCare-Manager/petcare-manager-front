@@ -1,23 +1,24 @@
+import userService from "@/services/userService";
+import { validateEmail } from "@/utils/validation";
+import { MaterialIcons } from "@expo/vector-icons";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import {
-  View,
-  TextInput,
-  Text,
-  TouchableOpacity,
-  SafeAreaView,
   KeyboardAvoidingView,
+  SafeAreaView,
   ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { validateEmail } from "@/utils/validation";
-import userService from "@/services/userService";
-import { MaterialIcons } from "@expo/vector-icons";
 
 type RootStackParamList = {
   Home: undefined;
   Register: undefined;
   EmailRegister: undefined;
   Login: undefined;
+  Loading: { message: string }; // Agregar la pantalla Loading con parámetro
 };
 
 type EmailRegisterProps = NativeStackScreenProps<
@@ -76,7 +77,13 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
 
     try {
       await userService.register(email, password);
-      navigation.navigate("Login");
+      navigation.navigate("Loading", {
+        message: "Registro completado con éxito",
+      });
+
+      setTimeout(() => {
+        navigation.navigate("Login"); // Cambia "Home" a tu pantalla de perfil de usuario
+      }, 2000);
     } catch (error: any) {
       setErrorMessage(error.message || "Error en el registro.");
     }
