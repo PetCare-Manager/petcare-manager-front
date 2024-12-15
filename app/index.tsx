@@ -1,22 +1,24 @@
-import React from "react";
+import { EmailRegister } from "@/components/EmailRegister";
+import { FormEvent } from "@/components/FormEvent";
+import { HomeScreen } from "@/components/HomeScreen";
+import { LoadingScreen } from "@/components/LoadingScreen"; // Asegúrate de importar correctamente
+import { Login } from "@/components/Login";
+import { NotRememberPass } from "@/components/NotRememberPass";
+import { PetForm } from "@/components/PetForm";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { Register } from "@/components/Register";
+import { UserProfile } from "@/components/UserProfile";
+import { Wrapper } from "@/components/Wrapper";
+import { AuthProvider } from "@/context/AuthContext";
 import {
   createNativeStackNavigator,
   NativeStackScreenProps,
 } from "@react-navigation/native-stack";
-import { Wrapper } from "@/components/Wrapper";
-import { HomeScreen } from "@/components/HomeScreen";
-import { Login } from "@/components/Login";
-import { Register } from "@/components/Register";
-import { UserProfile } from "@/components/UserProfile";
-import { NotRememberPass } from "@/components/NotRememberPass";
-import { EmailRegister } from "@/components/EmailRegister";
-import { PetForm } from "@/components/PetForm";
-import { FormEvent } from "@/components/FormEvent";
-import { AuthProvider } from "@/context/AuthContext";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
+import React from "react";
 
 // Define el tipo para las rutas de navegación
 type RootStackParamList = {
+  Loading: undefined; // Añade la pantalla de carga
   Home: undefined;
   Register: undefined;
   EmailRegister: undefined;
@@ -31,6 +33,7 @@ type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 // Define los tipos de props para cada pantalla
+type LoadingScreenProps = NativeStackScreenProps<RootStackParamList, "Loading">;
 type HomeScreenProps = NativeStackScreenProps<RootStackParamList, "Home">;
 type ProtectedRouteProps = NativeStackScreenProps<
   RootStackParamList,
@@ -52,10 +55,18 @@ type UserProfileProps = NativeStackScreenProps<
 >;
 type PetFormProps = NativeStackScreenProps<RootStackParamList, "PetForm">;
 
-export default function Home() {
+export default function App() {
   return (
     <AuthProvider>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Loading">
+        {/* Pantalla de Carga */}
+        <Stack.Screen
+          name="Loading"
+          children={(props: LoadingScreenProps) => <LoadingScreen {...props} />}
+          options={{ headerShown: false }}
+        />
+
+        {/* Pantalla Home */}
         <Stack.Screen
           name="Home"
           children={(props: HomeScreenProps) => (
@@ -65,6 +76,8 @@ export default function Home() {
           )}
           options={{ headerShown: false }}
         />
+
+        {/* Pantalla Registro */}
         <Stack.Screen
           name="Register"
           children={(props: RegisterProps) => (
@@ -74,6 +87,8 @@ export default function Home() {
           )}
           options={{ headerShown: true, headerTitle: "" }}
         />
+
+        {/* Pantalla Login */}
         <Stack.Screen
           name="Login"
           children={(props: LoginProps) => (
@@ -83,6 +98,8 @@ export default function Home() {
           )}
           options={{ headerShown: true, headerTitle: "" }}
         />
+
+        {/* Pantalla Email Register */}
         <Stack.Screen
           name="EmailRegister"
           children={(props: EmailRegisterProps) => (
@@ -92,6 +109,8 @@ export default function Home() {
           )}
           options={{ headerShown: true, headerTitle: "" }}
         />
+
+        {/* Pantalla No recuerda contraseña */}
         <Stack.Screen
           name="NotRememberPass"
           children={(props: NotRememberPassProps) => (
@@ -101,6 +120,7 @@ export default function Home() {
           )}
           options={{ headerShown: true, headerTitle: "" }}
         />
+
         {/* Ruta protegida: UserProfile */}
         <Stack.Screen
           name="UserProfile"
@@ -113,6 +133,8 @@ export default function Home() {
           )}
           options={{ headerShown: true, headerTitle: "Perfil de Usuario" }}
         />
+
+        {/* Pantalla Formulario Mascotas */}
         <Stack.Screen
           name="PetForm"
           children={(props: PetFormProps) => (
@@ -122,6 +144,8 @@ export default function Home() {
           )}
           options={{ headerShown: true, headerTitle: "" }}
         />
+
+        {/* Pantalla Formulario Eventos */}
         <Stack.Screen
           name="FormEvent"
           children={(props: FormEventProps) => (

@@ -26,7 +26,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         <Text className="font-afacad-semibold text-[40px] lg:text-5xl text-center text-typography">
           PetCare Manager
         </Text>
-        <Text className="font-raleway-light text-typography_2 text-2xl lg:text-3xl text-center mt-6">
+        <Text className="font-raleway-regular text-typography_2 text-2xl lg:text-3xl text-center mt-6">
           Todo lo que necesitas de tu mascota, en tu bolsillo, a un solo click.
         </Text>
       </View>
@@ -43,21 +43,13 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => navigation.navigate("EmailRegister")}
-          className="bg-[#f2f2f2] px-11 py-4 rounded-2xl border border-primary"
+          className="bg-customwhite px-11 py-4 rounded-2xl border border-primary"
         >
-          <Text className="text-primary font-raleway-semibold text-base text-center">
+          <Text className="text-primary  font-raleway-semibold text-base text-center">
             Regístrate
           </Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        className="bg-primary px-14 py-4 rounded-2xl mt-4"
-        onPress={() => navigation.navigate("UserProfile")}
-      >
-        <Text className="text-customwhite text-center font-raleway-semibold text-base">
-          Prueba userprofile
-        </Text>
-      </TouchableOpacity>
     </View>
   );
 };

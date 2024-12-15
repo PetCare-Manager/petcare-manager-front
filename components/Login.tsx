@@ -1,11 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { View, TextInput, TouchableOpacity, Text } from "react-native";
-import { SvgIconsComponent } from "@/components/SvgIconsComponent";
-
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { Bubble } from "./Bubbles";
 import { validateEmail } from "@/utils/validation";
 import { useAuth } from "@/context/AuthContext";
+import { MaterialIcons } from "@expo/vector-icons";
 
 type RootStackParamList = {
   Home: undefined;
@@ -15,23 +13,32 @@ type RootStackParamList = {
   NotRememberPass: undefined;
   UserProfile: undefined;
 };
+
 type LoginScreenProps = NativeStackScreenProps<RootStackParamList, "Login">;
 
 export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
   const { login } = useAuth();
+
   // Estados para los campos de entrada
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [secureText, setSecureText] = useState(true); // Estado para la visibilidad de la contraseña
+  const [emailError, setEmailError] = useState(""); // Error específico para el email
+  const [passwordError, setPasswordError] = useState(""); // Error específico para la contraseña
+  const [errorMessage, setErrorMessage] = useState(""); // Mensaje de error general
+  const [isFocusedEmail, setIsFocusedEmail] = useState(false);
+  const [isFocusedPassword, setIsFocusedPassword] = useState(false);
 
   const handleLogin = async () => {
     setErrorMessage("");
+
     if (!email || !password) {
-      setErrorMessage("Email y password requeridos");
+      setErrorMessage("Por favor revisa tu correo electrónico y contraseña.");
       return;
     }
+
     if (!validateEmail(email)) {
-      setErrorMessage("Introduce un email válido");
+      setEmailError("Introduce un email válido.");
       return;
     }
 
@@ -39,98 +46,138 @@ export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
       await login(email, password);
       navigation.navigate("UserProfile");
     } catch (error: any) {
-      setErrorMessage(error?.message || "Hubo un error al iniciar sesión");
+      setErrorMessage(error?.message || "Hubo un error al iniciar sesión.");
     }
   };
+
+  // Validaciones en tiempo real
+  const handleEmailChange = (value: string) => {
+    setEmail(value);
+    if (!validateEmail(value)) {
+      setEmailError("Introduce un email válido.");
+    } else {
+      setEmailError("");
+    }
+  };
+
+  const handlePasswordChange = (value: string) => {
+    setPassword(value);
+    if (!value) {
+      setPasswordError("Introduce una contraseña.");
+    } else {
+      setPasswordError("");
+    }
+  };
+
+  const isButtonDisabled = Boolean(
+    !email || !password || emailError || passwordError
+  );
+
   return (
     <View className="flex flex-col justify-between items-center h-full">
-      <SvgIconsComponent
-        containerClass="w-56 h-44 z-10 mt-[120px]"
-        type="logo1"
-      />
-
-      {/* Burbujas decorativas */}
-      <Bubble
-        containerClass="absolute -bottom-20 -right-16 z-0"
-        type="bubble1"
-        rotation={-45}
-      />
-      <Bubble
-        containerClass="absolute -top-20 -left-16 z-0"
-        type="bubble2"
-        rotation={-45}
-      />
-      <Bubble
-        containerClass="absolute top-36 right-10 z-0"
-        type="bubble3"
-        rotation={-45}
-      />
-      <Bubble
-        containerClass="absolute bottom-96 right-72 z-0"
-        type="bubble4"
-        rotation={-45}
-      />
-      <Bubble
-        containerClass="absolute bottom-32 right-80 z-0"
-        type="bubble5"
-        rotation={-60}
-      />
-
       <View className="flex gap-4 mt-4 mb-6 w-full px-12">
+        <Text className="font-raleway-semibold text-base">
+          Todo lo que necesitas de tu mascota, en tu bolsillo, a un solo click.
+        </Text>
         {/* Correo electrónico */}
-        <Text className="-mb-3 uppercase font-afacad-regular text-base">
+        <Text className="-mb-3 text-typography_2 font-raleway-medium text-base">
           Correo electrónico
         </Text>
         <TextInput
-          placeholder="example@example.com"
+          placeholder="Introduce tu email"
           value={email}
-          onChangeText={setEmail}
-          className="bg-[#f2f2f2] border border-inputborder rounded-lg w-full p-2"
+          onChangeText={handleEmailChange}
+          selectionColor="transparent"
+          onFocus={() => setIsFocusedEmail(true)} // Cambia el estado al enfocar
+          onBlur={() => setIsFocusedEmail(false)} // Cambia el estado al desenfocar
+          className={`bg-customwhite p-4 text-sm rounded-lg w-full border ${
+            emailError
+              ? "border-red-500 text-red-500"
+              : isFocusedEmail
+              ? "border-blue-500"
+              : "border-inputborder"
+          }`}
         />
 
+        {emailError ? (
+          <Text className="text-red-500 text-xs mt-1">{emailError}</Text>
+        ) : null}
+
         {/* Contraseña */}
-        <Text className="-mb-3 uppercase font-afacad-regular text-base">
+        <Text className="-mb-3 text-typography_2 font-raleway-medium text-base">
           Contraseña
         </Text>
-        <TextInput
-          placeholder="************"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-          className="bg-[#f2f2f2] border border-inputborder rounded-lg w-full p-2"
-        />
-        {/* Mostrar mensaje de error si existe */}
+        <View className="relative">
+          <TextInput
+            placeholder="Introduce tu contraseña"
+            secureTextEntry={secureText}
+            value={password}
+            onChangeText={handlePasswordChange}
+            selectionColor="transparent"
+            onFocus={() => setIsFocusedPassword(true)} // Cambia el estado al enfocar
+            onBlur={() => setIsFocusedPassword(false)} // Cambia el estado al desenfocar
+            className={`bg-customwhite p-4 text-sm rounded-lg w-full border ${
+              emailError
+                ? "border-red-500 text-red-500"
+                : isFocusedPassword
+                ? "border-blue-500"
+                : "border-inputborder"
+            }`}
+          />
+          <TouchableOpacity
+            onPress={() => setSecureText(!secureText)}
+            className="absolute right-2 top-1/2 transform -translate-y-1/2"
+          >
+            <MaterialIcons
+              name={secureText ? "visibility" : "visibility-off"}
+              size={24}
+              color="#666"
+            />
+          </TouchableOpacity>
+        </View>
+        {passwordError ? (
+          <Text className="text-red-500 text-xs mt-1">{passwordError}</Text>
+        ) : null}
+
+        {/* Mostrar mensaje de error general si existe */}
         {errorMessage ? (
           <Text className="text-red-500 text-base mt-2 text-center">
             {errorMessage}
           </Text>
         ) : null}
-        <TouchableOpacity
-          className="bg-primary px-14 py-4 rounded-2xl mt-4"
-          onPress={handleLogin}
+
+        <Text
+          className="font-raleway-medium text-base underline mb-14"
+          onPress={() => navigation.navigate("NotRememberPass")}
         >
-          <Text className="text-white text-center font-raleway-semibold text-base">
-            Login
-          </Text>
-        </TouchableOpacity>
+          ¿Has olvidado tu contraseña?
+        </Text>
       </View>
 
-      {/* Link para iniciar sesión */}
-      <Text className="font-raleway-regular text-base ">
-        ¿No tienes cuenta?{" "}
-        <Text
-          className="font-raleway-bold text-typography_2"
-          onPress={() => navigation.navigate("EmailRegister")}
+      {/* Botón de Login */}
+      <View className="flex mb-20 gap-2 px-12 w-full">
+        <TouchableOpacity
+          className={`${
+            isButtonDisabled ? "bg-gray-300" : "bg-primary"
+          } px-14 py-4 rounded-2xl mt-4`}
+          onPress={handleLogin}
+          disabled={isButtonDisabled}
         >
-          ¡Regístrate!
+          <Text className="text-white text-center font-raleway-semibold text-base">
+            Iniciar sesión
+          </Text>
+        </TouchableOpacity>
+
+        <Text className="font-raleway-regular text-base text-center">
+          ¿No tienes cuenta?{" "}
+          <Text
+            className="font-raleway-bold text-typography_2"
+            onPress={() => navigation.navigate("EmailRegister")}
+          >
+            ¡Regístrate!
+          </Text>
         </Text>
-      </Text>
-      <Text
-        className="font-raleway-regular text-base mb-14"
-        onPress={() => navigation.navigate("NotRememberPass")}
-      >
-        ¿Has olvidado tu contraseña?
-      </Text>
+      </View>
     </View>
   );
 };
