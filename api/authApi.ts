@@ -19,7 +19,7 @@ export const registerUser = async (email: string, password: string) => {
 
 export const loginUser = async (email: string, password: string) => {
   try {
-    const response = await axios.post(`${BACK_URL}/login`, {
+    const response = await axios.post(`${BACK_URL}/auth/login`, {
       email,
       password,
     });
