@@ -5,7 +5,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { AddPetCard } from "./AddPetCard";
 import { CreateEvent } from "./CreateEvent";
 import { Event } from "./Event";
-import { UserAvatar } from "./UserAvatar";
+import { UserAvatar } from "./commons/UserAvatar";
 
 type UserProfileProps = NativeStackScreenProps<
   RootStackParamList,

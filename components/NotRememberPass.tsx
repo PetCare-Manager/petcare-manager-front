@@ -1,8 +1,8 @@
-import React from "react";
-import { View, Text, TouchableOpacity, TextInput } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import React from "react";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 
-import { SvgIconsComponent } from "./SvgIconsComponent";
+import { SvgIconsComponent } from "./commons/SvgIconsComponent";
 
 type RootStackParamList = {
   Home: undefined;

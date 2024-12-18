@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
+import { SvgIconsComponent } from "@/components/commons/SvgIconsComponent"; // Asegúrate de importar correctamente
 import * as ImagePicker from "expo-image-picker";
-import { SvgIconsComponent } from "@/components/SvgIconsComponent"; // Asegúrate de importar correctamente
+import React, { useEffect, useState } from "react";
+import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
 
 export interface UserAvatarProps {
   imageUrl?: string; // Imagen inicial si se proporciona

@@ -1,14 +1,14 @@
 import { EmailRegister } from "@/components/EmailRegister";
 import { FormEvent } from "@/components/FormEvent";
 import { HomeScreen } from "@/components/HomeScreen";
-import { LoadingScreen } from "@/components/LoadingScreen"; // Asegúrate de importar correctamente
 import { Login } from "@/components/Login";
 import { NotRememberPass } from "@/components/NotRememberPass";
 import { PetForm } from "@/components/PetForm";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { Register } from "@/components/Register";
 import { UserProfile } from "@/components/UserProfile";
-import { Wrapper } from "@/components/Wrapper";
+import { LoadingScreen } from "@/components/commons/LoadingScreen"; // Asegúrate de importar correctamente
+import { Wrapper } from "@/components/commons/Wrapper";
 import { AuthProvider } from "@/context/AuthContext";
 import {
   createNativeStackNavigator,
