@@ -23,3 +23,5 @@ axiosInstance.interceptors.response.use(
 );
 
 export default axiosInstance;
+
+//Añadir comprobación de backuRL no es undefined para que no te lleve a login sin tener back levantado
