@@ -1,5 +1,3 @@
-// src/api/axiosInstance.ts
-
 import axios from "axios";
 import { handleBackendError } from "../utils/errorHandler";
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
@@ -11,6 +9,21 @@ const axiosInstance = axios.create({
     "Content-Type": "application/json",
   },
 });
+
+//Interceptor de solicitudes
+axiosInstance.interceptors.request.use(
+  (config) => {
+    if(!BACK_URL) {
+      return Promise.reject(new Error("BACK_URL no está definido."));
+    }
+    return config
+  },
+  (error) => {
+    const backendError = handleBackendError(error);
+    return Promise.reject(backendError);
+  }
+);
+
 // Interceptor de respuestas para manejar errores globalmente
 axiosInstance.interceptors.response.use(
   (response) => response, // Si la respuesta es exitosa, la pasamos al siguiente paso.
