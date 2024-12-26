@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import LoadingButton from "./LoadingButton";
 
 type RootStackParamList = {
   Home: undefined;
@@ -42,6 +43,7 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // Manejar cambios y validaciones dinámicas
   const handleEmailChange = (value: string) => {
@@ -73,8 +75,10 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
 
   // Validación y lógica de registro
   const handleRegister = async () => {
+    setErrorMessage("");
+    setLoading(true);
     if (emailError || passwordError || confirmPasswordError) return;
-
+    
     try {
       await userService.register(email, password);
       navigation.navigate("Loading", {
@@ -86,12 +90,14 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
       }, 2000);
     } catch (error: any) {
       setErrorMessage(error.message || "Error en el registro.");
+    } finally {
+      setLoading(false); // Ocultar spinner
     }
   };
 
   // Comprobación de si el botón debe estar deshabilitado
   const isButtonDisabled = Boolean(
-    emailError || passwordError || confirmPasswordError
+   !email|| !password|| emailError || passwordError || confirmPasswordError
   );
 
   return (
@@ -256,20 +262,14 @@ export const EmailRegister: React.FC<EmailRegisterProps> = ({ navigation }) => {
               </Text>
             )}
           </View>
-
+          {/*Botón de Registro */}
           <View className="flex mb-20 gap-2 px-12 w-full">
-            <TouchableOpacity
-              className={`${
-                isButtonDisabled ? "bg-gray-300" : "bg-primary"
-              } px-14 py-4 rounded-2xl mt-4`}
-              onPress={handleRegister}
-              disabled={isButtonDisabled}
-            >
-              <Text className="text-white text-center font-raleway-semibold text-base">
-                Crear cuenta
-              </Text>
-            </TouchableOpacity>
-
+              <LoadingButton
+                isLoading={loading}
+                onPress={handleRegister}
+                title="Crear cuenta"
+                disabled={isButtonDisabled}
+              />
             <Text className="font-raleway-regular text-base text-center">
               ¿Ya tienes cuenta?{" "}
               <Text

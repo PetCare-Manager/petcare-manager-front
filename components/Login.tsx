@@ -4,6 +4,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { validateEmail } from "@/utils/validation";
 import { useAuth } from "@/context/AuthContext";
 import { MaterialIcons } from "@expo/vector-icons";
+import LoadingButton from "./LoadingButton";
 
 type RootStackParamList = {
   Home: undefined;
@@ -28,10 +29,11 @@ export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState(""); // Mensaje de error general
   const [isFocusedEmail, setIsFocusedEmail] = useState(false);
   const [isFocusedPassword, setIsFocusedPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
     setErrorMessage("");
-
+    setLoading(true);
     if (!email || !password) {
       setErrorMessage("Por favor revisa tu correo electrónico y contraseña.");
       return;
@@ -47,6 +49,8 @@ export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
       navigation.navigate("UserProfile");
     } catch (error: any) {
       setErrorMessage(error?.message || "Hubo un error al iniciar sesión.");
+    } finally {
+      setLoading(false); // Ocultar spinner
     }
   };
 
@@ -156,17 +160,12 @@ export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
 
       {/* Botón de Login */}
       <View className="flex mb-20 gap-2 px-12 w-full">
-        <TouchableOpacity
-          className={`${
-            isButtonDisabled ? "bg-gray-300" : "bg-primary"
-          } px-14 py-4 rounded-2xl mt-4`}
+        <LoadingButton
+          isLoading={loading}
           onPress={handleLogin}
+          title="Iniciar Sesión"
           disabled={isButtonDisabled}
-        >
-          <Text className="text-white text-center font-raleway-semibold text-base">
-            Iniciar sesión
-          </Text>
-        </TouchableOpacity>
+        />
 
         <Text className="font-raleway-regular text-base text-center">
           ¿No tienes cuenta?{" "}
