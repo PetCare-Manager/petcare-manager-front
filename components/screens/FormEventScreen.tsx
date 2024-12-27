@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { View, TextInput, Button } from "react-native";
-import { Event } from "./Event";
+import { Button, TextInput, View } from "react-native";
+import { Event } from "../Event";
 
 export const FormEvent: React.FC = () => {
   const [title, setTitle] = useState("");

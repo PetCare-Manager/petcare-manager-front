@@ -1,12 +1,12 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { SvgIconsComponent } from "./commons/SvgIconsComponent";
+import { SvgIconsComponent } from "../commons/SvgIconsComponent";
 
 type RootStackParamList = {
   Home: undefined;
   Register: undefined;
-  EmailRegister: undefined;
+  EmailRegisterScreen: undefined;
   Login: undefined;
   NotRememberPass: undefined;
   UserProfile: undefined;
@@ -42,7 +42,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => navigation.navigate("EmailRegister")}
+          onPress={() => navigation.navigate("EmailRegisterScreen")}
           className="bg-customwhite px-11 py-4 rounded-2xl border border-primary"
         >
           <Text className="text-primary  font-raleway-semibold text-base text-center">

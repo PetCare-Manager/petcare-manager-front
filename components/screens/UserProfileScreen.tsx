@@ -2,12 +2,12 @@ import { useAuth } from "@/context/AuthContext";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { AddPetCard } from "./AddPetCard";
-import { CreateEvent } from "./CreateEvent";
-import { Event } from "./Event";
-import { UserAvatar } from "./commons/UserAvatar";
+import { AddPetCard } from "../AddPetCard";
+import { CreateEvent } from "../CreateEventButton";
+import { Event } from "../Event";
+import { UserAvatar } from "../commons/UserAvatar";
 
-type UserProfileProps = NativeStackScreenProps<
+type UserProfileScreenProps = NativeStackScreenProps<
   RootStackParamList,
   "PetForm",
   "FormEvent"
@@ -18,7 +18,9 @@ type RootStackParamList = {
   FormEvent: undefined;
 };
 
-export const UserProfile: React.FC<UserProfileProps> = ({ navigation }) => {
+export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({
+  navigation,
+}) => {
   const { logout } = useAuth();
   const handleLogout = () => {
     logout();
