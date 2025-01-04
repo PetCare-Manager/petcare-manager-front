@@ -1,21 +1,23 @@
-import React from "react";
-import { View, TouchableOpacity, Text } from "react-native";
+import { SvgIconsComponent } from "@/components/commons/SvgIconsComponent";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { SvgIconsComponent } from "./SvgIconsComponent";
+import React from "react";
+import { Text, TouchableOpacity, View } from "react-native";
 
 type RootStackParamList = {
   Home: undefined;
-  Register: undefined;
+  SocialLogin: undefined;
   EmailRegister: undefined;
   Login: undefined;
 };
 
-type RegisterScreenProps = NativeStackScreenProps<
+type SocialLoginScreenProps = NativeStackScreenProps<
   RootStackParamList,
-  "Register"
+  "SocialLogin"
 >;
 
-export const Register: React.FC<RegisterScreenProps> = ({ navigation }) => {
+export const SocialLoginScreen: React.FC<SocialLoginScreenProps> = ({
+  navigation,
+}) => {
   return (
     <View className="flex flex-col justify-between items-center h-full">
       <SvgIconsComponent

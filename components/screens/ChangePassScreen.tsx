@@ -1,20 +1,23 @@
-import React, { useState } from "react";
-import { View, Text, TouchableOpacity, TextInput, Alert } from "react-native";
+import { SvgIconsComponent } from "@/components/commons/SvgIconsComponent";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import axios from "axios";
-import { SvgIconsComponent } from "./SvgIconsComponent";
+import React, { useState } from "react";
+import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 type RootStackParamList = {
   Home: undefined;
   Register: undefined;
   EmailRegister: undefined;
   Login: undefined;
-  NotRememberPass: undefined;
+  NotRememberPassScreen: undefined;
 };
 
-type NotRememberPassProps = NativeStackScreenProps<RootStackParamList, "Home">;
+type NotRememberPassScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  "Home"
+>;
 
-export const NotRememberPass: React.FC<NotRememberPassProps> = ({
+export const ChangePassScreen: React.FC<NotRememberPassScreenProps> = ({
   navigation,
 }) => {
   const [password, setPassword] = useState("");

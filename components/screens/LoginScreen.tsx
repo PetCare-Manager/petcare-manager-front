@@ -1,23 +1,22 @@
-import React, { useState } from "react";
-import { View, TextInput, TouchableOpacity, Text } from "react-native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { validateEmail } from "@/utils/validation";
 import { useAuth } from "@/context/AuthContext";
+import { validateEmail } from "@/utils/validation";
 import { MaterialIcons } from "@expo/vector-icons";
-import LoadingButton from "./LoadingButton";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import React, { useState } from "react";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 
 type RootStackParamList = {
   Home: undefined;
   Register: undefined;
-  EmailRegister: undefined;
+  EmailRegisterScreen: undefined;
   Login: undefined;
-  NotRememberPass: undefined;
+  NotRememberPassScreen: undefined;
   UserProfile: undefined;
 };
 
 type LoginScreenProps = NativeStackScreenProps<RootStackParamList, "Login">;
 
-export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
+export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const { login } = useAuth();
 
   // Estados para los campos de entrada
@@ -29,11 +28,10 @@ export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState(""); // Mensaje de error general
   const [isFocusedEmail, setIsFocusedEmail] = useState(false);
   const [isFocusedPassword, setIsFocusedPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
     setErrorMessage("");
-    setLoading(true);
+
     if (!email || !password) {
       setErrorMessage("Por favor revisa tu correo electrónico y contraseña.");
       return;
@@ -49,8 +47,6 @@ export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
       navigation.navigate("UserProfile");
     } catch (error: any) {
       setErrorMessage(error?.message || "Hubo un error al iniciar sesión.");
-    } finally {
-      setLoading(false); // Ocultar spinner
     }
   };
 
@@ -152,7 +148,7 @@ export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
 
         <Text
           className="font-raleway-medium text-base underline mb-14"
-          onPress={() => navigation.navigate("NotRememberPass")}
+          onPress={() => navigation.navigate("NotRememberPassScreen")}
         >
           ¿Has olvidado tu contraseña?
         </Text>
@@ -160,18 +156,23 @@ export const Login: React.FC<LoginScreenProps> = ({ navigation }) => {
 
       {/* Botón de Login */}
       <View className="flex mb-20 gap-2 px-12 w-full">
-        <LoadingButton
-          isLoading={loading}
+        <TouchableOpacity
+          className={`${
+            isButtonDisabled ? "bg-gray-300" : "bg-primary"
+          } px-14 py-4 rounded-2xl mt-4`}
           onPress={handleLogin}
-          title="Iniciar Sesión"
           disabled={isButtonDisabled}
-        />
+        >
+          <Text className="text-white text-center font-raleway-semibold text-base">
+            Iniciar sesión
+          </Text>
+        </TouchableOpacity>
 
         <Text className="font-raleway-regular text-base text-center">
           ¿No tienes cuenta?{" "}
           <Text
             className="font-raleway-bold text-typography_2"
-            onPress={() => navigation.navigate("EmailRegister")}
+            onPress={() => navigation.navigate("EmailRegisterScreen")}
           >
             ¡Regístrate!
           </Text>

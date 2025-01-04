@@ -1,5 +1,5 @@
 import React from "react";
-import { ActivityIndicator, TouchableOpacity, Text } from "react-native";
+import { ActivityIndicator, Text, TouchableOpacity } from "react-native";
 
 interface LoadingButtonProps {
   isLoading: boolean;
@@ -9,7 +9,7 @@ interface LoadingButtonProps {
   style?: string;
 }
 
-const LoadingButton: React.FC<LoadingButtonProps> = ({
+export const LoadingButton: React.FC<LoadingButtonProps> = ({
   isLoading,
   onPress,
   disabled = false,
@@ -34,5 +34,3 @@ const LoadingButton: React.FC<LoadingButtonProps> = ({
     </TouchableOpacity>
   );
 };
-
-export default LoadingButton;
