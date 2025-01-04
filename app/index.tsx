@@ -53,6 +53,7 @@ type UserProfileScreenProps = NativeStackScreenProps<
   "UserProfileScreen"
 >;
 type PetFormProps = NativeStackScreenProps<RootStackParamList, "PetForm">;
+type FormEventProps = NativeStackScreenProps<RootStackParamList, "FormEvent">;
 
 export default function App() {
   return (
