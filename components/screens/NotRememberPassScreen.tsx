@@ -2,19 +2,22 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 
-import { SvgIconsComponent } from "./commons/SvgIconsComponent";
+import { SvgIconsComponent } from "@/components/commons/SvgIconsComponent";
 
 type RootStackParamList = {
   Home: undefined;
   Register: undefined;
-  EmailRegister: undefined;
-  Login: undefined;
-  NotRememberPass: undefined;
+  EmailRegisterScreen: undefined;
+  LoginScreen: undefined;
+  NotRememberPassScreen: undefined;
 };
 
-type NotRememberPassProps = NativeStackScreenProps<RootStackParamList, "Home">;
+type NotRememberPassScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  "Home"
+>;
 
-export const NotRememberPass: React.FC<NotRememberPassProps> = ({
+export const NotRememberPassScreen: React.FC<NotRememberPassScreenProps> = ({
   navigation,
 }) => {
   return (
@@ -58,7 +61,7 @@ export const NotRememberPass: React.FC<NotRememberPassProps> = ({
         ¿No tienes cuenta?{" "}
         <Text
           className="font-raleway-bold text-typography_2"
-          onPress={() => navigation.navigate("EmailRegister")}
+          onPress={() => navigation.navigate("EmailRegisterScreen")}
         >
           ¡Regístrate!
         </Text>
