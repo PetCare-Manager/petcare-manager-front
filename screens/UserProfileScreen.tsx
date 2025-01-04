@@ -1,11 +1,11 @@
+import { AddPetCard } from "@/components/AddPetCard";
+import { CreateEvent } from "@/components/CreateEventButton";
+import { Event } from "@/components/Event";
+import { UserAvatar } from "@/components/commons/UserAvatar";
 import { useAuth } from "@/context/AuthContext";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { AddPetCard } from "../AddPetCard";
-import { CreateEvent } from "../CreateEventButton";
-import { Event } from "../Event";
-import { UserAvatar } from "../commons/UserAvatar";
 
 type UserProfileScreenProps = NativeStackScreenProps<
   RootStackParamList,
