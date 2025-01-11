@@ -1,100 +1,141 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
-import DropDownPicker from "react-native-dropdown-picker";
-import { breeds as breedData, Breed } from "@/utils/breeds";
-
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 
 export const PetForm = () => {
-  const [isNeutered, setIsNeutered] = useState<boolean | null>(false);
-  const [breedOpen, setBreedOpen] = useState(false);
-  const [selectedBreed, setSelectedBreed] = useState<string | null>(null);
-
-  // Convertimos las razas para el Dropdown
-  const [breeds, setBreeds] = useState(
-    breedData.map((breed) => ({
-      label: breed.name,
-      value: breed.name,
-    }))
-  );
+  const [sex, setSex] = useState("Hembra");
+  const [hasDisease, setHasDisease] = useState(false);
+  const [onNeuter, setOnNeuter] = useState(false);
 
   const handleSubmit = () => {
-    if (!selectedBreed) {
-      alert("Por favor, selecciona una raza");
-      return;
-    }
-
-    const petData = {
-      breed: selectedBreed,
-      isNeutered,
-    };
-
-    console.log("Datos de la mascota", petData);
+    alert("Formulario enviado correctamente");
   };
 
-  // Buscar la imagen correspondiente a la raza seleccionada
-  const selectedBreedImage = breedData.find(
-    (breed) => breed.name === selectedBreed
-  )?.image;
-
   return (
-    <View className="flex-1 bg-white">
-      <View className="flex-1 justify-center px-6">
-        <Text className="font-afacad-semibold text-3xl text-center text-typography mb-8">
-          Añadir mascota
-        </Text>
+    <View className="flex-1 bg-white px-6 py-8">
+      <Text className="text-xl font-bold text-start mb-6">
+        Rellena los datos de la mascota
+      </Text>
 
-        {/* Campo Nombre */}
-        <Text className="text-base text-gray-600 mb-2">Nombre</Text>
-        <TextInput
-          placeholder="Escribe el nombre"
-          className="bg-gray-100 border border-gray-300 rounded-lg px-4 py-2 mb-4"
-        />
+      {/* Campo Nombre */}
+      <Text className="text-base text-gray-600 mb-2">Nombre</Text>
+      <TextInput
+        placeholder="Escribe el nombre"
+        className="bg-gray-100 border border-gray-300 rounded-lg px-4 py-2 mb-4"
+      />
 
-        {/* Fecha de Nacimiento */}
-        <Text className="text-base text-gray-600 mb-2">Edad</Text>
-        <TextInput
-          placeholder="DD/MM/AAAA"
-          className="bg-gray-100 border border-gray-300 rounded-lg px-4 py-2 mb-4"
-        />
+      {/* Campo Edad */}
+      <Text className="text-base text-gray-600 mb-2">Fecha de nacimiento</Text>
+      <TextInput
+        placeholder="DD/MM/AAAA"
+        className="bg-gray-100 border border-gray-300 rounded-lg px-4 py-2 mb-4"
+      />
 
-        {/* Campo Sexo */}
-        <Text className="text-base text-gray-600 mb-2">Sexo</Text>
-        <TextInput
-          placeholder="Sexo"
-          className="bg-gray-100 border border-gray-300 rounded-lg px-4 py-2 mb-4"
-        />
-
-        {/* Dropdown para Raza */}
-        <Text className="text-base text-gray-600 mb-2">Raza</Text>
-        <DropDownPicker
-          open={breedOpen}
-          value={selectedBreed}
-          items={breeds}
-          setOpen={setBreedOpen}
-          setValue={setSelectedBreed}
-          setItems={setBreeds}
-          placeholder="Selecciona la raza"
-          zIndex={5000}
-          autoScroll={true}
-          style={{
-            backgroundColor: "#f3f4f6",
-            borderColor: "#d1d5db",
-            borderRadius: 8,
-            marginBottom: 48,
-          }}
-          dropDownContainerStyle={{
-            backgroundColor: "#f3f4f6",
-            borderColor: "#d1d5db",
-          }}
-        />
-
-        {/* Botón */}
+      {/* Campo Sexo */}
+      <Text className="text-base text-gray-600 mb-2">Sexo</Text>
+      <View className="flex-row mb-4">
         <TouchableOpacity
-          onPress={handleSubmit}
-          className="bg-primary rounded-lg py-3"
+          onPress={() => setSex("Hembra")}
+          className={`flex-1 items-center py-2 border rounded-l-lg ${
+            sex === "Hembra"
+              ? "bg-primary border-primary"
+              : "bg-gray-100 border-gray-300"
+          }`}
         >
-          <Text className="text-white text-center text-lg font-medium">
-            Añadir Mascota
+          <Text className={sex === "Hembra" ? "text-white" : "text-gray-600"}>
+            Hembra
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setSex("Macho")}
+          className={`flex-1 items-center py-2 border rounded-r-lg ${
+            sex === "Macho"
+              ? "bg-primary border-primary"
+              : "bg-gray-100 border-gray-300"
+          }`}
+        >
+          <Text className={sex === "Macho" ? "text-white" : "text-gray-600"}>
+            Macho
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Campo Número de Chip */}
+      <Text className="text-base text-gray-600 mb-2">N° Chip</Text>
+      <TextInput
+        placeholder="Ej: 123456789012345"
+        className="bg-gray-100 border border-gray-300 rounded-lg px-4 py-2 mb-4"
+      />
+
+      {/* Campo Enfermedad */}
+      <Text className="text-base text-gray-600 mb-2">Enfermedad</Text>
+      <View className="flex-row mb-4">
+        <TouchableOpacity
+          onPress={() => setHasDisease(false)}
+          className={`flex-1 items-center py-2 border rounded-l-lg ${
+            !hasDisease
+              ? "bg-primary border-primary"
+              : "bg-gray-100 border-gray-300"
+          }`}
+        >
+          <Text className={!hasDisease ? "text-white" : "text-gray-600"}>
+            No
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setHasDisease(true)}
+          className={`flex-1 items-center py-2 border rounded-r-lg ${
+            hasDisease
+              ? "bg-primary border-primary"
+              : "bg-gray-100 border-gray-300"
+          }`}
+        >
+          <Text className={hasDisease ? "text-white" : "text-gray-600"}>
+            Sí
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Campo Esteriliación */}
+      <Text className="text-base text-gray-600 mb-2">Esterilizado</Text>
+      <View className="flex-row mb-6">
+        <TouchableOpacity
+          onPress={() => setOnNeuter(false)}
+          className={`flex-1 items-center py-2 border rounded-l-lg ${
+            !onNeuter
+              ? "bg-primary border-primary"
+              : "bg-gray-100 border-gray-300"
+          }`}
+        >
+          <Text className={!onNeuter ? "text-white" : "text-gray-600"}>No</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setOnNeuter(true)}
+          className={`flex-1 items-center py-2 border rounded-r-lg ${
+            onNeuter
+              ? "bg-primary border-primary"
+              : "bg-gray-100 border-gray-300"
+          }`}
+        >
+          <Text className={onNeuter ? "text-white" : "text-gray-600"}>Sí</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Contenedor para los botones en la parte inferior */}
+      <View className="flex justify-center gap-2 mb-14 w-full px-6">
+        <TouchableOpacity
+          // onPress={() => navigation.navigate("Login")} ***Pantalla para subir archivos***
+          className="bg-primary px-14 py-4 rounded-2xl"
+        >
+          <Text className="text-customwhite font-raleway-semibold text-base text-center">
+            Añadir documentación
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          // onPress={() => navigation.navigate("EmailRegisterScreen")} ***Pantalla del perfil de la mascota***
+          className="bg-customwhite px-11 py-4 rounded-2xl border border-primary"
+        >
+          <Text className="text-primary  font-raleway-semibold text-base text-center">
+            Continuar
           </Text>
         </TouchableOpacity>
       </View>
