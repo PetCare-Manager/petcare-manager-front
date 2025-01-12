@@ -27,7 +27,7 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({
     // Puedes manejar alguna navegación adicional si es necesario
   };
   return (
-    <View className="flex items-center justify-center bg-white w-full h-full p-4">
+    <View className="flex items-center justify-center  w-full h-full p-4">
       <UserAvatar />
       <Text className="mt-4 text-2xl font-raleway-regular text-gray-800">
         Hola, ¡disfruta tu día!
@@ -47,7 +47,10 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({
         onPress={handleLogout}
         className="bg-primary px-14 py-4 rounded-2xl mt-4 "
       >
-        <Text className="text-customwhite"> Cerrar sesión</Text>
+        <Text className="text-customwhite font-raleway-semibold">
+          {" "}
+          Cerrar sesión
+        </Text>
       </TouchableOpacity>
     </View>
   );
