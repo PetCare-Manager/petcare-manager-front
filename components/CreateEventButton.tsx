@@ -13,8 +13,8 @@ type FormEventProps = {
 
 export const CreateEvent: React.FC<FormEventProps> = ({ navigation }) => {
   return (
-    <View className="flex flex-row items-center bg-white rounded-lg p-4">
-      <View className="container flex">
+    <View className="flex flex-row items-center  rounded-lg p-4">
+      <View className="container flex bg-white">
         <View className="flex-row justify-center items-center rounded-lg shadow p-4">
           <View className="flex bg-primary rounded-lg w-12 h-12 items-center justify-center mr-4">
             <MaterialIcons name="alarm" size={24} color="#fff" />
