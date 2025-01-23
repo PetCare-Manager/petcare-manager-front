@@ -11,7 +11,7 @@ type RootStackParamList = {
   EmailRegisterScreen: undefined;
   Login: undefined;
   NotRememberPassScreen: undefined;
-  UserProfile: undefined;
+  UserProfileScreen: undefined;
 };
 
 type LoginScreenProps = NativeStackScreenProps<RootStackParamList, "Login">;
@@ -44,7 +44,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
     try {
       await login(email, password);
-      navigation.navigate("UserProfile");
+      navigation.navigate("UserProfileScreen");
     } catch (error: any) {
       setErrorMessage(error?.message || "Hubo un error al iniciar sesión.");
     }

@@ -10,6 +10,7 @@ import { PetForm } from "@/components/screens/PetFormScreen";
 import { SocialLoginScreen } from "@/components/screens/SocialLoginScreen";
 import { UserProfileScreen } from "@/components/screens/UserProfileScreen";
 import { AuthProvider } from "@/context/AuthContext";
+import { EventProvider } from "@/context/EventContext";
 import {
   createNativeStackNavigator,
   NativeStackScreenProps,
@@ -58,104 +59,108 @@ type FormEventProps = NativeStackScreenProps<RootStackParamList, "FormEvent">;
 export default function App() {
   return (
     <AuthProvider>
-      <Stack.Navigator initialRouteName="Loading">
-        {/* Pantalla de Carga */}
-        <Stack.Screen
-          name="Loading"
-          children={(props: LoadingScreenProps) => <LoadingScreen {...props} />}
-          options={{ headerShown: false }}
-        />
+      <EventProvider>
+        <Stack.Navigator initialRouteName="Loading">
+          {/* Pantalla de Carga */}
+          <Stack.Screen
+            name="Loading"
+            children={(props: LoadingScreenProps) => (
+              <LoadingScreen {...props} />
+            )}
+            options={{ headerShown: false }}
+          />
 
-        {/* Pantalla Home */}
-        <Stack.Screen
-          name="Home"
-          children={(props: HomeScreenProps) => (
-            <Wrapper>
-              <HomeScreen {...props} />
-            </Wrapper>
-          )}
-          options={{ headerShown: false }}
-        />
-
-        {/* Pantalla Registro */}
-        <Stack.Screen
-          name="SocialLogin"
-          children={(props: SocialLoginScreenProps) => (
-            <Wrapper>
-              <SocialLoginScreen {...props} />
-            </Wrapper>
-          )}
-          options={{ headerShown: true, headerTitle: "" }}
-        />
-
-        {/* Pantalla Login */}
-        <Stack.Screen
-          name="Login"
-          children={(props: LoginScreenProps) => (
-            <Wrapper>
-              <LoginScreen {...props} />
-            </Wrapper>
-          )}
-          options={{ headerShown: true, headerTitle: "" }}
-        />
-
-        {/* Pantalla Email Register */}
-        <Stack.Screen
-          name="EmailRegisterScreen"
-          children={(props: EmailRegisterScreenProps) => (
-            <Wrapper>
-              <EmailRegisterScreen {...props} />
-            </Wrapper>
-          )}
-          options={{ headerShown: true, headerTitle: "" }}
-        />
-
-        {/* Pantalla No recuerda contraseña */}
-        <Stack.Screen
-          name="NotRememberPassScreen"
-          children={(props: NotRememberPassScreenProps) => (
-            <Wrapper>
-              <NotRememberPassScreen {...props} />
-            </Wrapper>
-          )}
-          options={{ headerShown: true, headerTitle: "" }}
-        />
-
-        {/* Ruta protegida: UserProfile */}
-        <Stack.Screen
-          name="UserProfile"
-          children={(props: UserProfileScreenProps) => (
-            <ProtectedRoute>
+          {/* Pantalla Home */}
+          <Stack.Screen
+            name="Home"
+            children={(props: HomeScreenProps) => (
               <Wrapper>
-                <UserProfileScreen {...props} />
+                <HomeScreen {...props} />
               </Wrapper>
-            </ProtectedRoute>
-          )}
-          options={{ headerShown: true, headerTitle: "Perfil de Usuario" }}
-        />
+            )}
+            options={{ headerShown: false }}
+          />
 
-        {/* Pantalla Formulario Mascotas */}
-        <Stack.Screen
-          name="PetForm"
-          children={(props: PetFormProps) => (
-            <Wrapper>
-              <PetForm {...props} />
-            </Wrapper>
-          )}
-          options={{ headerShown: true, headerTitle: "" }}
-        />
+          {/* Pantalla Registro */}
+          <Stack.Screen
+            name="SocialLogin"
+            children={(props: SocialLoginScreenProps) => (
+              <Wrapper>
+                <SocialLoginScreen {...props} />
+              </Wrapper>
+            )}
+            options={{ headerShown: true, headerTitle: "" }}
+          />
 
-        {/* Pantalla Formulario Eventos */}
-        <Stack.Screen
-          name="FormEvent"
-          children={(props: FormEventProps) => (
-            <Wrapper>
-              <FormEvent {...props} />
-            </Wrapper>
-          )}
-          options={{ headerShown: true, headerTitle: "" }}
-        />
-      </Stack.Navigator>
+          {/* Pantalla Login */}
+          <Stack.Screen
+            name="Login"
+            children={(props: LoginScreenProps) => (
+              <Wrapper>
+                <LoginScreen {...props} />
+              </Wrapper>
+            )}
+            options={{ headerShown: true, headerTitle: "" }}
+          />
+
+          {/* Pantalla Email Register */}
+          <Stack.Screen
+            name="EmailRegisterScreen"
+            children={(props: EmailRegisterScreenProps) => (
+              <Wrapper>
+                <EmailRegisterScreen {...props} />
+              </Wrapper>
+            )}
+            options={{ headerShown: true, headerTitle: "" }}
+          />
+
+          {/* Pantalla No recuerda contraseña */}
+          <Stack.Screen
+            name="NotRememberPassScreen"
+            children={(props: NotRememberPassScreenProps) => (
+              <Wrapper>
+                <NotRememberPassScreen {...props} />
+              </Wrapper>
+            )}
+            options={{ headerShown: true, headerTitle: "" }}
+          />
+
+          {/* Ruta protegida: UserProfile */}
+          <Stack.Screen
+            name="UserProfileScreen"
+            children={(props: UserProfileScreenProps) => (
+              <ProtectedRoute>
+                <Wrapper>
+                  <UserProfileScreen {...props} />
+                </Wrapper>
+              </ProtectedRoute>
+            )}
+            options={{ headerShown: true, headerTitle: "Perfil de Usuario" }}
+          />
+
+          {/* Pantalla Formulario Mascotas */}
+          <Stack.Screen
+            name="PetForm"
+            children={(props: PetFormProps) => (
+              <Wrapper>
+                <PetForm {...props} />
+              </Wrapper>
+            )}
+            options={{ headerShown: true, headerTitle: "" }}
+          />
+
+          {/* Pantalla Formulario Eventos */}
+          <Stack.Screen
+            name="FormEvent"
+            children={(props: FormEventProps) => (
+              <Wrapper>
+                <FormEvent {...props} />
+              </Wrapper>
+            )}
+            options={{ headerShown: true, headerTitle: "" }}
+          />
+        </Stack.Navigator>
+      </EventProvider>
     </AuthProvider>
   );
 }
