@@ -15,6 +15,7 @@ import {
   NativeStackScreenProps,
 } from "@react-navigation/native-stack";
 import React from "react";
+import { PaperProvider } from "react-native-paper";
 
 // Define el tipo para las rutas de navegación
 type RootStackParamList = {
@@ -138,9 +139,11 @@ export default function App() {
         <Stack.Screen
           name="PetForm"
           children={(props: PetFormProps) => (
-            <Wrapper>
-              <PetForm {...props} />
-            </Wrapper>
+            <PaperProvider>
+              <Wrapper>
+                <PetForm {...props} />
+              </Wrapper>
+            </PaperProvider>
           )}
           options={{ headerShown: true, headerTitle: "" }}
         />
