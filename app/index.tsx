@@ -1,12 +1,14 @@
 import { Wrapper } from "@/components/commons/Wrapper";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { EmailRegisterScreen } from "@/components/screens/EmailRegisterScreen";
+import { FinalAddPet } from "@/components/screens/FinalAddPet";
 import { FormEvent } from "@/components/screens/FormEventScreen";
 import { HomeScreen } from "@/components/screens/HomeScreen";
 import { LoadingScreen } from "@/components/screens/LoadingScreen"; // Asegúrate de importar correctamente
 import { LoginScreen } from "@/components/screens/LoginScreen";
 import { NotRememberPassScreen } from "@/components/screens/NotRememberPassScreen";
 import { PetForm } from "@/components/screens/PetFormScreen";
+import { PreAddDocumentation } from "@/components/screens/PreAddDocumentation";
 import { SocialLoginScreen } from "@/components/screens/SocialLoginScreen";
 import { UserProfileScreen } from "@/components/screens/UserProfileScreen";
 import { AuthProvider } from "@/context/AuthContext";
@@ -29,6 +31,8 @@ type RootStackParamList = {
   PetForm: undefined;
   FormEvent: undefined;
   ProtectedRoute: undefined;
+  PreAddDocumentation: undefined;
+  FinalAddPet: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -55,6 +59,14 @@ type UserProfileScreenProps = NativeStackScreenProps<
 >;
 type PetFormProps = NativeStackScreenProps<RootStackParamList, "PetForm">;
 type FormEventProps = NativeStackScreenProps<RootStackParamList, "FormEvent">;
+type PreAddDocumentationProps = NativeStackScreenProps<
+  RootStackParamList,
+  "PreAddDocumentation"
+>;
+type FinalAddPetProps = NativeStackScreenProps<
+  RootStackParamList,
+  "FinalAddPet"
+>;
 
 export default function App() {
   return (
@@ -154,6 +166,28 @@ export default function App() {
           children={(props: FormEventProps) => (
             <Wrapper>
               <FormEvent {...props} />
+            </Wrapper>
+          )}
+          options={{ headerShown: true, headerTitle: "" }}
+        />
+
+        {/* Pantalla Añadir Documentación */}
+        <Stack.Screen
+          name="PreAddDocumentation"
+          children={(props: PreAddDocumentationProps) => (
+            <Wrapper>
+              <PreAddDocumentation {...props} />
+            </Wrapper>
+          )}
+          options={{ headerShown: true, headerTitle: "" }}
+        />
+
+        {/* Pantalla Finalizar registro de mascota */}
+        <Stack.Screen
+          name="FinalAddPet"
+          children={(props: FinalAddPetProps) => (
+            <Wrapper>
+              <FinalAddPet {...props} />
             </Wrapper>
           )}
           options={{ headerShown: true, headerTitle: "" }}
