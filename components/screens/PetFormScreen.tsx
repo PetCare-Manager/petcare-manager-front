@@ -1,4 +1,3 @@
-import axiosInstance from "@/api/axiosInstance"; // Asegúrate de importar axiosInstance
 import { breeds as breedData } from "@/utils/breeds";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useState } from "react";
@@ -15,18 +14,22 @@ import { RadioButton } from "react-native-paper";
 import { DatePickerInput } from "react-native-paper-dates";
 
 type RootStackParamList = {
-  PetForm: undefined;
-};
-type PetFormProps = {
-  navigation: NativeStackNavigationProp<RootStackParamList, "PetForm">;
+  PreAddDocumentation: undefined;
 };
 
-export const PetForm: React.FC<PetFormProps> = ({ navigation }) => {
+type PreAddDocumentationProps = {
+  navigation: NativeStackNavigationProp<
+    RootStackParamList,
+    "PreAddDocumentation"
+  >;
+};
+
+export const PetForm: React.FC<PreAddDocumentationProps> = ({ navigation }) => {
   const [name, setName] = useState("");
   const [sex, setSex] = useState("Macho");
   const [hasDisease, setHasDisease] = useState(false);
   const [onNeuter, setOnNeuter] = useState(false);
-  const [birthDate, setBirthDate] = useState(new Date());
+  const [birthDate, setBirthDate] = useState<Date | undefined>(undefined);
   const [chip, setChip] = useState("");
   const [open, setOpen] = useState(false);
   const [selectedBreed, setSelectedBreed] = useState<string | null>(null);
@@ -34,28 +37,24 @@ export const PetForm: React.FC<PetFormProps> = ({ navigation }) => {
     breedData.map((b) => ({ label: b.name, value: b.name }))
   );
 
-  const handleSubmit = async () => {
-    const petData = {
-      name,
-      breed: selectedBreed || "Desconocida",
-      birth: birthDate.toISOString().split("T")[0], // Formato YYYY-MM-DD
-      gender: sex,
-      chip,
-      illness: hasDisease,
-      neutered: onNeuter,
-      weight: 0, // Puedes añadir un campo para peso si lo necesitas
-    };
-
-    try {
-      const response = await axiosInstance.post("/pets", petData);
-      if (response.status === 201) {
-        Alert.alert("Éxito", "Mascota registrada correctamente");
-        navigation.goBack(); // O navegar a otra pantalla
-      }
-    } catch (error) {
-      console.error(error);
-      Alert.alert("Error", "No se pudo registrar la mascota");
+  const handleSubmit = () => {
+    if (!name.trim()) {
+      Alert.alert("Error", "El nombre de la mascota es obligatorio.");
+      return;
     }
+    if (!birthDate) {
+      Alert.alert("Error", "Debes seleccionar una fecha de nacimiento.");
+      return;
+    }
+    if (!selectedBreed) {
+      Alert.alert("Error", "Por favor, selecciona una raza.");
+      return;
+    }
+    if (chip.length > 0 && chip.length < 15) {
+      Alert.alert("Error", "El número de chip debe tener al menos 15 dígitos.");
+      return;
+    }
+    navigation.navigate("PreAddDocumentation");
   };
 
   return (
@@ -64,7 +63,7 @@ export const PetForm: React.FC<PetFormProps> = ({ navigation }) => {
         Rellena los datos de tu mascota
       </Text>
 
-      {/* Campo Nombre */}
+      {/* Nombre */}
       <Text className="text-base text-typography_2 font-raleway-medium mb-2">
         Nombre:
       </Text>
@@ -73,6 +72,7 @@ export const PetForm: React.FC<PetFormProps> = ({ navigation }) => {
         value={name}
         onChangeText={setName}
         className="bg-customwhite border border-inputborder rounded-lg px-4 py-2 mb-4"
+        accessibilityLabel="Nombre de la mascota"
       />
 
       {/* Fecha de Nacimiento */}
@@ -82,8 +82,9 @@ export const PetForm: React.FC<PetFormProps> = ({ navigation }) => {
       <DatePickerInput
         locale="es"
         value={birthDate}
-        onChange={(date) => date && setBirthDate(date)}
+        onChange={setBirthDate}
         inputMode="start"
+        accessibilityLabel="Selecciona la fecha de nacimiento"
       />
 
       {/* Sexo */}
@@ -91,18 +92,16 @@ export const PetForm: React.FC<PetFormProps> = ({ navigation }) => {
         Sexo:
       </Text>
       <View className="flex-row items-center mb-4">
-        <RadioButton
-          value="Macho"
-          status={sex === "Macho" ? "checked" : "unchecked"}
-          onPress={() => setSex("Macho")}
-        />
-        <Text className="mr-4">Macho</Text>
-        <RadioButton
-          value="Hembra"
-          status={sex === "Hembra" ? "checked" : "unchecked"}
-          onPress={() => setSex("Hembra")}
-        />
-        <Text>Hembra</Text>
+        {["Macho", "Hembra"].map((option) => (
+          <View key={option} className="flex-row items-center mr-4">
+            <RadioButton
+              value={option}
+              status={sex === option ? "checked" : "unchecked"}
+              onPress={() => setSex(option)}
+            />
+            <Text>{option}</Text>
+          </View>
+        ))}
       </View>
 
       {/* Raza */}
@@ -116,7 +115,8 @@ export const PetForm: React.FC<PetFormProps> = ({ navigation }) => {
         setOpen={setOpen}
         setValue={setSelectedBreed}
         setItems={setItems}
-        multiple={false} // Asegura que esta propiedad esté definida
+        multiple={false}
+        placeholder="Selecciona una raza"
       />
 
       {/* Número de Chip */}
@@ -127,7 +127,10 @@ export const PetForm: React.FC<PetFormProps> = ({ navigation }) => {
         placeholder="Ej: 123456789012345"
         value={chip}
         onChangeText={setChip}
+        keyboardType="numeric"
+        maxLength={15}
         className="bg-customwhite border border-inputborder rounded-lg px-4 py-2 mb-4"
+        accessibilityLabel="Número de chip de la mascota"
       />
 
       {/* Enfermedad Crónica */}
@@ -135,18 +138,16 @@ export const PetForm: React.FC<PetFormProps> = ({ navigation }) => {
         ¿Tiene enfermedad crónica?
       </Text>
       <View className="flex-row items-center mb-4">
-        <RadioButton
-          value="No"
-          status={!hasDisease ? "checked" : "unchecked"}
-          onPress={() => setHasDisease(false)}
-        />
-        <Text className="mr-4">No</Text>
-        <RadioButton
-          value="Sí"
-          status={hasDisease ? "checked" : "unchecked"}
-          onPress={() => setHasDisease(true)}
-        />
-        <Text>Sí</Text>
+        {["No", "Sí"].map((option, index) => (
+          <View key={option} className="flex-row items-center mr-4">
+            <RadioButton
+              value={option}
+              status={hasDisease === !!index ? "checked" : "unchecked"}
+              onPress={() => setHasDisease(!!index)}
+            />
+            <Text>{option}</Text>
+          </View>
+        ))}
       </View>
 
       {/* Esterilizado */}
@@ -154,27 +155,30 @@ export const PetForm: React.FC<PetFormProps> = ({ navigation }) => {
         ¿Está esterilizado?
       </Text>
       <View className="flex-row items-center mb-4">
-        <RadioButton
-          value="No"
-          status={!onNeuter ? "checked" : "unchecked"}
-          onPress={() => setOnNeuter(false)}
-        />
-        <Text className="mr-4">No</Text>
-        <RadioButton
-          value="Sí"
-          status={onNeuter ? "checked" : "unchecked"}
-          onPress={() => setOnNeuter(true)}
-        />
-        <Text>Sí</Text>
+        {["No", "Sí"].map((option, index) => (
+          <View key={option} className="flex-row items-center mr-4">
+            <RadioButton
+              value={option}
+              status={onNeuter === !!index ? "checked" : "unchecked"}
+              onPress={() => setOnNeuter(!!index)}
+            />
+            <Text>{option}</Text>
+          </View>
+        ))}
       </View>
 
       {/* Botón de envío */}
-      <TouchableOpacity
-        onPress={handleSubmit}
-        className="bg-primary p-4 rounded-lg items-center mt-6"
-      >
-        <Text className="text-white font-raleway-bold">Registrar Mascota</Text>
-      </TouchableOpacity>
+      <View className="flex justify-center gap-2 mb-8 mt-8 w-full px-6">
+        <TouchableOpacity
+          className="bg-primary px-14 py-4 rounded-2xl"
+          onPress={() => navigation.navigate("PreAddDocumentation")}
+          accessibilityLabel="Continuar con el registro de la mascota"
+        >
+          <Text className="text-customwhite font-raleway-semibold text-base text-center">
+            Continuar
+          </Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 };
