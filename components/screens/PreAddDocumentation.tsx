@@ -5,14 +5,36 @@ import { useState } from "react";
 import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 
 type RootStackParamList = {
-  FinalAddPet: undefined;
-};
-type FinalAddPetProps = {
-  navigation: NativeStackNavigationProp<RootStackParamList, "FinalAddPet">;
+  FinalAddPet: {
+    name: string;
+    birthDate: string;
+    sex: string;
+    chip: string;
+    breed: string;
+    hasDisease: boolean;
+    onNeuter: boolean;
+    documents: DocumentPicker.DocumentPickerAsset[];
+  };
 };
 
-export const PreAddDocumentation: React.FC<FinalAddPetProps> = ({
+type PreAddDocumentationProps = {
+  navigation: NativeStackNavigationProp<RootStackParamList, "FinalAddPet">;
+  route: {
+    params: {
+      name: string;
+      birthDate: string;
+      sex: string;
+      chip: string;
+      breed: string;
+      hasDisease: boolean;
+      onNeuter: boolean;
+    };
+  };
+};
+
+export const PreAddDocumentation: React.FC<PreAddDocumentationProps> = ({
   navigation,
+  route,
 }) => {
   const [documents, setDocuments] = useState<
     DocumentPicker.DocumentPickerAsset[]
@@ -27,7 +49,7 @@ export const PreAddDocumentation: React.FC<FinalAddPetProps> = ({
           "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
           "image/*",
         ],
-        multiple: true, // Permite seleccionar varios documentos a la vez
+        multiple: true,
         copyToCacheDirectory: true,
       });
 
@@ -36,7 +58,7 @@ export const PreAddDocumentation: React.FC<FinalAddPetProps> = ({
       // Añadir nuevos documentos y limitar a 5
       setDocuments((prevDocs) => {
         const newDocs = [...prevDocs, ...result.assets];
-        return newDocs.slice(0, 5); // Máximo 5 documentos
+        return newDocs.slice(0, 5);
       });
     } catch (error) {
       console.error("Error al seleccionar documentos:", error);
@@ -45,6 +67,13 @@ export const PreAddDocumentation: React.FC<FinalAddPetProps> = ({
 
   const removeDocument = (index: number) => {
     setDocuments((prevDocs) => prevDocs.filter((_, i) => i !== index));
+  };
+
+  const handleContinue = () => {
+    navigation.navigate("FinalAddPet", {
+      ...route.params,
+      documents,
+    });
   };
 
   return (
@@ -62,7 +91,7 @@ export const PreAddDocumentation: React.FC<FinalAddPetProps> = ({
         {/* Botones */}
         <View className="justify-center gap-6 mb-6 w-full px-6">
           <TouchableOpacity
-            onPress={() => navigation.navigate("FinalAddPet")}
+            onPress={handleContinue}
             className="bg-primary px-14 py-4 rounded-2xl"
           >
             <Text className="text-customwhite font-raleway-semibold text-base text-center">
@@ -103,6 +132,16 @@ export const PreAddDocumentation: React.FC<FinalAddPetProps> = ({
           />
         )}
       </View>
+
+      {/* Botón de continuar */}
+      <TouchableOpacity
+        onPress={handleContinue}
+        className="bg-primary px-14 py-4 rounded-2xl"
+      >
+        <Text className="text-customwhite font-raleway-semibold text-base text-center">
+          Continuar
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };

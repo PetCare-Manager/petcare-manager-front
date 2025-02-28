@@ -14,17 +14,25 @@ import { RadioButton } from "react-native-paper";
 import { DatePickerInput } from "react-native-paper-dates";
 
 type RootStackParamList = {
-  PreAddDocumentation: undefined;
+  PreAddDocumentation: {
+    name: string;
+    birthDate: string;
+    sex: string;
+    chip: string;
+    breed: string;
+    hasDisease: boolean;
+    onNeuter: boolean;
+  };
 };
 
-type PreAddDocumentationProps = {
+type PetFormProps = {
   navigation: NativeStackNavigationProp<
     RootStackParamList,
     "PreAddDocumentation"
   >;
 };
 
-export const PetForm: React.FC<PreAddDocumentationProps> = ({ navigation }) => {
+export const PetForm: React.FC<PetFormProps> = ({ navigation }) => {
   const [name, setName] = useState("");
   const [sex, setSex] = useState("Macho");
   const [hasDisease, setHasDisease] = useState(false);
@@ -54,7 +62,17 @@ export const PetForm: React.FC<PreAddDocumentationProps> = ({ navigation }) => {
       Alert.alert("Error", "El número de chip debe tener al menos 15 dígitos.");
       return;
     }
-    navigation.navigate("PreAddDocumentation");
+
+    // Navegar a la siguiente pantalla con los datos
+    navigation.navigate("PreAddDocumentation", {
+      name,
+      birthDate: birthDate.toISOString().split("T")[0], // Formato YYYY-MM-DD
+      sex,
+      chip,
+      breed: selectedBreed,
+      hasDisease,
+      onNeuter,
+    });
   };
 
   return (
@@ -171,7 +189,7 @@ export const PetForm: React.FC<PreAddDocumentationProps> = ({ navigation }) => {
       <View className="flex justify-center gap-2 mb-8 mt-8 w-full px-6">
         <TouchableOpacity
           className="bg-primary px-14 py-4 rounded-2xl"
-          onPress={() => navigation.navigate("PreAddDocumentation")}
+          onPress={handleSubmit}
           accessibilityLabel="Continuar con el registro de la mascota"
         >
           <Text className="text-customwhite font-raleway-semibold text-base text-center">
