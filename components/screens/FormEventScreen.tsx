@@ -2,7 +2,7 @@ import { Event } from "@/components/Event";
 import React, { useState } from "react";
 import { Button, TextInput, View } from "react-native";
 
-export const FormEvent: React.FC = () => {
+export const FormEventScreen: React.FC = () => {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
