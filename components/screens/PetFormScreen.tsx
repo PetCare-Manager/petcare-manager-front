@@ -45,6 +45,10 @@ export const PetForm: React.FC<PetFormProps> = ({ navigation }) => {
     breedData.map((b) => ({ label: b.name, value: b.name }))
   );
 
+  const mapGender = (gender: string): "M" | "F" => {
+    return gender === "Macho" ? "M" : "F";
+  };
+
   const handleSubmit = () => {
     console.log("Botón presionado");
     console.log("Datos del formulario:", {
@@ -77,7 +81,7 @@ export const PetForm: React.FC<PetFormProps> = ({ navigation }) => {
     navigation.navigate("PreAddDocumentation", {
       name,
       birthDate: birthDate.toISOString().split("T")[0], // Formato YYYY-MM-DD
-      sex,
+      sex: mapGender(sex),
       chip,
       breed: selectedBreed,
       hasDisease,
