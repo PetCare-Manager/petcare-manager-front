@@ -15,6 +15,8 @@ import {
   NativeStackScreenProps,
 } from "@react-navigation/native-stack";
 import React from "react";
+import { RecoveryPassScreen } from "@/components/screens/RecoveryPassScreen";
+import { RecoveryPassWordScreen } from "@/components/screens/RecoveryPassWordScreen";
 
 // Define el tipo para las rutas de navegación
 type RootStackParamList = {
@@ -28,6 +30,8 @@ type RootStackParamList = {
   PetForm: undefined;
   FormEvent: undefined;
   ProtectedRoute: undefined;
+  RecoveryPassScreen: undefined;
+  RecoveryPassWordScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -54,11 +58,13 @@ type UserProfileScreenProps = NativeStackScreenProps<
 >;
 type PetFormProps = NativeStackScreenProps<RootStackParamList, "PetForm">;
 type FormEventProps = NativeStackScreenProps<RootStackParamList, "FormEvent">;
+type RecoveryPassScreenProps = NativeStackScreenProps<RootStackParamList, "RecoveryPassScreen">;
+type RecoveryPassWordScreenProps = NativeStackScreenProps<RootStackParamList, "RecoveryPassWordScreen">
 
 export default function App() {
   return (
     <AuthProvider>
-      <Stack.Navigator initialRouteName="Loading">
+      <Stack.Navigator initialRouteName="RecoveryPassScreen">
         {/* Pantalla de Carga */}
         <Stack.Screen
           name="Loading"
@@ -154,6 +160,27 @@ export default function App() {
             </Wrapper>
           )}
           options={{ headerShown: true, headerTitle: "" }}
+        />
+        {/** Pantalla recuperar contraseña mandar mail */}
+        <Stack.Screen
+          name="RecoveryPassScreen"
+          children={(props: RecoveryPassScreenProps)=>(
+            <Wrapper>
+              <RecoveryPassScreen {...props}/>
+            </Wrapper>
+          )}
+          options={{ headerShown: true, headerTitle: "" }}
+        />
+
+        {/** Pantalla Recuperar Contraseña nueva */}
+        <Stack.Screen
+          name= "RecoveryPassWordScreen"
+          children={(props: RecoveryPassWordScreenProps)=>(
+            <Wrapper>
+              <RecoveryPassWordScreen {...props}/>
+            </Wrapper>
+          )}
+          options ={{ headerShown: true, headerTitle: "" }}
         />
       </Stack.Navigator>
     </AuthProvider>
