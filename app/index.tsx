@@ -64,7 +64,7 @@ type RecoveryPassWordScreenProps = NativeStackScreenProps<RootStackParamList, "R
 export default function App() {
   return (
     <AuthProvider>
-      <Stack.Navigator initialRouteName="RecoveryPassScreen">
+      <Stack.Navigator initialRouteName="Loading">
         {/* Pantalla de Carga */}
         <Stack.Screen
           name="Loading"
