@@ -8,7 +8,7 @@ import { Text, TextInput, TouchableOpacity, View } from "react-native";
 type RootStackParamList = {
   Home: undefined;
   Register: undefined;
-  EmailRegisterScreen: undefined;
+  EmailRegister: undefined;
   Login: undefined;
   NotRememberPassScreen: undefined;
   UserProfile: undefined;
@@ -172,7 +172,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
           ¿No tienes cuenta?{" "}
           <Text
             className="font-raleway-bold text-typography_2"
-            onPress={() => navigation.navigate("EmailRegisterScreen")}
+            onPress={() => navigation.navigate("EmailRegister")}
           >
             ¡Regístrate!
           </Text>
