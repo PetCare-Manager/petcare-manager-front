@@ -1,6 +1,6 @@
-import React from "react";
-import { View, Text, Image } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+import React from "react";
+import { Image, Text, View } from "react-native";
 
 // Definimos la interfaz para las props que recibirá el componente
 interface EventProps {
@@ -28,10 +28,10 @@ export const Event: React.FC<EventProps> = ({
   };
 
   return (
-    <View className="flex flex-row items-center rounded-lg p-4">
+    <View className="flex flex-row items-center  rounded-lg p-4">
       {/* Left Vertical Bar */}
       <View className="w-1 bg-secondary h-full rounded-lg" />
-      <View className="container shadow rounded-lg">
+      <View className="container shadow rounded-lg bg-white">
         {/* Content Area */}
         <View className="p-4 flex-1">
           <View className="flex flex-row justify-between">
