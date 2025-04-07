@@ -9,7 +9,7 @@ import {
 import { SvgIconsComponent } from "../commons/SvgIconsComponent";
 
 export const RecoveryPassScreen = () => {
-{/**efiowfewojefojeojeowfjeowfjeowjoepwfjeopwfjewopfjewofjewopjewopfjewopfejwopfj */}
+
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>{/**  para que el contenido pueda crecer y ocupar todo el espacio disponible*/}
       <View className="flex flex-col justify-between items-center h-full">
