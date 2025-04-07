@@ -1,7 +1,7 @@
-import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import React from "react";
+import { Text, TouchableOpacity, View } from "react-native";
 
 type RootStackParamList = {
   PetForm: undefined;
@@ -13,13 +13,13 @@ type AddPetCardProps = {
 
 export const AddPetCard: React.FC<AddPetCardProps> = ({ navigation }) => {
   return (
-    <View className="flex flex-row items-center bg-white rounded-lg p-4">
+    <View className="flex flex-row items-center rounded-lg p-4">
       <View className="container flex">
         <Text className="text-typography mb-4 text-base font-raleway-regular">
           Actualmente no dispones de mascotas en la app
         </Text>
 
-        <View className="flex-row justify-center items-center rounded-lg shadow p-4">
+        <View className="flex-row justify-center bg-customwhite items-center rounded-lg shadow p-4">
           {/* Icono de mascota */}
           <View className="flex bg-primary rounded-lg w-12 h-12 items-center justify-center mr-4">
             <MaterialIcons name="pets" size={24} color="#fff" />
