@@ -14,7 +14,10 @@ import { UserProfileScreen } from "@/components/screens/UserProfileScreen";
 import { AuthProvider } from "@/context/AuthContext";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
+import { RecoveryPassScreen } from "@/components/screens/RecoveryPassScreen";
+import { RecoveryPassWordScreen } from "@/components/screens/RecoveryPassWordScreen";
 import { PaperProvider } from "react-native-paper";
+
 
 // Define el tipo para las rutas de navegación
 type RootStackParamList = {
@@ -27,11 +30,39 @@ type RootStackParamList = {
   UserProfile: undefined;
   PetForm: undefined;
   FormEvent: undefined;
+  ProtectedRoute: undefined;
+  RecoveryPassScreen: undefined;
+  RecoveryPassWordScreen: undefined;
   PreAddDocumentation: undefined;
   FinalAddPet: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+
+// Define los tipos de props para cada pantalla
+type LoadingScreenProps = NativeStackScreenProps<RootStackParamList, "Loading">;
+type HomeScreenProps = NativeStackScreenProps<RootStackParamList, "Home">;
+type SocialLoginScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  "SocialLogin"
+>;
+type LoginScreenProps = NativeStackScreenProps<RootStackParamList, "Login">;
+type EmailRegisterScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  "EmailRegisterScreen"
+>;
+type NotRememberPassScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  "NotRememberPassScreen"
+>;
+type UserProfileScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  "UserProfileScreen"
+>;
+type PetFormProps = NativeStackScreenProps<RootStackParamList, "PetForm">;
+type FormEventProps = NativeStackScreenProps<RootStackParamList, "FormEvent">;
+type RecoveryPassScreenProps = NativeStackScreenProps<RootStackParamList, "RecoveryPassScreen">;
+type RecoveryPassWordScreenProps = NativeStackScreenProps<RootStackParamList, "RecoveryPassWordScreen">
 
 export default function App() {
   return (
@@ -88,6 +119,27 @@ export default function App() {
               name="FormEvent"
               component={FormEventScreen}
               options={{ headerShown: true, headerTitle: "" }}
+            />
+            {/** Pantalla recuperar contraseña mandar mail */}
+            <Stack.Screen
+              name="RecoveryPassScreen"
+              children={(props: RecoveryPassScreenProps)=>(
+                <Wrapper>
+                  <RecoveryPassScreen {...props}/>
+                </Wrapper>
+              )}
+              options={{ headerShown: true, headerTitle: "" }}
+            />
+
+            {/** Pantalla Recuperar Contraseña nueva */}
+            <Stack.Screen
+              name= "RecoveryPassWordScreen"
+              children={(props: RecoveryPassWordScreenProps)=>(
+                <Wrapper>
+                  <RecoveryPassWordScreen {...props}/>
+                </Wrapper>
+              )}
+              options ={{ headerShown: true, headerTitle: "" }}
             />
             <Stack.Screen
               name="PreAddDocumentation"
