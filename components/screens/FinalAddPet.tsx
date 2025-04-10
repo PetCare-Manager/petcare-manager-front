@@ -62,13 +62,13 @@ export const FinalAddPet: React.FC<FinalAddPetProps> = ({
       breed,
       birth: birthDate,
       gender: sex,
-      chip: chip || "N/A",
-      illness: hasDisease,
+      chip_number: chip || null,
+      chronic_illnesses: hasDisease,
       neutered: onNeuter,
       weight: parseFloat(petWeight),
     };
 
-    console.log(" Enviando datos:", petData);
+    console.log("🐾 Enviando datos corregidos:", petData);
 
     setLoading(true);
 
@@ -78,9 +78,8 @@ export const FinalAddPet: React.FC<FinalAddPetProps> = ({
       console.log("✅ Respuesta de la API:", response.data);
 
       if (response.status === 201) {
-        setRegistroCompleto(true); // Navega a CreatedPet en lugar de Alert
+        setRegistroCompleto(true);
       } else {
-        console.log("⚠️ Respuesta inesperada:", response.status);
         Alert.alert("Error", `Código inesperado: ${response.status}`);
       }
     } catch (error: any) {
