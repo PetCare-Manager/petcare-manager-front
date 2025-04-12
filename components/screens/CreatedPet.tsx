@@ -1,63 +1,78 @@
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+
+type RootStackParamList = {
+  Home: undefined;
+  Register: undefined;
+  EmailRegister: undefined;
+  Login: undefined;
+  NotRememberPass: undefined;
+  UserProfile: undefined;
+  PetForm: undefined;
+};
+
+type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
 interface RegistroMascotaProps {
   conDocumentacion: boolean;
-  onFinalizar: () => void;
-  onAnadirOtraMascota: () => void;
 }
 
 const RegistroMascota: React.FC<RegistroMascotaProps> = ({
   conDocumentacion,
-  onFinalizar,
-  onAnadirOtraMascota,
 }) => {
-  return (
-    <View className="flex-1 justify-center items-center p-4">
-      <View className="bg-white rounded-lg p-6 w-full max-w-sm">
-        <Text className="text-lg font-bold mb-4">Registro Mascota</Text>
+  const navigation = useNavigation<NavigationProps>();
 
-        {conDocumentacion ? (
-          <>
-            <View className="flex items-center mb-4">
-              <Image
-                source={require("../../assets/images/petregisterOK.png")} // Reemplaza con tu icono de éxito
-                className="w-20 h-20"
-              />
-              <Text className="text-center mt-2">
+  return (
+    <View className="flex flex-col justify-between rounded-lg items-center w-full h-full bg-white">
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        className="w-full px-6 pt-[120px]"
+      >
+        <View className="items-center mb-10">
+          {conDocumentacion ? (
+            <>
+              <Text className="text-center mt-4 font-raleway-bold text-2xl text-typography_2">
                 Los datos de tu mascota han sido registrados correctamente.
               </Text>
-            </View>
-          </>
-        ) : (
-          <>
-            <View className="flex items-center mb-4">
               <Image
-                source={require("../../assets/images/petregisterwarning.png")} // Reemplaza con tu icono de advertencia
-                className="w-20 h-20"
+                source={require("../../assets/images/petregisterOK.png")}
+                className="w-40 h-40"
               />
-              <Text className="text-center mt-2">
+            </>
+          ) : (
+            <>
+              <Text className="text-center mt-4 font-raleway-bold text-2xl text-typography_2">
                 Los datos de tu mascota han sido registrados sin documentación.
               </Text>
-              <Text className="text-center text-red-500 mt-1">
+              <Image
+                source={require("../../assets/images/petregisterwarning.png")}
+                className="w-20 h-20"
+              />
+              <Text className="text-center text-red-500 mt-2 font-raleway-regular text-sm">
                 Recuerda incluir la documentación.
               </Text>
-            </View>
-          </>
-        )}
+            </>
+          )}
+        </View>
+      </ScrollView>
 
+      <View className="flex justify-center gap-4 mb-14 w-full px-6">
         <TouchableOpacity
-          className="bg-pink-600 rounded-md p-3 mt-4"
-          onPress={onFinalizar}
+          onPress={() => navigation.navigate("UserProfile")}
+          className="bg-primary px-14 py-4 rounded-2xl"
         >
-          <Text className="text-white text-center font-bold">Finalizar</Text>
+          <Text className="text-customwhite font-raleway-semibold text-base text-center">
+            Finalizar
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          className="bg-gray-200 rounded-md p-3 mt-2"
-          onPress={onAnadirOtraMascota}
+          onPress={() => navigation.navigate("PetForm")}
+          className="bg-customwhite px-8 py-4 rounded-2xl border border-primary"
         >
-          <Text className="text-gray-700 text-center font-bold">
+          <Text className="text-primary font-raleway-semibold text-base text-center">
             Añadir otra mascota
           </Text>
         </TouchableOpacity>
