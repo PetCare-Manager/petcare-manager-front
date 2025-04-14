@@ -5,7 +5,8 @@ import { UserAvatar } from "@/components/commons/UserAvatar";
 import { useAuth } from "@/context/AuthContext";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { PetList } from "../PetList";
 
 type UserProfileScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -27,7 +28,7 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({
     // Puedes manejar alguna navegación adicional si es necesario
   };
   return (
-    <View className="flex items-center justify-center  w-full h-full p-4">
+    <ScrollView className="flex items-center justify-center  w-full h-full p-4">
       <UserAvatar />
       <Text className="mt-4 text-2xl font-raleway-regular text-gray-800">
         Hola, ¡disfruta tu día!
@@ -41,6 +42,8 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({
         {/* Aquí se pasa la propiedad navigation a AddPetCard */}
         <AddPetCard navigation={navigation} />
         <CreateEvent navigation={navigation} />
+        <PetList />
+
         <Event />
       </View>
       <TouchableOpacity
@@ -52,6 +55,6 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({
           Cerrar sesión
         </Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
