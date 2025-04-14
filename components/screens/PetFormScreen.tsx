@@ -4,6 +4,7 @@ import { useState } from "react";
 import {
   Alert,
   ScrollView,
+  Switch,
   Text,
   TextInput,
   TouchableOpacity,
@@ -80,7 +81,7 @@ export const PetForm: React.FC<PetFormProps> = ({ navigation }) => {
 
     navigation.navigate("PreAddDocumentation", {
       name,
-      birthDate: birthDate.toISOString().split("T")[0], // Formato YYYY-MM-DD
+      birthDate: birthDate.toISOString().split("T")[0],
       sex: mapGender(sex),
       chip,
       breed: selectedBreed,
@@ -169,44 +170,39 @@ export const PetForm: React.FC<PetFormProps> = ({ navigation }) => {
         className="bg-customwhite border border-inputborder rounded-lg px-4 py-2 mb-4"
       />
 
-      {/* Enfermedad Crónica */}
-      <Text className="text-base font-raleway-medium mb-2">
-        ¿Tiene enfermedad crónica?
-      </Text>
-      <View className="flex-row items-center mb-4">
-        {["No", "Sí"].map((option, index) => (
-          <View key={option} className="flex-row items-center mr-4">
-            <RadioButton
-              value={option}
-              status={hasDisease === (index === 1) ? "checked" : "unchecked"}
-              onPress={() => setHasDisease(index === 1)}
-            />
-            <Text>{option}</Text>
-          </View>
-        ))}
-      </View>
+      {/* Switches con estilo */}
+      <View className="p-4">
+        <View className="flex-row justify-between items-center mb-6">
+          <Text className="text-base font-raleway-medium">
+            Enfermedad crónica:
+          </Text>
+          <Switch
+            value={hasDisease}
+            onValueChange={setHasDisease}
+            trackColor={{ false: "#d1d5db", true: "#C23C64" }}
+            thumbColor="#ffffff"
+            ios_backgroundColor="#d1d5db"
+            style={{ transform: [{ scaleX: 1.4 }, { scaleY: 1.4 }] }}
+          />
+        </View>
 
-      {/* Esterilizado */}
-      <Text className="text-base font-raleway-medium mb-2">
-        ¿Está esterilizado?
-      </Text>
-      <View className="flex-row items-center mb-4">
-        {["No", "Sí"].map((option, index) => (
-          <View key={option} className="flex-row items-center mr-4">
-            <RadioButton
-              value={option}
-              status={onNeuter === (index === 1) ? "checked" : "unchecked"}
-              onPress={() => setOnNeuter(index === 1)}
-            />
-            <Text>{option}</Text>
-          </View>
-        ))}
+        <View className="flex-row justify-between items-center mb-6">
+          <Text className="text-base font-raleway-medium">Esterilizado:</Text>
+          <Switch
+            value={onNeuter}
+            onValueChange={setOnNeuter}
+            trackColor={{ false: "#d1d5db", true: "#C23C64" }}
+            thumbColor="#ffffff"
+            ios_backgroundColor="#d1d5db"
+            style={{ transform: [{ scaleX: 1.4 }, { scaleY: 1.4 }] }}
+          />
+        </View>
       </View>
 
       {/* Botón de envío */}
       <View className="flex justify-center gap-2 mb-8 mt-8 w-full px-6">
         <TouchableOpacity
-          key={name + birthDate + selectedBreed} // Forzar re-render
+          key={name + birthDate + selectedBreed}
           className="bg-primary px-14 py-4 rounded-2xl"
           onPress={handleSubmit}
         >
