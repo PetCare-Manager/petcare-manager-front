@@ -132,16 +132,6 @@ export const PreAddDocumentation: React.FC<PreAddDocumentationProps> = ({
           />
         )}
       </View>
-
-      {/* Botón de continuar */}
-      <TouchableOpacity
-        onPress={handleContinue}
-        className="bg-primary px-14 py-4 rounded-2xl"
-      >
-        <Text className="text-customwhite font-raleway-semibold text-base text-center">
-          Continuar
-        </Text>
-      </TouchableOpacity>
     </View>
   );
 };
