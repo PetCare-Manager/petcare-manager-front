@@ -8,6 +8,7 @@ interface Pet {
   breed: string;
   gender: "M" | "F";
   imageUrl?: string;
+  birthdate: string;
 }
 
 export const PetList: React.FC = () => {
@@ -19,7 +20,8 @@ export const PetList: React.FC = () => {
     const fetchPets = async () => {
       try {
         const response = await axiosInstance.get("/pets");
-        setPets(response.data); // Ajusta si la estructura es diferente
+        console.log("🐶 Datos recibidos:", response.data); // <- agrega esto
+        setPets(response.data);
       } catch (err: any) {
         setError("Error al cargar mascotas");
         console.error(err);
@@ -43,6 +45,7 @@ export const PetList: React.FC = () => {
           breed={pet.breed}
           gender={pet.gender}
           imageUrl={pet.imageUrl}
+          birthdate={pet.birthdate}
         />
       ))}
     </View>
