@@ -1,40 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Text, View } from "react-native";
-import axiosInstance from "../api/axiosInstance";
+import { usePets } from "@/context/PetContext";
+import React from "react";
+import { ActivityIndicator, View } from "react-native";
 import { PetCard } from "./PetCard";
 
-interface Pet {
-  name: string;
-  breed: string;
-  gender: "M" | "F";
-  imageUrl?: string;
-  birthdate: string;
-}
-
 export const PetList: React.FC = () => {
-  const [pets, setPets] = useState<Pet[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { pets } = usePets();
 
-  useEffect(() => {
-    const fetchPets = async () => {
-      try {
-        const response = await axiosInstance.get("/pets");
-        console.log("🐶 Datos recibidos:", response.data); // <- agrega esto
-        setPets(response.data);
-      } catch (err: any) {
-        setError("Error al cargar mascotas");
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPets();
-  }, []);
-
-  if (loading) return <ActivityIndicator size="large" color="#19647E" />;
-  if (error) return <Text className="text-red-500">{error}</Text>;
+  if (!pets) return <ActivityIndicator size="large" color="#19647E" />;
 
   return (
     <View className="mt-2">
@@ -45,7 +17,7 @@ export const PetList: React.FC = () => {
           breed={pet.breed}
           gender={pet.gender}
           imageUrl={pet.imageUrl}
-          birthdate={pet.birthdate}
+          birthdate={pet.birth} // ¡Ojo aquí!
         />
       ))}
     </View>
