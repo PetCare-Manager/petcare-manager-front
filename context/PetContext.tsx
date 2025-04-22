@@ -15,6 +15,7 @@ type PetsContextType = {
   pets: Pet[];
   refreshPets: () => Promise<void>;
   addPet: (newPet: Pet) => void;
+  deletePet: (id: number) => Promise<void>;
 };
 
 const PetsContext = createContext<PetsContextType | undefined>(undefined);
@@ -38,6 +39,20 @@ export const PetsProvider: React.FC<{ children: React.ReactNode }> = ({
     setPets((prev) => [...prev, newPet]);
   };
 
+  const deletePet = async (id: number) => {
+    try {
+      console.log("Intentando eliminar:", `/pets/${id}`);
+      const res = await axiosInstance.delete(`/pets/${id}`);
+      console.log("Respuesta del backend:", res.data);
+      setPets((prev) => prev.filter((pet) => pet.id !== id));
+    } catch (error: any) {
+      console.error(
+        "Error al eliminar mascota:",
+        error.response?.data || error.message
+      );
+    }
+  };
+
   useEffect(() => {
     // Esperamos a que esté autenticado y haya token para llamar a la API
     if (isAuthenticated && token) {
@@ -46,7 +61,7 @@ export const PetsProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [isAuthenticated, token]); // se ejecuta cuando cambien estas variables
 
   return (
-    <PetsContext.Provider value={{ pets, refreshPets, addPet }}>
+    <PetsContext.Provider value={{ pets, refreshPets, addPet, deletePet }}>
       {children}
     </PetsContext.Provider>
   );

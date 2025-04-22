@@ -1,13 +1,11 @@
 import { breeds } from "@/utils/breeds";
-import { FontAwesome } from "@expo/vector-icons"; // Iconos para React Native
+import { FontAwesome } from "@expo/vector-icons";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
-import isToday from "dayjs/plugin/isToday";
 import React from "react";
 import { Image, Text, View } from "react-native";
 
 dayjs.extend(duration);
-dayjs.extend(isToday);
 
 const getAgeText = (birthdate: string): string => {
   const birth = dayjs(birthdate);
@@ -21,7 +19,6 @@ const getAgeText = (birthdate: string): string => {
   let years = now.diff(birth, "year");
   let months = now.diff(birth.add(years, "year"), "month");
 
-  // Corrección por si el día actual es anterior al día de nacimiento de este mes
   const adjustDate = birth.add(years, "year").add(months, "month");
   if (now.isBefore(adjustDate)) {
     months -= 1;
@@ -46,6 +43,7 @@ interface PetCardProps {
   gender: "M" | "F";
   birthdate: string;
   imageUrl?: string;
+  onDelete?: () => void;
 }
 
 export const PetCard: React.FC<PetCardProps> = ({
@@ -54,6 +52,7 @@ export const PetCard: React.FC<PetCardProps> = ({
   gender,
   imageUrl,
   birthdate,
+  onDelete,
 }) => {
   const genderIcon =
     gender === "M" ? (
@@ -66,10 +65,12 @@ export const PetCard: React.FC<PetCardProps> = ({
     (b) => b.name.toLowerCase() === breed.toLowerCase()
   )?.image;
 
+  const birthdayToday = isBirthday(birthdate);
+
   return (
     <View
       className={`flex-row items-center rounded-xl p-3 mb-2 shadow-sm ${
-        isBirthday(birthdate)
+        birthdayToday
           ? "bg-yellow-100 border-2 border-yellow-400 shadow-md"
           : "bg-white"
       }`}
@@ -94,12 +95,22 @@ export const PetCard: React.FC<PetCardProps> = ({
       <View className="flex-1">
         <View className="flex-row items-center">
           <Text className="text-base font-semibold text-gray-800">{name}</Text>
-          {isBirthday(birthdate) && <Text className="ml-2 text-lg">🎂</Text>}
+          {birthdayToday && <Text className="ml-2 text-lg">🎂</Text>}
         </View>
         <Text className="text-xs text-gray-500">{getAgeText(birthdate)}</Text>
         <Text className="text-sm text-gray-600">{breed}</Text>
       </View>
       <View>{genderIcon}</View>
+      {onDelete && (
+        <View className="ml-3">
+          <FontAwesome
+            name="trash"
+            size={20}
+            color="#DC2626"
+            onPress={onDelete}
+          />
+        </View>
+      )}
     </View>
   );
 };
