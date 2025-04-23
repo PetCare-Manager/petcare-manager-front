@@ -42,7 +42,7 @@ const getAgeText = (birthdate: string): string => {
     }
   }
 
-  return `Tengo ${years} años y ${months} meses`;
+  return `Tengo ${years} años.`;
 };
 
 const isBirthday = (birthdate: string): boolean => {
