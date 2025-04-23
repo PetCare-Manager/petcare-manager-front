@@ -17,8 +17,8 @@ export const AddPetCard: React.FC<AddPetCardProps> = ({
   hasPets,
 }) => {
   return (
-    <View className="flex flex-row items-center rounded-lg p-4">
-      <View className="container flex">
+    <View className="flex flex-row items-center rounded-lg">
+      <View className="container flex bg-white">
         {!hasPets && (
           <Text className="text-typography mb-4 text-base font-raleway-regular">
             Actualmente no dispones de mascotas en la app
@@ -32,16 +32,13 @@ export const AddPetCard: React.FC<AddPetCardProps> = ({
           </View>
 
           {/* Texto de añadir mascota */}
-          <Text className="text-lg text-primary font-raleway-semibold flex-1">
+          <Text className=" text-base text-primary font-raleway-semibold flex-1">
             Añadir Mascota
           </Text>
 
           {/* Botón de añadir mascota */}
-          <TouchableOpacity
-            onPress={() => navigation.navigate("PetForm")}
-            className="bg-pink-200 rounded-full p-2"
-          >
-            <MaterialIcons name="add" size={24} color="#c04b71" />
+          <TouchableOpacity onPress={() => navigation.navigate("PetForm")}>
+            <MaterialIcons name="add" size={30} color="#c04b71" />
           </TouchableOpacity>
         </View>
       </View>

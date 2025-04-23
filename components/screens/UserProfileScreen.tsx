@@ -1,13 +1,14 @@
 import { AddPetCard } from "@/components/AddPetCard";
 import { CreateEvent } from "@/components/CreateEventButton";
 import { Event } from "@/components/Event";
+import { PetList } from "@/components/PetList";
 import { UserAvatar } from "@/components/commons/UserAvatar";
 import { useAuth } from "@/context/AuthContext";
 import { usePets } from "@/context/PetContext";
+import { FontAwesome } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { PetList } from "../PetList";
+import { ScrollView, Text, View } from "react-native";
 
 type UserProfileScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -35,8 +36,15 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({
 
   return (
     <ScrollView className="flex items-center w-full h-full p-4">
+      <FontAwesome
+        name="sign-out"
+        size={24}
+        color="black"
+        className="flex justify-end"
+        onPress={handleLogout}
+      />
       <UserAvatar />
-      <Text className="mt-4 text-2xl font-raleway-regular text-gray-800">
+      <Text className="mt-4 text-2xl font-raleway-regular text-center text-gray-800">
         Hola, ¡disfruta tu día!
       </Text>
 
@@ -58,14 +66,6 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({
         <CreateEvent navigation={navigation} />
         <Event />
       </View>
-      <TouchableOpacity
-        onPress={handleLogout}
-        className="bg-primary px-14 py-4 rounded-2xl mt-4 "
-      >
-        <Text className="text-customwhite font-raleway-semibold">
-          Cerrar sesión
-        </Text>
-      </TouchableOpacity>
     </ScrollView>
   );
 };
