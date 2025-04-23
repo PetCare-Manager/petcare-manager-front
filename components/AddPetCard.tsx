@@ -25,7 +25,7 @@ export const AddPetCard: React.FC<AddPetCardProps> = ({
           </Text>
         )}
 
-        <View className="flex-row justify-center bg-customwhite items-center rounded-lg shadow p-4">
+        <View className="flex-row justify-center bg-white items-center rounded-lg shadow p-4">
           {/* Icono de mascota */}
           <View className="flex bg-primary rounded-lg w-12 h-12 items-center justify-center mr-4">
             <MaterialIcons name="pets" size={24} color="#fff" />
