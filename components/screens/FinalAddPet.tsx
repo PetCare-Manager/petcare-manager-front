@@ -1,4 +1,5 @@
 import axiosInstance from "@/api/axiosInstance";
+import { usePets } from "@/context/PetContext";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import * as DocumentPicker from "expo-document-picker";
 import React, { useState } from "react";
@@ -51,6 +52,8 @@ export const FinalAddPet: React.FC<FinalAddPetProps> = ({
   const [loading, setLoading] = useState(false);
   const [registroCompleto, setRegistroCompleto] = useState(false);
 
+  const { refreshPets } = usePets(); // 👉 Usar el contexto
+
   const handleSubmit = async () => {
     if (!petWeight || isNaN(Number(petWeight))) {
       Alert.alert("Error", "Por favor, introduce un peso válido.");
@@ -78,6 +81,7 @@ export const FinalAddPet: React.FC<FinalAddPetProps> = ({
       console.log("✅ Respuesta de la API:", response.data);
 
       if (response.status === 201) {
+        await refreshPets(); // 🔄 Actualiza mascotas desde el backend
         setRegistroCompleto(true);
       } else {
         Alert.alert("Error", `Código inesperado: ${response.status}`);
@@ -99,7 +103,7 @@ export const FinalAddPet: React.FC<FinalAddPetProps> = ({
     <ScrollView className="flex-1 px-6 py-8">
       {registroCompleto ? (
         <CreatedPet
-          conDocumentacion={documents.length > 0} // Verifica si hay documentos
+          conDocumentacion={documents.length > 0}
           onFinalizar={() =>
             navigation.reset({ index: 0, routes: [{ name: "Home" }] })
           }
@@ -125,7 +129,6 @@ export const FinalAddPet: React.FC<FinalAddPetProps> = ({
             </Text>
           ))}
 
-          {/* Peso */}
           <Text className="text-base font-raleway-medium mt-4">Peso (kg):</Text>
           <TextInput
             value={petWeight}
@@ -134,7 +137,6 @@ export const FinalAddPet: React.FC<FinalAddPetProps> = ({
             className="bg-white border border-gray-300 rounded-lg px-4 py-2 mb-4"
           />
 
-          {/* Botón de registrar */}
           <TouchableOpacity
             onPress={handleSubmit}
             className="bg-primary p-4 rounded-lg items-center mt-6"
