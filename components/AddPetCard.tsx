@@ -6,18 +6,24 @@ import { Text, TouchableOpacity, View } from "react-native";
 type RootStackParamList = {
   PetForm: undefined;
 };
-// Definir el tipo de navegación para AddPetCard
+
 type AddPetCardProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, "PetForm">;
+  hasPets: boolean;
 };
 
-export const AddPetCard: React.FC<AddPetCardProps> = ({ navigation }) => {
+export const AddPetCard: React.FC<AddPetCardProps> = ({
+  navigation,
+  hasPets,
+}) => {
   return (
     <View className="flex flex-row items-center rounded-lg p-4">
       <View className="container flex">
-        <Text className="text-typography mb-4 text-base font-raleway-regular">
-          Actualmente no dispones de mascotas en la app
-        </Text>
+        {!hasPets && (
+          <Text className="text-typography mb-4 text-base font-raleway-regular">
+            Actualmente no dispones de mascotas en la app
+          </Text>
+        )}
 
         <View className="flex-row justify-center bg-customwhite items-center rounded-lg shadow p-4">
           {/* Icono de mascota */}

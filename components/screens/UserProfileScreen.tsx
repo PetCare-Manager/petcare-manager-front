@@ -3,6 +3,7 @@ import { CreateEvent } from "@/components/CreateEventButton";
 import { Event } from "@/components/Event";
 import { UserAvatar } from "@/components/commons/UserAvatar";
 import { useAuth } from "@/context/AuthContext";
+import { usePets } from "@/context/PetContext";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
@@ -23,12 +24,17 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({
   navigation,
 }) => {
   const { logout } = useAuth();
+  const { pets } = usePets();
+
   const handleLogout = () => {
     logout();
-    // Puedes manejar alguna navegación adicional si es necesario
   };
+
+  const canAddPet = pets.length < 5;
+  const hasPets = pets.length > 0;
+
   return (
-    <ScrollView className="flex items-center justify-center  w-full h-full p-4">
+    <ScrollView className="flex items-center w-full h-full p-4">
       <UserAvatar />
       <Text className="mt-4 text-2xl font-raleway-regular text-gray-800">
         Hola, ¡disfruta tu día!
@@ -39,11 +45,17 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({
         <Text className="text-xl font-afacad-semibold text-typography_2">
           Mis mascotas
         </Text>
-        {/* Aquí se pasa la propiedad navigation a AddPetCard */}
-        <AddPetCard navigation={navigation} />
+        {hasPets && <PetList />}
+        {canAddPet && (
+          <AddPetCard navigation={navigation} hasPets={hasPets} />
+        )}{" "}
+        {/* Pasamos hasPets como prop */}
+        {!hasPets && (
+          <Text className="text-typography mb-4 text-base font-raleway-regular">
+            Actualmente no dispones de mascotas en la app
+          </Text>
+        )}
         <CreateEvent navigation={navigation} />
-        <PetList />
-
         <Event />
       </View>
       <TouchableOpacity
@@ -51,7 +63,6 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({
         className="bg-primary px-14 py-4 rounded-2xl mt-4 "
       >
         <Text className="text-customwhite font-raleway-semibold">
-          {" "}
           Cerrar sesión
         </Text>
       </TouchableOpacity>
