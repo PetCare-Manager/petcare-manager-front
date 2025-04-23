@@ -7,6 +7,20 @@ import { Image, Text, View } from "react-native";
 
 dayjs.extend(duration);
 
+const tailwindColors = [
+  "bg-yellow-100",
+  "bg-red-100",
+  "bg-green-100",
+  "bg-pink-100",
+  "bg-blue-100",
+  "bg-purple-100",
+];
+
+const getRandomTailwindColor = () => {
+  const randomIndex = Math.floor(Math.random() * tailwindColors.length);
+  return tailwindColors[randomIndex];
+};
+
 const getAgeText = (birthdate: string): string => {
   const birth = dayjs(birthdate);
   const now = dayjs();
@@ -66,14 +80,14 @@ export const PetCard: React.FC<PetCardProps> = ({
   )?.image;
 
   const birthdayToday = isBirthday(birthdate);
+  const randomBgColorClass = getRandomTailwindColor();
+  const baseBgColorClass = birthdayToday
+    ? "bg-yellow-100 border-2 border-yellow-400 shadow-md"
+    : "bg-white";
 
   return (
     <View
-      className={`flex-row items-center rounded-xl p-3 mb-2 shadow-sm ${
-        birthdayToday
-          ? "bg-yellow-100 border-2 border-yellow-400 shadow-md"
-          : "bg-white"
-      }`}
+      className={`flex-row items-center rounded-xl p-3 mb-2 shadow-sm ${baseBgColorClass} ${randomBgColorClass}`}
     >
       <View className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 mr-3 items-center justify-center">
         {imageUrl ? (
