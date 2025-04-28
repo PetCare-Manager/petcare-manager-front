@@ -31,9 +31,6 @@ export const Event: React.FC<EventProps> = ({
 
   return (
     <View className="flex flex-row items-center rounded-lg shadow p-4">
-      <Text className="text-typography mb-4 text-base font-raleway-regular">
-        Actualmente no dispones de eventos en la app
-      </Text>
       {/* Barra lateral izquierda */}
       <View className="w-1 bg-secondary h-full rounded-lg mr-4" />
       <View className="flex-1">

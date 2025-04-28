@@ -1,5 +1,6 @@
 import { AddPetCard } from "@/components/AddPetCard";
 import { CreateEvent } from "@/components/CreateEventButton";
+import { Event } from "@/components/Event";
 import { PetList } from "@/components/PetList";
 import { UserAvatar } from "@/components/commons/UserAvatar";
 import { useAuth } from "@/context/AuthContext";
@@ -63,6 +64,7 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({
           </Text>
         )}
         <CreateEvent navigation={navigation} />
+        <Event />
       </View>
     </ScrollView>
   );
