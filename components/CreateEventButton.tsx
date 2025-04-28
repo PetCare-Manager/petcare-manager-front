@@ -23,16 +23,13 @@ export const CreateEvent: React.FC<FormEventProps> = ({ navigation }) => {
             <MaterialIcons name="alarm" size={24} color="#fff" />
           </View>
           {/* Texto de añadir evento */}
-          <Text className="text-lg text-primary font-raleway-semibold flex-1">
+          <Text className="text-base text-primary font-raleway-semibold flex-1">
             Añadir Evento
           </Text>
 
-          {/* Botón de añadir evento */}
-          <TouchableOpacity
-            onPress={() => navigation.navigate("FormEvent")}
-            className="bg-pink-200 rounded-full p-2"
-          >
-            <MaterialIcons name="add" size={24} color="#c04b71" />
+          {/* Botón de añadir mascota */}
+          <TouchableOpacity onPress={() => navigation.navigate("FormEvent")}>
+            <MaterialIcons name="add" size={30} color="#c04b71" />
           </TouchableOpacity>
         </View>
       </View>

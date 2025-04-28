@@ -22,7 +22,7 @@ type FormEventProps = NativeStackScreenProps<
   "UserProfileScreen"
 >;
 
-export const FormEvent: React.FC<FormEventProps> = ({ navigation }) => {
+export const FormEventScreen: React.FC = () => {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState<Date | null>(null);
   const [time, setTime] = useState<Date | null>(null);
