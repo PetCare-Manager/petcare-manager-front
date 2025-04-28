@@ -74,73 +74,74 @@ type RecoveryPassWordScreenProps = NativeStackScreenProps<
 export default function App() {
   return (
     <AuthProvider>
-      <PetsProvider>
-        <PaperProvider>
-          <Wrapper>
-            <Stack.Navigator initialRouteName="Loading">
-              <Stack.Screen
-                name="Loading"
-                component={LoadingScreen}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="Home"
-                component={HomeScreen}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="SocialLogin"
-                component={SocialLoginScreen}
-                options={{ headerShown: true, headerTitle: "" }}
-              />
-              <Stack.Screen
-                name="Login"
-                component={LoginScreen}
-                options={{ headerShown: true, headerTitle: "" }}
-              />
-              <Stack.Screen
-                name="EmailRegister"
-                component={EmailRegisterScreen}
-                options={{ headerShown: true, headerTitle: "" }}
-              />
-              <Stack.Screen
-                name="NotRememberPass"
-                component={NotRememberPassScreen}
-                options={{ headerShown: true, headerTitle: "" }}
-              />
-              <Stack.Screen
-                name="UserProfile"
-                options={{
-                  headerShown: true,
-                  headerTitle: "Perfil de Usuario",
-                }}
-              >
-                {(props) => (
-                  <ProtectedRoute>
-                    <UserProfileScreen {...props} />
-                  </ProtectedRoute>
-                )}
-              </Stack.Screen>
-              <Stack.Screen
-                name="PetForm"
-                component={PetForm}
-                options={{ headerShown: true, headerTitle: "" }}
-              />
-              <Stack.Screen
-                name="FormEvent"
-                component={FormEventScreen}
-                options={{ headerShown: true, headerTitle: "" }}
-              />
-              {/** Pantalla recuperar contraseña mandar mail */}
-              <Stack.Screen
-                name="RecoveryPassScreen"
-                children={(props: RecoveryPassScreenProps) => (
-                  <Wrapper>
-                    <RecoveryPassScreen {...props} />
-                  </Wrapper>
-                )}
-                options={{ headerShown: true, headerTitle: "" }}
-              />
+      <EventProvider>
+        <PetsProvider>
+          <PaperProvider>
+            <Wrapper>
+              <Stack.Navigator initialRouteName="Loading">
+                <Stack.Screen
+                  name="Loading"
+                  component={LoadingScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="Home"
+                  component={HomeScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="SocialLogin"
+                  component={SocialLoginScreen}
+                  options={{ headerShown: true, headerTitle: "" }}
+                />
+                <Stack.Screen
+                  name="Login"
+                  component={LoginScreen}
+                  options={{ headerShown: true, headerTitle: "" }}
+                />
+                <Stack.Screen
+                  name="EmailRegister"
+                  component={EmailRegisterScreen}
+                  options={{ headerShown: true, headerTitle: "" }}
+                />
+                <Stack.Screen
+                  name="NotRememberPass"
+                  component={NotRememberPassScreen}
+                  options={{ headerShown: true, headerTitle: "" }}
+                />
+                <Stack.Screen
+                  name="UserProfile"
+                  options={{
+                    headerShown: true,
+                    headerTitle: "Perfil de Usuario",
+                  }}
+                >
+                  {(props) => (
+                    <ProtectedRoute>
+                      <UserProfileScreen {...props} />
+                    </ProtectedRoute>
+                  )}
+                </Stack.Screen>
+                <Stack.Screen
+                  name="PetForm"
+                  component={PetForm}
+                  options={{ headerShown: true, headerTitle: "" }}
+                />
+                <Stack.Screen
+                  name="FormEvent"
+                  component={FormEventScreen}
+                  options={{ headerShown: true, headerTitle: "" }}
+                />
+                {/** Pantalla recuperar contraseña mandar mail */}
+                <Stack.Screen
+                  name="RecoveryPassScreen"
+                  children={(props: RecoveryPassScreenProps) => (
+                    <Wrapper>
+                      <RecoveryPassScreen {...props} />
+                    </Wrapper>
+                  )}
+                  options={{ headerShown: true, headerTitle: "" }}
+                />
 
                 {/** Pantalla Recuperar Contraseña nueva */}
                 <Stack.Screen
@@ -152,20 +153,20 @@ export default function App() {
                   )}
                   options={{ headerShown: true, headerTitle: "" }}
                 />
-              <Stack.Screen
-                name="PreAddDocumentation"
-                component={PreAddDocumentation}
-                options={{ headerShown: true, headerTitle: "" }}
-              />
-              <Stack.Screen
-                name="FinalAddPet"
-                component={FinalAddPet}
-                options={{ headerShown: true, headerTitle: "" }}
-              />
+                <Stack.Screen
+                  name="PreAddDocumentation"
+                  component={PreAddDocumentation}
+                  options={{ headerShown: true, headerTitle: "" }}
+                />
+                <Stack.Screen
+                  name="FinalAddPet"
+                  component={FinalAddPet}
+                  options={{ headerShown: true, headerTitle: "" }}
+                />
               </Stack.Navigator>
-          </Wrapper>
-        </PaperProvider>
-      </PetsProvider>
+            </Wrapper>
+          </PaperProvider>
+        </PetsProvider>
       </EventProvider>
     </AuthProvider>
   );
