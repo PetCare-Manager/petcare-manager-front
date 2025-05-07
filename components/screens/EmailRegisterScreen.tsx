@@ -1,3 +1,4 @@
+import LogoSmall from "@/components/commons/LogoSmall";
 import userService from "@/services/userService";
 import { validateEmail } from "@/utils/validation";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -110,6 +111,7 @@ export const EmailRegisterScreen: React.FC<EmailRegisterScreenProps> = ({
           }}
           showsVerticalScrollIndicator={false}
         >
+          <LogoSmall title="Registro" />
           <View className="flex gap-4 mt-4 mb-6 w-full px-12">
             <Text className="font-raleway-semibold text-base">
               Todo lo que necesitas de tu mascota, en tu bolsillo, a un solo
