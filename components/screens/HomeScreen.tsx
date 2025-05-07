@@ -1,7 +1,8 @@
-import { SvgIconsComponent } from "@/components/commons/SvgIconsComponent";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+// import { LogoBig } from "../commons/LogoBig";
+import { SvgIconsComponent } from "@/components/commons/SvgIconsComponent";
 
 type RootStackParamList = {
   Home: undefined;
@@ -21,8 +22,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         containerClass="w-56 h-44 z-10 mt-[120px] items-center"
         type="logo1"
       />
+      {/* <LogoBig /> */}
 
-      <View className="items-center -mt-20 px-6">
+      <View className="items-center px-6 justify-start">
         <Text className="font-afacad-semibold text-[40px] lg:text-5xl text-center text-typography">
           PetCare Manager
         </Text>
