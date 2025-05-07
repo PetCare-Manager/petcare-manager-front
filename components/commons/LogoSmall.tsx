@@ -13,7 +13,7 @@ const LogoSmall: React.FC<LogoSmallProps> = ({ title }) => {
         type="logo1"
         containerClass="w-8 h-8" // 32x32 px
       />
-      <Text className="text-[32px] font-afacad-semibold text-gray-800">
+      <Text className=" text-3xl font-afacad-semibold text-typography">
         {title}
       </Text>
     </View>
