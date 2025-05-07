@@ -1,6 +1,6 @@
+import { SvgIconsComponent } from "@/components/commons/SvgIconsComponent";
 import React from "react";
 import { Text, View } from "react-native";
-import { SvgIconsComponent } from "./SvgIconsComponent";
 
 export const LogoBig = () => {
   return (
