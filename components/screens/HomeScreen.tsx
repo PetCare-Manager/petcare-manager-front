@@ -8,7 +8,7 @@ type RootStackParamList = {
   Register: undefined;
   EmailRegister: undefined;
   Login: undefined;
-  NotRememberPass: undefined;
+  RecoveryPass: undefined;
   UserProfile: undefined;
 };
 

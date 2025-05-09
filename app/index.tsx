@@ -13,6 +13,7 @@ import { SocialLoginScreen } from "@/components/screens/SocialLoginScreen";
 import { UserProfileScreen } from "@/components/screens/UserProfileScreen";
 import { AuthProvider } from "@/context/AuthContext";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import { RecoveryPassScreen } from "@/components/screens/RecoveryPassScreen";
 import { RecoveryPassWordScreen } from "@/components/screens/RecoveryPassWordScreen";
@@ -31,8 +32,8 @@ type RootStackParamList = {
   PetForm: undefined;
   FormEvent: undefined;
   ProtectedRoute: undefined;
-  RecoveryPassScreen: undefined;
-  RecoveryPassWordScreen: undefined;
+  RecoveryPass: undefined;
+  RecoveryPassWord: undefined;
   PreAddDocumentation: undefined;
   FinalAddPet: undefined;
 };
@@ -61,8 +62,8 @@ type UserProfileScreenProps = NativeStackScreenProps<
 >;
 type PetFormProps = NativeStackScreenProps<RootStackParamList, "PetForm">;
 type FormEventProps = NativeStackScreenProps<RootStackParamList, "FormEvent">;
-type RecoveryPassScreenProps = NativeStackScreenProps<RootStackParamList, "RecoveryPassScreen">;
-type RecoveryPassWordScreenProps = NativeStackScreenProps<RootStackParamList, "RecoveryPassWordScreen">
+type RecoveryPassScreenProps = NativeStackScreenProps<RootStackParamList, "RecoveryPass">;
+type RecoveryPassWordScreenProps = NativeStackScreenProps<RootStackParamList, "RecoveryPassWord">
 
 export default function App() {
   return (
@@ -120,9 +121,9 @@ export default function App() {
               component={FormEventScreen}
               options={{ headerShown: true, headerTitle: "" }}
             />
-            {/** Pantalla recuperar contraseña mandar mail */}
+            {/** Pantalla mandar mail para recuperar contraseña */}
             <Stack.Screen
-              name="RecoveryPassScreen"
+              name="RecoveryPass"
               children={(props: RecoveryPassScreenProps)=>(
                 <Wrapper>
                   <RecoveryPassScreen {...props}/>
@@ -131,9 +132,9 @@ export default function App() {
               options={{ headerShown: true, headerTitle: "" }}
             />
 
-            {/** Pantalla Recuperar Contraseña nueva */}
+            {/** Pantalla Recuperar Contraseña*/}
             <Stack.Screen
-              name= "RecoveryPassWordScreen"
+              name= "RecoveryPassWord"
               children={(props: RecoveryPassWordScreenProps)=>(
                 <Wrapper>
                   <RecoveryPassWordScreen {...props}/>

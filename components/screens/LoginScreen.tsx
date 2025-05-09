@@ -10,7 +10,7 @@ type RootStackParamList = {
   Register: undefined;
   EmailRegister: undefined;
   Login: undefined;
-  NotRememberPassScreen: undefined;
+  RecoveryPass: undefined;
   UserProfile: undefined;
 };
 
@@ -148,7 +148,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
         <Text
           className="font-raleway-medium text-base underline mb-14"
-          onPress={() => navigation.navigate("NotRememberPassScreen")}
+          onPress={() => navigation.navigate("RecoveryPass")}
         >
           ¿Has olvidado tu contraseña?
         </Text>

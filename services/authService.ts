@@ -5,6 +5,12 @@ interface LoginResponse {
   error: string;
   statusCode: number;
 }
+//para recuperación de contraseña
+interface PasswordResetResponse {
+  success: boolean;
+  message: string;
+  statusCode: number;
+}
 const login = async (
   email: string,
   password: string
@@ -25,7 +31,7 @@ const login = async (
 
     // Si se trata de un BackendError, retornamos el mensaje y el código
     if (backendError instanceof BackendError) {
-      // Si el error es de tipo `BackendError`, mostramos información relevante
+      // Si el error es de tipo `BackendError`,muestra información relevante
       console.error(
         "Backend Error:",
         error.message,
@@ -42,5 +48,42 @@ const login = async (
     );
   }
 };
+//funcion para correo de recuperación de contraseña
+const sendPasswordResetEmail = async (
+  email: string
+): Promise<PasswordResetResponse> => {
+  try {
+    const response = await axiosInstance.post("/auth/password", {
+      email,
+    });
 
-export default { login };
+    console.log("Respuesta del servidor:", response.data);
+
+    return {
+      success: true,
+      message: response.data.message || "Se ha enviado un correo de recuperación",
+      statusCode: response.status
+    };
+  }catch (error: any) {
+    //manejo de  errores del back
+    const backendError = handleBackendError(error);
+    //si es un backenError, retrna el emnsaje y el codigo
+    if(backendError instanceof BackendError) {
+      console.error(
+        "Backend Error: ",
+        backendError.message,
+        "Status: ",
+        backendError.statusCode
+      );
+      throw backendError; //mandameos erro para que el comp lo maneje
+    }
+  // si no es backlenerror , mand amensaje generico
+    console.error("Unknow error curred during password reset request: ", error);
+    throw new Error(
+      "Ocurrio un error al solicitar la recuperación de la contraseña. Por favor, intentelo mas tarde"
+    );
+  }
+}; 
+
+
+export default {login, sendPasswordResetEmail}
