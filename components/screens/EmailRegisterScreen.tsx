@@ -111,8 +111,8 @@ export const EmailRegisterScreen: React.FC<EmailRegisterScreenProps> = ({
           }}
           showsVerticalScrollIndicator={false}
         >
+          <LogoSmall title="Regístrate" />
           <View className="flex gap-4 mt-4 mb-6 w-full px-12">
-            <LogoSmall title="Registro" />
             <Text className="font-raleway-semibold text-base">
               Todo lo que necesitas de tu mascota, en tu bolsillo, a un solo
               click.

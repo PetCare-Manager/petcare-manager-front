@@ -1,14 +1,14 @@
+import Email from "@/assets/svg/email.svg";
+import Google from "@/assets/svg/google.svg";
+import Instagram from "@/assets/svg/insta.svg";
+import Logo1 from "@/assets/svg/logo1.svg";
+import Twitter from "@/assets/svg/twitter.svg";
 import React from "react";
 import { View } from "react-native";
-import Google from "@/assets/svg/google.svg";
-import Twitter from "@/assets/svg/twitter.svg";
-import Instagram from "@/assets/svg/insta.svg";
-import Email from "@/assets/svg/email.svg";
-import Logo1 from "@/assets/svg/logo1.svg";
 
 interface SvgIconProps {
   type: "google" | "twitter" | "instagram" | "email" | "logo1";
-  containerClass?: any; // Las clases de tailwind para el contenedor (<VIEW />)
+  containerClass?: string; // Las clases de tailwind para el contenedor (<VIEW />)
 }
 
 export const SvgIconsComponent: React.FC<SvgIconProps> = ({
