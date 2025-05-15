@@ -1,10 +1,12 @@
 /** @type {import('tailwindcss').Config} */
+
+import { bgPetsColors } from './constants/Colors.ts';
 module.exports = {
   content: ["./app/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
   presets: [require("nativewind/preset")],
-  theme: {
-    extend: {
-      fontFamily: {
+	theme: {
+		extend: {
+			fontFamily: {
         "afacad-regular": ["AfacadFlux-Regular"],
         "afacad-semibold": ["AfacadFlux-SemiBold"],
         "raleway-extralight": ["Raleway-ExtraLight"],
@@ -14,8 +16,8 @@ module.exports = {
         "raleway-semibold": ["Raleway-SemiBold"],
         "raleway-bold": ["Raleway-Bold"],
         "raleway-black": ["Raleway-Black"],
-      },
-      colors: {
+			},
+			colors: {
         primary: "#d75c7b",
         secondary: "#72C3E0",
         typography: "#4D5C61",
@@ -27,9 +29,12 @@ module.exports = {
         statusred: "#F94E4E",
         statusyellow: "#e5c23a",
         statusgreen: "#007E4E",
-      },
-    },
-  },
-  plugins: [],
-  darkMode: false,
+			},
+		},
+	},
+	plugins: [],
+	darkMode: false,
+
+	// Pongo una safeList para que tailwind no purge las clases en compilación, al ser datos dinamicos
+	safelist: bgPetsColors,
 };
