@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import CreatedPet from "./CreatedPet"; // Asegúrate de la ruta correcta
+import { getRandomBgColorAvailable } from '@/utils/getRandomBgColorAvailable';
 
 type RootStackParamList = {
   Home: undefined;
@@ -52,7 +53,7 @@ export const FinalAddPet: React.FC<FinalAddPetProps> = ({
   const [loading, setLoading] = useState(false);
   const [registroCompleto, setRegistroCompleto] = useState(false);
 
-  const { refreshPets } = usePets(); // 👉 Usar el contexto
+	const { pets, refreshPets } = usePets(); // 👉 Usar el contexto
 
   const handleSubmit = async () => {
     if (!petWeight || isNaN(Number(petWeight))) {
@@ -69,6 +70,7 @@ export const FinalAddPet: React.FC<FinalAddPetProps> = ({
       chronic_illnesses: hasDisease,
       neutered: onNeuter,
       weight: parseFloat(petWeight),
+      bg_color: getRandomBgColorAvailable(pets),
     };
 
     console.log("🐾 Enviando datos corregidos:", petData);
@@ -78,7 +80,6 @@ export const FinalAddPet: React.FC<FinalAddPetProps> = ({
     try {
       const response = await axiosInstance.post("/pets", petData);
 
-      console.log("✅ Respuesta de la API:", response.data);
 
       if (response.status === 201) {
         await refreshPets(); // 🔄 Actualiza mascotas desde el backend

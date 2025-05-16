@@ -4,52 +4,11 @@ import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 import React from "react";
 import { Image, Text, View } from "react-native";
+import { useBirthday } from '@/hooks/useBirthday';
+import { bgColor, bgPetsColors } from '@/constants/Colors';
 
 dayjs.extend(duration);
 
-const tailwindColors = [
-  "bg-yellow-100",
-  "bg-red-100",
-  "bg-green-100",
-  "bg-pink-100",
-  "bg-blue-100",
-  "bg-purple-100",
-];
-
-const getRandomTailwindColor = () => {
-  const randomIndex = Math.floor(Math.random() * tailwindColors.length);
-  return tailwindColors[randomIndex];
-};
-
-const getAgeText = (birthdate: string): string => {
-  const birth = dayjs(birthdate);
-  const now = dayjs();
-
-  if (!birth.isValid()) {
-    console.warn("Fecha inválida recibida:", birthdate);
-    return "Edad desconocida";
-  }
-
-  let years = now.diff(birth, "year");
-  let months = now.diff(birth.add(years, "year"), "month");
-
-  const adjustDate = birth.add(years, "year").add(months, "month");
-  if (now.isBefore(adjustDate)) {
-    months -= 1;
-    if (months < 0) {
-      years -= 1;
-      months = 11;
-    }
-  }
-
-  return `Tengo ${years} años.`;
-};
-
-const isBirthday = (birthdate: string): boolean => {
-  const birth = dayjs(birthdate);
-  const today = dayjs();
-  return birth.date() === today.date() && birth.month() === today.month();
-};
 
 interface PetCardProps {
   name: string;
@@ -58,9 +17,11 @@ interface PetCardProps {
   birthdate: string;
   imageUrl?: string;
   onDelete?: () => void;
+  bg_color: bgColor;
 }
 
 export const PetCard: React.FC<PetCardProps> = ({
+  bg_color,
   name,
   breed,
   gender,
@@ -68,6 +29,7 @@ export const PetCard: React.FC<PetCardProps> = ({
   birthdate,
   onDelete,
 }) => {
+  const { isBirthday, getAgeText } = useBirthday();
   const genderIcon =
     gender === "M" ? (
       <FontAwesome name="mars" size={24} color="#4B5563" />
@@ -80,10 +42,13 @@ export const PetCard: React.FC<PetCardProps> = ({
   )?.image;
 
   const birthdayToday = isBirthday(birthdate);
-  const randomBgColorClass = getRandomTailwindColor();
+  const backgroundColor = bgPetsColors.includes(bg_color)
+		? bg_color
+		: 'bg-red-100';
+
   const baseBgColorClass = birthdayToday
     ? "bg-yellow-100 border-2 border-yellow-400 shadow-md"
-    : "bg-white";
+    : backgroundColor;
 
   return (
     <View

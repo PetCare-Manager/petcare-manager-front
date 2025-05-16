@@ -13,6 +13,7 @@ type RootStackParamList = {
     breed: string;
     hasDisease: boolean;
     onNeuter: boolean;
+    bg_color: string;
     documents: DocumentPicker.DocumentPickerAsset[];
   };
 };
@@ -27,6 +28,7 @@ type PreAddDocumentationProps = {
       chip: string;
       breed: string;
       hasDisease: boolean;
+      bg_color: string;
       onNeuter: boolean;
     };
   };
