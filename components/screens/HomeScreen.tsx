@@ -21,6 +21,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       <SvgIconsComponent
         containerClass="w-56 h-44 z-10 mt-[120px] items-center"
         type="logo1"
+        size={224}
       />
       {/* <LogoBig /> */}
 

@@ -9,11 +9,13 @@ import { View } from "react-native";
 interface SvgIconProps {
   type: "google" | "twitter" | "instagram" | "email" | "logo1";
   containerClass?: string; // Las clases de tailwind para el contenedor (<VIEW />)
+  size?: number;
 }
 
 export const SvgIconsComponent: React.FC<SvgIconProps> = ({
   type,
   containerClass,
+  size = 32,
 }) => {
   let SelectedComponent;
 
@@ -39,7 +41,7 @@ export const SvgIconsComponent: React.FC<SvgIconProps> = ({
 
   return (
     <View className={containerClass}>
-      <SelectedComponent />
+      <SelectedComponent width={size} height={size} />
     </View>
   );
 };

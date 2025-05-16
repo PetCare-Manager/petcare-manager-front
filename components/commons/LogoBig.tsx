@@ -8,6 +8,7 @@ export const LogoBig = () => {
       <SvgIconsComponent
         containerClass="w-56 h-44 z-10 mt-32 items-center"
         type="logo1"
+        size={224}
       />
       <Text className="font-afacad-semibold text-4xl lg:text-5xl text-center text-typography">
         PetCare Manager
