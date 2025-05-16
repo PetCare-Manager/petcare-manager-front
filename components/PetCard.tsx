@@ -52,7 +52,7 @@ export const PetCard: React.FC<PetCardProps> = ({
 
   return (
     <View
-      className={`flex-row items-center rounded-xl p-3 mb-2 shadow-sm ${baseBgColorClass} ${randomBgColorClass}`}
+      className={`flex-row items-center rounded-xl p-3 mb-2 shadow-sm ${baseBgColorClass}`}
     >
       <View className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 mr-3 items-center justify-center">
         {imageUrl ? (
