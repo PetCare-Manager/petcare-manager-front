@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+import { bgPetsColors } from './constants/Colors.ts';
 module.exports = {
   content: ["./app/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
   presets: [require("nativewind/preset")],
@@ -32,4 +33,6 @@ module.exports = {
   },
   plugins: [],
   darkMode: false,
+  // Pongo una safeList para que tailwind no purge las clases en compilación, al ser datos dinamicos
+  	safelist: bgPetsColors,
 };

@@ -19,6 +19,7 @@ export const PetList: React.FC = () => {
           gender={pet.gender}
           imageUrl={pet.imageUrl}
           birthdate={pet.birth}
+          bg_color={pet.bg_color}
           onDelete={() => deletePet(pet.id)}
         />
       ))}

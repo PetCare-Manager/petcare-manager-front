@@ -1,21 +1,7 @@
 import axiosInstance from "@/api/axiosInstance";
 import { useAuth } from "@/context/AuthContext"; // Asegúrate de que el path es correcto
+import { EditPetData, Pet } from '@/types/types';
 import React, { createContext, useContext, useEffect, useState } from "react";
-
-type Pet = {
-  id: number;
-  name: string;
-  breed: string;
-  weight: number;
-  gender: "M" | "F";
-  birth: string;
-  imageUrl?: string;
-  chip_number: string;
-  chronic_illnesses: boolean;
-  neutered: boolean;
-};
-
-type EditPetData = Omit<Pet, "id" | "birth">;
 
 type PetsContextType = {
   pets: Pet[];
@@ -74,11 +60,10 @@ export const PetsProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   useEffect(() => {
-    // Esperamos a que esté autenticado y haya token para llamar a la API
     if (isAuthenticated && token) {
       refreshPets();
     }
-  }, [isAuthenticated, token]); // se ejecuta cuando cambien estas variables
+  }, [isAuthenticated, token]);
 
   return (
     <PetsContext.Provider value={{ pets, refreshPets, addPet, editPet, deletePet }}>

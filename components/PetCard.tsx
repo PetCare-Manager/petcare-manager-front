@@ -1,3 +1,5 @@
+import { bgColor, bgPetsColors } from '@/constants/Colors';
+import { useBirthday } from '@/hooks/useBirthday';
 import { breeds } from "@/utils/breeds";
 import { FontAwesome } from "@expo/vector-icons";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
@@ -8,49 +10,6 @@ import { Image, Text, View } from "react-native";
 
 dayjs.extend(duration);
 
-const tailwindColors = [
-  "bg-yellow-100",
-  "bg-red-100",
-  "bg-green-100",
-  "bg-pink-100",
-  "bg-blue-100",
-  "bg-purple-100",
-];
-
-const getRandomTailwindColor = () => {
-  const randomIndex = Math.floor(Math.random() * tailwindColors.length);
-  return tailwindColors[randomIndex];
-};
-
-const getAgeText = (birthdate: string): string => {
-  const birth = dayjs(birthdate);
-  const now = dayjs();
-
-  if (!birth.isValid()) {
-    console.warn("Fecha inválida recibida:", birthdate);
-    return "Edad desconocida";
-  }
-
-  let years = now.diff(birth, "year");
-  let months = now.diff(birth.add(years, "year"), "month");
-
-  const adjustDate = birth.add(years, "year").add(months, "month");
-  if (now.isBefore(adjustDate)) {
-    months -= 1;
-    if (months < 0) {
-      years -= 1;
-      months = 11;
-    }
-  }
-
-  return `Tengo ${years} años.`;
-};
-
-const isBirthday = (birthdate: string): boolean => {
-  const birth = dayjs(birthdate);
-  const today = dayjs();
-  return birth.date() === today.date() && birth.month() === today.month();
-};
 
 interface PetCardProps {
   petId: number;
@@ -60,6 +19,7 @@ interface PetCardProps {
   birthdate: string;
   imageUrl?: string;
   onDelete?: () => void;
+  bg_color: bgColor;
 }
 
 type RootStackParamList = {
@@ -68,6 +28,7 @@ type RootStackParamList = {
 
 export const PetCard: React.FC<PetCardProps> = ({
   petId,
+  bg_color,
   name,
   breed,
   gender,
@@ -77,6 +38,7 @@ export const PetCard: React.FC<PetCardProps> = ({
 }) => {
   const { navigate } = useNavigation<NavigationProp<RootStackParamList>>();
 
+  const { isBirthday, getAgeText } = useBirthday();
   const genderIcon =
     gender === "M" ? (
       <FontAwesome name="mars" size={24} color="#4B5563" />
@@ -89,14 +51,17 @@ export const PetCard: React.FC<PetCardProps> = ({
   )?.image;
 
   const birthdayToday = isBirthday(birthdate);
-  const randomBgColorClass = getRandomTailwindColor();
+  const backgroundColor = bgPetsColors.includes(bg_color)
+    ? bg_color
+    : 'bg-red-100';
+
   const baseBgColorClass = birthdayToday
     ? "bg-yellow-100 border-2 border-yellow-400 shadow-md"
-    : "bg-white";
+    : backgroundColor;
 
   return (
     <View
-      className={`flex-row items-center rounded-xl p-3 mb-2 shadow-sm ${baseBgColorClass} ${randomBgColorClass}`}
+      className={`flex-row items-center rounded-xl p-3 mb-2 shadow-sm ${baseBgColorClass}`}
     >
       <View className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 mr-3 items-center justify-center">
         {imageUrl ? (
