@@ -13,6 +13,7 @@ export const PetList: React.FC = () => {
       {pets.map((pet, index) => (
         <PetCard
           key={index}
+          petId={pet.id}
           name={pet.name}
           breed={pet.breed}
           gender={pet.gender}

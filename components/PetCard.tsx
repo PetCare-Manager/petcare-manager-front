@@ -1,5 +1,6 @@
 import { breeds } from "@/utils/breeds";
 import { FontAwesome } from "@expo/vector-icons";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 import React from "react";
@@ -52,6 +53,7 @@ const isBirthday = (birthdate: string): boolean => {
 };
 
 interface PetCardProps {
+  petId: number;
   name: string;
   breed: string;
   gender: "M" | "F";
@@ -60,7 +62,12 @@ interface PetCardProps {
   onDelete?: () => void;
 }
 
+type RootStackParamList = {
+  EditPetForm: { petId: number };
+};
+
 export const PetCard: React.FC<PetCardProps> = ({
+  petId,
   name,
   breed,
   gender,
@@ -68,6 +75,8 @@ export const PetCard: React.FC<PetCardProps> = ({
   birthdate,
   onDelete,
 }) => {
+  const { navigate } = useNavigation<NavigationProp<RootStackParamList>>();
+
   const genderIcon =
     gender === "M" ? (
       <FontAwesome name="mars" size={24} color="#4B5563" />
@@ -115,6 +124,14 @@ export const PetCard: React.FC<PetCardProps> = ({
         <Text className="text-sm text-gray-600">{breed}</Text>
       </View>
       <View>{genderIcon}</View>
+      <View className="ml-3">
+        <FontAwesome
+          name="pencil"
+          size={20}
+          color="#4B5563"
+          onPress={() => navigate("EditPetForm", { petId })}
+        />
+      </View>
       {onDelete && (
         <View className="ml-3">
           <FontAwesome

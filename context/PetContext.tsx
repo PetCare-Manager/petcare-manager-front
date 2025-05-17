@@ -6,15 +6,22 @@ type Pet = {
   id: number;
   name: string;
   breed: string;
+  weight: number;
   gender: "M" | "F";
   birth: string;
   imageUrl?: string;
+  chip_number: string;
+  chronic_illnesses: boolean;
+  neutered: boolean;
 };
+
+type EditPetData = Omit<Pet, "id" | "birth">;
 
 type PetsContextType = {
   pets: Pet[];
   refreshPets: () => Promise<void>;
   addPet: (newPet: Pet) => void;
+  editPet: (id: number, body: EditPetData) => Promise<void>;
   deletePet: (id: number) => Promise<void>;
 };
 
@@ -39,6 +46,19 @@ export const PetsProvider: React.FC<{ children: React.ReactNode }> = ({
     setPets((prev) => [...prev, newPet]);
   };
 
+  const editPet = async (id: number, body: EditPetData) => {
+    try {
+      const res = await axiosInstance.patch(`/pets/${id}`, body);
+      console.log("Respuesta del backend:", res.data);
+
+      setPets((prev) =>
+        prev.map((pet) => (pet.id === id ? { ...pet, ...res.data } : pet))
+      );
+    } catch (error) {
+      console.error("Error al editar mascota:", error);
+    }
+  };
+
   const deletePet = async (id: number) => {
     try {
       console.log("Intentando eliminar:", `/pets/${id}`);
@@ -61,7 +81,7 @@ export const PetsProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [isAuthenticated, token]); // se ejecuta cuando cambien estas variables
 
   return (
-    <PetsContext.Provider value={{ pets, refreshPets, addPet, deletePet }}>
+    <PetsContext.Provider value={{ pets, refreshPets, addPet, editPet, deletePet }}>
       {children}
     </PetsContext.Provider>
   );

@@ -1,5 +1,6 @@
 import { Wrapper } from "@/components/commons/Wrapper";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { EditPetFormScreen } from "@/components/screens/EditPetFormScreen";
 import { EmailRegisterScreen } from "@/components/screens/EmailRegisterScreen";
 import { FinalAddPet } from "@/components/screens/FinalAddPet";
 import { FormEventScreen } from "@/components/screens/FormEventScreen";
@@ -35,6 +36,7 @@ type RootStackParamList = {
   RecoveryPassWordScreen: undefined;
   PreAddDocumentation: undefined;
   FinalAddPet: undefined;
+  EditPetForm: { petId: string };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -159,6 +161,11 @@ export default function App() {
               <Stack.Screen
                 name="FinalAddPet"
                 component={FinalAddPet}
+                options={{ headerShown: true, headerTitle: "" }}
+              />
+              <Stack.Screen
+                name="EditPetForm"
+                component={EditPetFormScreen}
                 options={{ headerShown: true, headerTitle: "" }}
               />
             </Stack.Navigator>
