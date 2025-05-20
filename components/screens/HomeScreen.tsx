@@ -20,9 +20,10 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       <SvgIconsComponent
         containerClass="w-56 h-44 z-10 mt-[120px] items-center"
         type="logo1"
+        size={224}
       />
 
-      <View className="items-center -mt-20 px-6">
+      <View className="items-center px-6 justify-start">
         <Text className="font-afacad-semibold text-[40px] lg:text-5xl text-center text-typography">
           PetCare Manager
         </Text>
