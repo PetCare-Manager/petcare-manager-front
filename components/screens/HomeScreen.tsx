@@ -1,8 +1,7 @@
+import { SvgIconsComponent } from "@/components/commons/SvgIconsComponent";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-// import { LogoBig } from "../commons/LogoBig";
-import { SvgIconsComponent } from "@/components/commons/SvgIconsComponent";
 
 type RootStackParamList = {
   Home: undefined;
@@ -23,7 +22,6 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         type="logo1"
         size={224}
       />
-      {/* <LogoBig /> */}
 
       <View className="items-center px-6 justify-start">
         <Text className="font-afacad-semibold text-[40px] lg:text-5xl text-center text-typography">
