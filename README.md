@@ -16,23 +16,16 @@ Bienvenido/a al repositorio frontend de **PetCareManager**, una app pensada para
 
 ### 1. Clonar el backend
 
-Primero, clona el repositorio del backend:
+Clona el repositorio del backend:
 
 ```bash
 git clone git@github.com:PetCare-Manager/petcaremanager-backend-python.git
 ```
-Entra en la carpeta del backend:
+sigue las instrucciones del archivo README.md en la rama ```develop```
 
-```bash
-cd petcaremanager-backend-python
-```
-Y ejecuta:
+Así levantarás el contenedor de Docker necesario para el backend.
 
-```bash
-make build
-make urls
-```
-Esto levantará los contenedores de Docker necesarios para el backend.
+Deberás tener instalado ```docker``` y además el comando ```make```
 
 ### 2. Clonar el frontend
 
