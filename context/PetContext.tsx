@@ -35,7 +35,6 @@ export const PetsProvider: React.FC<{ children: React.ReactNode }> = ({
   const editPet = async (id: number, body: EditPetData) => {
     try {
       const res = await axiosInstance.patch(`/pets/${id}`, body);
-      console.log("Respuesta del backend:", res.data);
 
       setPets((prev) =>
         prev.map((pet) => (pet.id === id ? { ...pet, ...res.data } : pet))
