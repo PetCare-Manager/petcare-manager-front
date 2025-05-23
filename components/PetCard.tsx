@@ -1,18 +1,16 @@
-import { bgColor, bgPetsColors } from '@/constants/Colors';
-import { useBirthday } from '@/hooks/useBirthday';
 import { breeds } from "@/utils/breeds";
 import { FontAwesome } from "@expo/vector-icons";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 import React from "react";
 import { Image, Text, View } from "react-native";
+import { useBirthday } from '@/hooks/useBirthday';
+import { bgColor, bgPetsColors } from '@/constants/Colors';
 
 dayjs.extend(duration);
 
 
 interface PetCardProps {
-  petId: number;
   name: string;
   breed: string;
   gender: "M" | "F";
@@ -22,12 +20,7 @@ interface PetCardProps {
   bg_color: bgColor;
 }
 
-type RootStackParamList = {
-  EditPetForm: { petId: number };
-};
-
 export const PetCard: React.FC<PetCardProps> = ({
-  petId,
   bg_color,
   name,
   breed,
@@ -36,8 +29,6 @@ export const PetCard: React.FC<PetCardProps> = ({
   birthdate,
   onDelete,
 }) => {
-  const { navigate } = useNavigation<NavigationProp<RootStackParamList>>();
-
   const { isBirthday, getAgeText } = useBirthday();
   const genderIcon =
     gender === "M" ? (
@@ -52,8 +43,8 @@ export const PetCard: React.FC<PetCardProps> = ({
 
   const birthdayToday = isBirthday(birthdate);
   const backgroundColor = bgPetsColors.includes(bg_color)
-    ? bg_color
-    : 'bg-red-100';
+		? bg_color
+		: 'bg-red-100';
 
   const baseBgColorClass = birthdayToday
     ? "bg-yellow-100 border-2 border-yellow-400 shadow-md"
@@ -89,14 +80,6 @@ export const PetCard: React.FC<PetCardProps> = ({
         <Text className="text-sm text-gray-600">{breed}</Text>
       </View>
       <View>{genderIcon}</View>
-      <View className="ml-3">
-        <FontAwesome
-          name="pencil"
-          size={20}
-          color="#4B5563"
-          onPress={() => navigate("EditPetForm", { petId })}
-        />
-      </View>
       {onDelete && (
         <View className="ml-3">
           <FontAwesome
