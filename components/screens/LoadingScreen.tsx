@@ -1,9 +1,9 @@
+import { SvgIconsComponent } from "@/components/commons/SvgIconsComponent";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useEffect } from "react";
 import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { LogoBig } from "../commons/LogoBig";
 
 type RootStackParamList = {
   Home: undefined; // Define las rutas y sus parámetros
@@ -33,9 +33,16 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ route }) => {
 
   return (
     <SafeAreaView className="flex-1 flex-col justify-center items-center h-full">
-      <LogoBig title={"PetCare Manager"} />
+      <SvgIconsComponent
+        containerClass="w-56 h-44 z-10 items-center mb-20"
+        type="logo1"
+        size={224}
+      />
 
       <View className="items-center -mt-20 px-6">
+        <Text className="font-afacad-semibold text-[40px] lg:text-5xl text-center text-typography">
+          {message}
+        </Text>
         <Text className="font-raleway-regular text-typography_2 text-2xl lg:text-3xl text-center mt-6">
           Todo lo que necesitas de tu mascota, en tu bolsillo, a un solo click.
         </Text>
