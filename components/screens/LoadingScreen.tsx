@@ -33,12 +33,9 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ route }) => {
 
   return (
     <SafeAreaView className="flex-1 flex-col justify-center items-center h-full">
-      <LogoBig title={""} />
+      <LogoBig title={"PetCare Manager"} />
 
       <View className="items-center -mt-20 px-6">
-        <Text className="font-afacad-semibold text-[40px] lg:text-5xl text-center text-typography">
-          {message}
-        </Text>
         <Text className="font-raleway-regular text-typography_2 text-2xl lg:text-3xl text-center mt-6">
           Todo lo que necesitas de tu mascota, en tu bolsillo, a un solo click.
         </Text>
