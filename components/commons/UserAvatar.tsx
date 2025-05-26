@@ -53,6 +53,7 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({ imageUrl }) => {
             <SvgIconsComponent
               containerClass="w-20 h-20 items-center" // Tamaño adaptado al círculo
               type="logo1" // Asegúrate de pasar el tipo de logo
+              size={80}
             />
           )}
         </View>
