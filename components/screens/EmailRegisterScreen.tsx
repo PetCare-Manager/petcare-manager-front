@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import LogoSmall from "../commons/LogoSmall";
 
 type RootStackParamList = {
   Home: undefined;
@@ -96,6 +97,7 @@ export const EmailRegisterScreen: React.FC<EmailRegisterScreenProps> = ({
 
   return (
     <SafeAreaView className="flex justify-between h-full">
+      <LogoSmall title={"Regístrate"} />
       <KeyboardAvoidingView
         behavior="padding"
         className="flex-1 justify-between"
