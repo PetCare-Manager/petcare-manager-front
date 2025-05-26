@@ -37,6 +37,7 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({
   return (
     <ScrollView className="flex items-center w-full h-full p-4">
       <LogoSmall title={"Inicio"} />
+      {/* ***Burger Menu*** */}
       {/* <FontAwesome
         name="sign-out"
         size={24}
