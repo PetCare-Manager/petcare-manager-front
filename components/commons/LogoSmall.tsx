@@ -8,7 +8,7 @@ interface LogoSmallProps {
 
 const LogoSmall: React.FC<LogoSmallProps> = ({ title }) => {
   return (
-    <View className="flex flex-row items-baseline gap-2 mt-4 w-screen px-12">
+    <View className="flex flex-row items-baseline gap-2 mt-2 w-screen px-6">
       <SvgIconsComponent type="logo1" size={32} containerClass="w-8 h-8" />
       <Text className="text-3xl font-afacad-semibold text-typography">
         {title}

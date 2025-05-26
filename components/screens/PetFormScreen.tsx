@@ -13,6 +13,7 @@ import {
 import DropDownPicker from "react-native-dropdown-picker";
 import { RadioButton } from "react-native-paper";
 import { DatePickerInput } from "react-native-paper-dates";
+import LogoSmall from "../commons/LogoSmall";
 
 type RootStackParamList = {
   PreAddDocumentation: {
@@ -91,10 +92,10 @@ export const PetForm: React.FC<PetFormProps> = ({ navigation }) => {
   };
 
   return (
-    <ScrollView className="flex-1 px-6 py-8">
-      <Text className="text-xl font-raleway-semibold text-start mb-6">
-        Rellena los datos de tu mascota
-      </Text>
+    <ScrollView className="flex-1 p-1 m-4">
+      <View className="-mx-6 mb-6">
+        <LogoSmall title="Registro Mascota" />
+      </View>
 
       {/* Nombre */}
       <Text className="text-base text-typography_2 font-raleway-medium mb-2">
