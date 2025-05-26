@@ -1,7 +1,7 @@
-import { SvgIconsComponent } from "@/components/commons/SvgIconsComponent";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+import { LogoBig } from "../commons/LogoBig";
 
 type RootStackParamList = {
   Home: undefined;
@@ -17,16 +17,9 @@ type HomeScreenProps = NativeStackScreenProps<RootStackParamList, "Home">;
 export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   return (
     <View className="flex flex-col justify-between items-center h-full">
-      <SvgIconsComponent
-        containerClass="w-56 h-44 z-10 mt-[120px] items-center"
-        type="logo1"
-        size={224}
-      />
+      <LogoBig title={"PetCare Manager"} />
 
       <View className="items-center px-6 justify-start">
-        <Text className="font-afacad-semibold text-[40px] lg:text-5xl text-center text-typography">
-          PetCare Manager
-        </Text>
         <Text className="font-raleway-regular text-typography_2 text-2xl lg:text-3xl text-center mt-6">
           Todo lo que necesitas de tu mascota, en tu bolsillo, a un solo click.
         </Text>
