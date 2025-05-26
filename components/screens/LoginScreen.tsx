@@ -51,7 +51,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
   return (
     <View className="flex flex-col justify-between items-center h-full">
-      <LogoSmall title={"Login"} />
+      <LogoSmall title={"Inicio de sesión"} />
       <View className="flex gap-4 mt-4 mb-6 w-full px-12">
         <Text className="font-raleway-semibold text-base">
           Todo lo que necesitas de tu mascota, en tu bolsillo, a un solo click.
