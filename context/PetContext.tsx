@@ -1,7 +1,7 @@
 import axiosInstance from "@/api/axiosInstance";
 import { useAuth } from "@/context/AuthContext"; // Asegúrate de que el path es correcto
 import { EditPetData, Pet } from '@/types/types';
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 type PetsContextType = {
   pets: Pet[];
@@ -64,8 +64,13 @@ export const PetsProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, [isAuthenticated, token]);
 
+  const petContextValue = useMemo(
+    () => ({ pets, refreshPets, addPet, editPet, deletePet }),
+    [pets]
+  );
+
   return (
-    <PetsContext.Provider value={{ pets, refreshPets, addPet, editPet, deletePet }}>
+    <PetsContext.Provider value={petContextValue}>
       {children}
     </PetsContext.Provider>
   );
