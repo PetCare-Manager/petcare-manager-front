@@ -1,12 +1,13 @@
 import axiosInstance from "@/api/axiosInstance";
 import { useAuth } from "@/context/AuthContext"; // Asegúrate de que el path es correcto
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { Pet } from '@/types/types';
+import { EditPetData, Pet } from '@/types/types';
+import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 type PetsContextType = {
   pets: Pet[];
   refreshPets: () => Promise<void>;
   addPet: (newPet: Pet) => void;
+  editPet: (id: number, body: EditPetData) => Promise<void>;
   deletePet: (id: number) => Promise<void>;
 };
 
@@ -31,6 +32,18 @@ export const PetsProvider: React.FC<{ children: React.ReactNode }> = ({
     setPets((prev) => [...prev, newPet]);
   };
 
+  const editPet = async (id: number, body: EditPetData) => {
+    try {
+      const res = await axiosInstance.patch(`/pets/${id}`, body);
+
+      setPets((prev) =>
+        prev.map((pet) => (pet.id === id ? { ...pet, ...res.data } : pet))
+      );
+    } catch (error) {
+      console.error("Error al editar mascota:", error);
+    }
+  };
+
   const deletePet = async (id: number) => {
     try {
       console.log("Intentando eliminar:", `/pets/${id}`);
@@ -51,8 +64,13 @@ export const PetsProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, [isAuthenticated, token]);
 
+  const petContextValue = useMemo(
+    () => ({ pets, refreshPets, addPet, editPet, deletePet }),
+    [pets]
+  );
+
   return (
-    <PetsContext.Provider value={{ pets, refreshPets, addPet, deletePet }}>
+    <PetsContext.Provider value={petContextValue}>
       {children}
     </PetsContext.Provider>
   );
