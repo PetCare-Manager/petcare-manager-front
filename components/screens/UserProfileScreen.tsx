@@ -5,10 +5,10 @@ import { PetList } from "@/components/PetList";
 import { UserAvatar } from "@/components/commons/UserAvatar";
 import { useAuth } from "@/context/AuthContext";
 import { usePets } from "@/context/PetContext";
-import { FontAwesome } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import { ScrollView, Text, View } from "react-native";
+import LogoSmall from "../commons/LogoSmall";
 
 type UserProfileScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -36,13 +36,15 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({
 
   return (
     <ScrollView className="flex items-center w-full h-full p-4">
-      <FontAwesome
+      <LogoSmall title={"Inicio"} />
+      {/* ***Burger Menu*** */}
+      {/* <FontAwesome
         name="sign-out"
         size={24}
         color="black"
         className="flex justify-end"
         onPress={handleLogout}
-      />
+      /> */}
       <UserAvatar />
       <Text className="mt-4 text-2xl font-raleway-regular text-center text-gray-800">
         Hola, ¡disfruta tu día!

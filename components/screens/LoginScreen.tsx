@@ -5,6 +5,7 @@ import { validateEmail } from "@/utils/validation";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+import LogoSmall from "../commons/LogoSmall";
 
 type RootStackParamList = {
   Home: undefined;
@@ -50,6 +51,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
   return (
     <View className="flex flex-col justify-between items-center h-full">
+      <LogoSmall title={"Inicio de sesión"} />
       <View className="flex gap-4 mt-4 mb-6 w-full px-12">
         <Text className="font-raleway-semibold text-base">
           Todo lo que necesitas de tu mascota, en tu bolsillo, a un solo click.

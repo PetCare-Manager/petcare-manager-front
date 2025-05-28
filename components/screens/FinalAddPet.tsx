@@ -1,5 +1,6 @@
 import axiosInstance from "@/api/axiosInstance";
 import { usePets } from "@/context/PetContext";
+import { getRandomBgColorAvailable } from "@/utils/getRandomBgColorAvailable";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import * as DocumentPicker from "expo-document-picker";
 import React, { useState } from "react";
@@ -10,9 +11,10 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  View,
 } from "react-native";
+import LogoSmall from "../commons/LogoSmall";
 import CreatedPet from "./CreatedPet"; // Asegúrate de la ruta correcta
-import { getRandomBgColorAvailable } from '@/utils/getRandomBgColorAvailable';
 
 type RootStackParamList = {
   Home: undefined;
@@ -53,7 +55,7 @@ export const FinalAddPet: React.FC<FinalAddPetProps> = ({
   const [loading, setLoading] = useState(false);
   const [registroCompleto, setRegistroCompleto] = useState(false);
 
-	const { pets, refreshPets } = usePets(); // 👉 Usar el contexto
+  const { pets, refreshPets } = usePets(); // 👉 Usar el contexto
 
   const handleSubmit = async () => {
     if (!petWeight || isNaN(Number(petWeight))) {
@@ -79,7 +81,6 @@ export const FinalAddPet: React.FC<FinalAddPetProps> = ({
 
     try {
       const response = await axiosInstance.post("/pets", petData);
-
 
       if (response.status === 201) {
         await refreshPets(); // 🔄 Actualiza mascotas desde el backend
@@ -112,6 +113,10 @@ export const FinalAddPet: React.FC<FinalAddPetProps> = ({
         />
       ) : (
         <>
+          <View className="-mx-6 mb-6">
+            <LogoSmall title={"Registro Mascota"} />
+          </View>
+
           <Text className="text-xl font-raleway-semibold mb-6">
             Detalles de tu mascota
           </Text>

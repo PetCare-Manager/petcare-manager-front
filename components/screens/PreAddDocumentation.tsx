@@ -80,10 +80,6 @@ export const PreAddDocumentation: React.FC<PreAddDocumentationProps> = ({
 
   return (
     <View className="flex-1 px-6 py-8">
-      <Text className="text-xl font-raleway-semibold text-typography mb-6">
-        Registro de mascota
-      </Text>
-
       <View className="items-center justify-center w-full p-4">
         <Text className="text-2xl text-typography_2 font-bold text-center mb-4">
           Añadir la documentación de tu mascota

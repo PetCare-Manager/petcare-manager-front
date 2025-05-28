@@ -36,6 +36,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ route }) => {
       <SvgIconsComponent
         containerClass="w-56 h-44 z-10 items-center mb-20"
         type="logo1"
+        size={224}
       />
 
       <View className="items-center -mt-20 px-6">
