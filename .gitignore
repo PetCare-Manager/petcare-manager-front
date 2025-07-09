@@ -23,6 +23,7 @@ android/
 
 # debug
 npm-debug.*
+yarm.lock
 yarn-debug.*
 yarn-error.*
 
@@ -45,3 +46,4 @@ expo-env.d.ts
 
 .vscode/
 .idea/
+/yarn.lock
