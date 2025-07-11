@@ -9,6 +9,32 @@ const login = async (
   email: string,
   password: string
 ): Promise<LoginResponse> => {
+  const endpoint = "/auth/login"; // El endpoint relativo que estás usando
+
+  // --- INICIO DE MODIFICACIÓN PARA LOGGING ---
+  console.log("--- Login Request Details ---");
+  console.log("Axios Instance BaseURL:", axiosInstance.defaults.baseURL);
+  console.log("Request Endpoint:", endpoint);
+
+  // Construir y loguear la URL completa esperada
+  // Esto asume que baseURL NO termina en '/' y endpoint SÍ empieza con '/'
+  // O que baseURL SÍ termina en '/' y endpoint NO empieza con '/'
+  // Se necesita un manejo cuidadoso de las barras para evitar '//'
+  let fullRequestUrl = "";
+  if (axiosInstance.defaults.baseURL) {
+    const base = axiosInstance.defaults.baseURL.endsWith('/')
+      ? axiosInstance.defaults.baseURL.slice(0, -1)
+      : axiosInstance.defaults.baseURL;
+    const path = endpoint.startsWith('/') ? endpoint : '/' + endpoint;
+    fullRequestUrl = base + path;
+  } else {
+    fullRequestUrl = endpoint; // Si no hay baseURL, el endpoint es la URL completa (improbable con una instancia)
+  }
+  console.log("Full Expected URL:", fullRequestUrl);
+  console.log("Request Payload:", { email, password }); // Loguear el payload
+  console.log("-----------------------------");
+  // --- FIN DE MODIFICACIÓN PARA LOGGING ---
+
   try {
     const response = await axiosInstance.post("/auth/login", {
       email,
