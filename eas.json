@@ -18,6 +18,8 @@
       }
     },
     "production": {
+      "developmentClient": false,
+      "distribution": "internal",
       "autoIncrement": true,
       "android": {
         "image": "sdk-50"
