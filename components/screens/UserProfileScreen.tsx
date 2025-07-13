@@ -35,12 +35,12 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({
   const hasPets = pets.length > 0;
 
   return (
-    <ScrollView className="flex items-center w-full h-full p-4">
+    <ScrollView className="w-full h-full" contentContainerClassName="flex-grow items-center p-4" >
       <FontAwesome
         name="sign-out"
         size={24}
         color="black"
-        className="flex justify-end"
+        style={{ alignSelf: "flex-end" }}
         onPress={handleLogout}
       />
       <UserAvatar />
@@ -56,7 +56,7 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({
         {hasPets && <PetList />}
         {canAddPet && (
           <AddPetCard navigation={navigation} hasPets={hasPets} />
-        )}{" "}
+        )}
         {/* Pasamos hasPets como prop */}
         {!hasPets && (
           <Text className="text-typography mb-4 text-base font-raleway-regular">
