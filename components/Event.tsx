@@ -55,14 +55,8 @@ export const Event: React.FC<EventProps> = ({
                     day: "numeric",
                     month: "long",
                   })
-                : "Fecha no válida"}
-            </Text>
-            <Text className="text-typography font-raleway-regular text-sm">
-              {" "}
-              •{" "}
-            </Text>
-            <Text className="text-typography font-raleway-regular text-sm">
-              {isValidTime(time) ? time : "Hora no válida"}
+                : "Fecha no válida"}{" "}
+              • {isValidTime(time) ? time : "Hora no válida"}
             </Text>
           </View>
 

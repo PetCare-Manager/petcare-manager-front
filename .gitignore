@@ -2,11 +2,13 @@
 
 # dependencies
 node_modules/
+package-lock.json
 
 # Expo
 .expo/
 dist/
 web-build/
+android/
 
 # Native
 *.orig.*
@@ -21,6 +23,7 @@ web-build/
 
 # debug
 npm-debug.*
+yarm.lock
 yarn-debug.*
 yarn-error.*
 
@@ -43,3 +46,4 @@ expo-env.d.ts
 
 .vscode/
 .idea/
+/yarn.lock

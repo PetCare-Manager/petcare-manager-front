@@ -10,6 +10,7 @@ const login = async (
   password: string
 ): Promise<LoginResponse> => {
   try {
+    console.log("Initiate axiosInstance.post /auth/login ");
     const response = await axiosInstance.post("/auth/login", {
       email,
       password,
